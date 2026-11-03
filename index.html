@@ -42,13 +42,9 @@
         .control-group { display: flex; flex-direction: column; gap: 4px; justify-content: center; }
         .control-group label { font-size: 0.7em; color: var(--text-muted); text-transform: uppercase; font-weight: 600; line-height: 1; }
         
-        .toggle-container {
-            display: flex; background: var(--input-bg); border-radius: 4px; border: 1px solid var(--border-color); overflow: hidden;
-        }
+        .toggle-container { display: flex; background: var(--input-bg); border-radius: 4px; border: 1px solid var(--border-color); overflow: hidden; }
         .toggle-container input { display: none; }
-        .toggle-container label {
-            padding: 6px 12px; font-size: 0.85em; font-weight: bold; color: var(--text-muted); cursor: pointer; transition: 0.2s; line-height: 1; margin: 0;
-        }
+        .toggle-container label { padding: 6px 12px; font-size: 0.85em; font-weight: bold; color: var(--text-muted); cursor: pointer; transition: 0.2s; line-height: 1; margin: 0; white-space: nowrap;}
         .toggle-container input:checked + label { background: var(--primary-color); color: #fff; }
         .toggle-container.disabled { opacity: 0.5; pointer-events: none; }
         
@@ -73,17 +69,9 @@
         .btn-config { background-color: #8b5cf6; color: #fff; }
         .btn-small { padding: 4px 8px; font-size: 0.75em; border-radius: 4px; }
         
-        .tool-btn { 
-            width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center; 
-            flex-shrink: 0; border-radius: 6px;
-        }
+        .tool-btn { width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 6px; }
         .tool-btn svg { width: 20px; height: 20px; }
-
-        .theme-btn {
-            background: transparent !important; color: var(--text-main) !important; border: 1px solid var(--border-color) !important; 
-            padding: 5px !important; display: flex; align-items: center; justify-content: center; border-radius: 50% !important; 
-            width: 36px; height: 36px; margin-left: 10px; box-shadow: none; flex-shrink: 0;
-        }
+        .theme-btn { background: transparent !important; color: var(--text-main) !important; border: 1px solid var(--border-color) !important; padding: 5px !important; display: flex; align-items: center; justify-content: center; border-radius: 50% !important; width: 36px; height: 36px; margin-left: 10px; box-shadow: none; flex-shrink: 0; }
         .theme-btn:hover { background-color: var(--input-bg) !important; }
         
         .header-stats { display: flex; gap: 15px; align-items: center; font-family: monospace; font-size: 1.1em; }
@@ -92,41 +80,22 @@
         .delta-display { color: #eab308; font-weight: bold; font-size: 1.2em; padding: 4px 12px; background: var(--table-bg); border-radius: 4px; border: 1px solid var(--border-color); }
 
         .main-container { position: relative; flex-grow: 1; display: flex; flex-direction: column; }
-        
-        .drop-overlay {
-            position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
-            border: 3px dashed var(--border-color); border-radius: 12px; padding: 50px 80px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: var(--text-muted); cursor: pointer; transition: all 0.2s; z-index: 10;
-            background-color: var(--bg-color);
-        }
+        .drop-overlay { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); border: 3px dashed var(--border-color); border-radius: 12px; padding: 50px 80px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; transition: all 0.2s; z-index: 10; background-color: var(--bg-color); }
         .drop-overlay svg { width: 48px; height: 48px; margin-bottom: 15px; stroke: var(--text-muted); }
-        .drop-overlay:hover, body.drag-active .drop-overlay { 
-            border-color: var(--primary-color); background-color: var(--table-bg); color: var(--text-main); 
-        }
+        .drop-overlay:hover, body.drag-active .drop-overlay { border-color: var(--primary-color); background-color: var(--table-bg); color: var(--text-main); }
         body.drag-active .drop-overlay svg { stroke: var(--primary-color); }
         body.drag-active { background-color: var(--surface-color); }
-
         input[type="file"] { display: none; }
         
         .workspace { padding: 20px; max-width: 1600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; width: 100%; box-sizing: border-box; }
-        
-        .chart-row {
-            background-color: var(--surface-color); border-radius: 8px; padding: 15px;
-            display: flex; gap: 20px; align-items: stretch; border: 1px solid var(--border-color);
-            transition: background-color 0.3s, border-color 0.3s;
-        }
+        .chart-row { background-color: var(--surface-color); border-radius: 8px; padding: 15px; display: flex; gap: 20px; align-items: stretch; border: 1px solid var(--border-color); transition: background-color 0.3s, border-color 0.3s; }
         .canvas-section { flex-grow: 1; min-width: 0; display: flex; flex-direction: column; }
         .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; font-weight: bold; }
         .chart-title-box { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .action-box { display: flex; gap: 6px; justify-content: flex-end; margin-bottom: 5px; }
-        
         .color-picker { border: none; width: 22px; height: 22px; padding: 0; background: none; cursor: pointer; border-radius: 4px; }
         .canvas-container { min-height: 220px; flex-grow: 1; width: 100%; position: relative; outline: none; display: flex; }
-        
         .table-section { width: 340px; min-width: 340px; display: flex; flex-direction: column; justify-content: flex-start; gap: 0px; }
-        
-        /* Refined CSS for Table strict proportions */
         .stats-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 0.85em; background: var(--table-bg); border-radius: 6px; overflow: hidden; margin-bottom: 10px; }
         .stats-table th, .stats-table td { border: 1px solid var(--border-color); padding: 6px 8px; text-align: center; color: var(--text-main); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .stats-table th { background: var(--table-th); font-weight: bold; position: sticky; top: 0; }
@@ -141,28 +110,21 @@
         .close-btn:hover { transform: scale(1.1); }
         .modal-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
         .modal-field select, .modal-field input[type="text"], .modal-field input[type="number"] { padding: 8px; max-width: none; }
-        
         .math-input-row { display: flex; gap: 8px; align-items: center; background-color: var(--table-bg); padding: 8px; border-radius: 6px; border: 1px solid var(--border-color); }
         .math-input-row select { flex: 2; min-width: 0; }
         .math-input-row input { flex: 1; min-width: 0; text-align: center; }
-
-        .group-title-input {
-            background: transparent; border: none; border-bottom: 1px dashed transparent;
-            color: var(--text-main); font-weight: bold; font-size: 1em; width: 120px;
-            padding: 2px 0; outline: none; transition: border 0.2s; max-width: none;
-        }
+        .group-title-input { background: transparent; border: none; border-bottom: 1px dashed transparent; color: var(--text-main); font-weight: bold; font-size: 1em; width: 120px; padding: 2px 0; outline: none; transition: border 0.2s; max-width: none; }
         .group-title-input:hover, .group-title-input:focus { border-bottom: 1px dashed var(--primary-color); }
-
-        .icon-btn {
-            background: transparent !important; border: 1px solid var(--border-color) !important; color: var(--text-muted) !important;
-            cursor: pointer; padding: 6px; display: flex; align-items: center; justify-content: center;
-            border-radius: 6px; box-shadow: none !important; transition: all 0.2s; width: 32px; height: 32px;
-        }
+        .icon-btn { background: transparent !important; border: 1px solid var(--border-color) !important; color: var(--text-muted) !important; cursor: pointer; padding: 6px; display: flex; align-items: center; justify-content: center; border-radius: 6px; box-shadow: none !important; transition: all 0.2s; width: 32px; height: 32px; }
         .icon-btn:hover { color: #ef4444 !important; border-color: #ef4444 !important; background-color: rgba(239, 68, 68, 0.1) !important; transform: none; }
+        .icon-btn.active-filter { color: #0ea5e9 !important; border-color: #0ea5e9 !important; background-color: rgba(14,165,233,0.1) !important; }
         
         .vis-item { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--border-color); }
         .vis-item label { cursor: pointer; flex: 1; }
         .section-header { display: flex; justify-content: space-between; align-items: center; margin: 15px 0 5px 0; }
+        
+        .alert-warning { background-color: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 12px; color: var(--text-main); margin-bottom: 15px; border-radius: 0 4px 4px 0; }
+        .alert-warning ul { margin: 5px 0 0 20px; padding: 0; font-size: 0.9em; color: var(--text-muted); }
     </style>
 </head>
 <body>
@@ -276,6 +238,24 @@
     <div class="modal-content">
         <div class="modal-header"><h3 style="margin: 0; color: var(--text-main);">Complex Phasor Math</h3><button class="close-btn" onclick="document.getElementById('mathModal').style.display='none'">&times;</button></div>
         <div class="modal-body">
+            
+            <div class="modal-field" style="margin-top: 5px; margin-bottom: 15px;">
+                <div class="toggle-container" style="width: 100%;">
+                    <input type="radio" id="mOpAdd" name="mOp" value="+" checked>
+                    <label for="mOpAdd" style="flex: 1; text-align: center; font-size: 1.1em;">+</label>
+                    <input type="radio" id="mOpSub" name="mOp" value="-">
+                    <label for="mOpSub" style="flex: 1; text-align: center; font-size: 1.1em;">-</label>
+                    <input type="radio" id="mOpMul" name="mOp" value="*">
+                    <label for="mOpMul" style="flex: 1; text-align: center; font-size: 1.1em;">*</label>
+                    <input type="radio" id="mOpDiv" name="mOp" value="/">
+                    <label for="mOpDiv" style="flex: 1; text-align: center; font-size: 1.1em;">/</label>
+                    <input type="radio" id="mOpPow" name="mOp" value="S">
+                    <label for="mOpPow" style="flex: 1; text-align: center; font-size: 0.9em; display: flex; align-items: center; justify-content: center;">Power</label>
+                    <input type="radio" id="mOp3P" name="mOp" value="3P">
+                    <label for="mOp3P" style="flex: 1; text-align: center; font-size: 0.9em; display: flex; align-items: center; justify-content: center;">3Φ Pwr</label>
+                </div>
+            </div>
+
             <div class="modal-field" style="flex-direction: row; align-items: center; justify-content: space-between;">
                 <label style="margin:0;">Result Type:</label>
                 <div class="toggle-container" style="width: fit-content;">
@@ -290,38 +270,53 @@
             <div class="modal-field"><label>Result Unit:</label><input type="text" id="mUnitInput" value="Calc"></div>
             
             <div class="modal-field">
-                <label>Signal A & Scaling (Mag @ Angle°):</label>
-                <div class="math-input-row">
+                <label id="lblSigA">Signal A & Scaling (Mag @ Angle°):</label>
+                <div class="math-input-row" id="rowSig1">
                     <select id="mSig1"></select>
                     <input type="number" id="mMag1" value="1" step="0.1" title="Magnitude multiplier">
-                    <span style="font-weight:bold; color:var(--text-main);">@</span>
+                    <span id="atSpan1" style="font-weight:bold; color:var(--text-main);">@</span>
                     <input type="number" id="mAng1" value="0" step="1" title="Phase angle shift (degrees)">
                 </div>
             </div>
             
             <div class="modal-field">
-                <label>Operator:</label>
-                <select id="mOp">
-                    <option value="+">Addition (+)</option>
-                    <option value="-">Subtraction (-)</option>
-                    <option value="*">Multiplication (*)</option>
-                    <option value="S">Power (A * B*)</option>
-                    <option value="/">Division (/)</option>
-                </select>
-            </div>
-            
-            <div class="modal-field">
-                <label>Signal B & Scaling (Mag @ Angle°):</label>
-                <div class="math-input-row">
+                <label id="lblSigB">Signal B & Scaling (Mag @ Angle°):</label>
+                <div class="math-input-row" id="rowSig2">
                     <select id="mSig2"></select>
                     <input type="number" id="mMag2" value="1" step="0.1" title="Magnitude multiplier">
-                    <span style="font-weight:bold; color:var(--text-main);">@</span>
+                    <span id="atSpan2" style="font-weight:bold; color:var(--text-main);">@</span>
                     <input type="number" id="mAng2" value="0" step="1" title="Phase angle shift (degrees)">
                 </div>
             </div>
             
             <div style="display: flex; gap: 10px; margin-top: 20px;">
                 <button id="saveMathBtn" class="btn-math" style="flex: 1;">Add Math Signal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Delete Warning -->
+<div class="modal" id="deleteWarningModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 style="margin: 0; color: #f59e0b; display:flex; align-items:center; gap:8px;">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                Dependency Warning
+            </h3>
+            <button class="close-btn" onclick="document.getElementById('deleteWarningModal').style.display='none'">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="alert-warning">
+                <strong>Cannot completely delete this trace.</strong> The following signals/groups depend on it:
+                <ul id="deleteWarningList"></ul>
+            </div>
+            <p style="font-size: 0.9em; margin-bottom: 20px;">
+                To preserve calculations, this trace will NOT be wiped. It has instead been hidden and placed in the background. 
+                You can restore its visibility anytime from the <strong>Views & Visibility</strong> menu.
+            </p>
+            <div style="display: flex; justify-content: flex-end;">
+                <button class="btn-default" onclick="document.getElementById('deleteWarningModal').style.display='none'">Acknowledge</button>
             </div>
         </div>
     </div>
@@ -354,26 +349,16 @@
     <div class="modal-content">
         <div class="modal-header"><h3 style="margin: 0; color: var(--text-main);">Export COMTRADE</h3><button class="close-btn" onclick="document.getElementById('exportModal').style.display='none'">&times;</button></div>
         <div class="modal-body">
-            
             <div class="modal-field" style="display: flex; gap: 10px;">
                 <div style="flex: 1;">
                     <label>Version & Type:</label>
-                    <select id="expVersion" style="width: 100%; max-width: none;">
-                        <option value="1991">1991 (CFG+DAT)</option>
-                        <option value="1999">1999 (CFG+DAT)</option>
-                        <option value="2013" selected>2013 (CFG+DAT)</option>
-                        <option value="CFF">2013 (CFF)</option>
-                    </select>
+                    <select id="expVersion" style="width: 100%; max-width: none;"><option value="1991">1991 (CFG+DAT)</option><option value="1999">1999 (CFG+DAT)</option><option value="2013" selected>2013 (CFG+DAT)</option><option value="CFF">2013 (CFF)</option></select>
                 </div>
                 <div style="flex: 1;">
                     <label>Data Format:</label>
-                    <select id="expFormat" style="width: 100%; max-width: none;">
-                        <option value="ASCII">ASCII</option>
-                        <option value="BINARY">BINARY</option>
-                    </select>
+                    <select id="expFormat" style="width: 100%; max-width: none;"><option value="ASCII">ASCII</option><option value="BINARY">BINARY</option></select>
                 </div>
             </div>
-            
             <div class="vis-item" style="margin-top:10px; border-top: 1px solid var(--border-color); padding-top: 10px;"><input type="checkbox" id="expDigitals"><label for="expDigitals" style="font-weight:bold;">Include Digital Events</label></div>
             <div class="section-header"><h4 style="margin: 0;">Select Analog Signals:</h4><div><button onclick="document.querySelectorAll('#expAnalogsList input').forEach(e => e.checked=true)" class="btn-action btn-small">All</button><button onclick="document.querySelectorAll('#expAnalogsList input').forEach(e => e.checked=false)" class="btn-danger btn-small">None</button></div></div>
             <div id="expAnalogsList" style="max-height: 200px; overflow-y: auto; border: 1px solid var(--border-color); padding: 5px; border-radius: 4px;"></div>
@@ -403,19 +388,15 @@
     let digitalVisible = true;
     let isBoxZoomActive = false;
     
-    let autoNextMathSig1 = 0; let autoNextMathSig2 = 1;
-    
     const defaultColors = ['#a855f7', '#06b6d4', '#ef4444', '#3b82f6', '#f59e0b', '#10b981', '#ec4899', '#eab308'];
     const phaseColors = ['#ef4444', '#eab308', '#3b82f6'];
 
     function isNameTaken(proposedName, ignoreGroupIdx = -1) {
         if (!cfgData) return false;
         let name = proposedName.trim().toLowerCase();
-        // Check analogs
         for (let i = 0; i < cfgData.analogs.length; i++) {
-            if (cfgData.analogs[i] && !cfgData.analogs[i].deleted && cfgData.analogs[i].name.trim().toLowerCase() === name) return true;
+            if (cfgData.analogs[i] && cfgData.analogs[i].name.trim().toLowerCase() === name && !cfgData.analogs[i].deleted) return true;
         }
-        // Check groups
         for (let i = 0; i < customGroups.length; i++) {
             if (i === ignoreGroupIdx) continue;
             if (customGroups[i] && customGroups[i].name.trim().toLowerCase() === name) return true;
@@ -426,10 +407,7 @@
     function getUniqueName(baseName) {
         let name = baseName;
         let counter = 1;
-        while (isNameTaken(name)) {
-            name = `${baseName} ${counter}`;
-            counter++;
-        }
+        while (isNameTaken(name)) { name = `${baseName} ${counter}`; counter++; }
         return name;
     }
     
@@ -440,7 +418,10 @@
         if (isDigital) { digitalVisible = state; const r = document.getElementById('row-D'); if (r) r.style.display = state ? 'flex' : 'none'; return; }
         const r = document.getElementById(`${idPrefix}${index}`); if (r) r.style.display = state ? 'flex' : 'none';
         if (idPrefix === 'row-G-') customGroups[index].hidden = !state;
-        if (idPrefix === 'row-A-') cfgData.analogs[index].hidden = !state;
+        if (idPrefix === 'row-A-') {
+            cfgData.analogs[index].hidden = !state;
+            if(cfgData.originalAnalogs[index]) cfgData.originalAnalogs[index].hidden = !state;
+        }
     };
 
     window.toggleAllVis = function(type, state) {
@@ -471,20 +452,13 @@
     document.getElementById('fftWindowSelect').addEventListener('change', () => { updateCursors(); if (virtualSignals.some(vs => vs.type === 'seq') || cfgData.analogs.some(a => a.isComplex)) processDataAndRender(true); });
     document.getElementById('refAngleSelect').addEventListener('change', updateCursors);
     
-    document.getElementById('boxZoomBtn').addEventListener('click', () => {
-        toggleBoxZoom(!isBoxZoomActive);
-    });
+    document.getElementById('boxZoomBtn').addEventListener('click', () => { toggleBoxZoom(!isBoxZoomActive); });
 
     function toggleBoxZoom(state) {
         isBoxZoomActive = state;
         const btn = document.getElementById('boxZoomBtn');
-        if (isBoxZoomActive) {
-            btn.classList.remove('btn-default');
-            btn.classList.add('btn-action');
-        } else {
-            btn.classList.remove('btn-action');
-            btn.classList.add('btn-default');
-        }
+        if (isBoxZoomActive) { btn.classList.remove('btn-default'); btn.classList.add('btn-action'); } 
+        else { btn.classList.remove('btn-action'); btn.classList.add('btn-default'); }
         charts.forEach(c => {
             if (c.options.plugins.zoom) {
                 c.options.plugins.zoom.zoom.drag.modifierKey = isBoxZoomActive ? null : 'shift';
@@ -501,9 +475,7 @@
     });
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isBoxZoomActive) {
-            toggleBoxZoom(false);
-        }
+        if (e.key === 'Escape' && isBoxZoomActive) { toggleBoxZoom(false); }
         if (timeData.length === 0) return;
         if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
             e.preventDefault(); const currentT = lastActiveCursor === 1 ? cursor1 : cursor2; if (currentT === null) return;
@@ -562,11 +534,7 @@
             Array.from(sel.options).forEach(opt => {
                 const optCh = cfgData.analogs[opt.value];
                 const optUnit = getUnitClass(optCh.units);
-                if (optUnit === refUnit) {
-                    opt.style.display = ''; opt.disabled = false;
-                } else {
-                    opt.style.display = 'none'; opt.disabled = true;
-                }
+                if (optUnit === refUnit) { opt.style.display = ''; opt.disabled = false; } else { opt.style.display = 'none'; opt.disabled = true; }
             });
             if (sel.options[sel.selectedIndex] && sel.options[sel.selectedIndex].disabled) {
                 const firstValid = Array.from(sel.options).find(o => !o.disabled);
@@ -595,12 +563,8 @@
     document.getElementById('openTransformModalBtn').addEventListener('click', () => {
         if (!cfgData) { alert("Please load a COMTRADE file first."); return; }
         populateAnalogSelects(['tSig1']);
-        
         const firstOpt = document.getElementById('tSig1').options[0];
-        if (firstOpt) {
-            document.getElementById('tSig1').value = firstOpt.value;
-            const event = new Event('change'); document.getElementById('tSig1').dispatchEvent(event);
-        }
+        if (firstOpt) { document.getElementById('tSig1').value = firstOpt.value; document.getElementById('tSig1').dispatchEvent(new Event('change')); }
         document.getElementById('transformModal').style.display = 'flex';
     });
 
@@ -620,15 +584,8 @@
         const newName = document.getElementById('tNameInput').value || 'Transformed Signal';
         
         if (isNameTaken(newName)) { alert("Name already in use. Please choose a unique name."); return; }
-
-        // Enforce the intended view format explicitly via the complex map tracker right away
         globalIsComplexMap[newName] = (type === 'C');
-
-        virtualSignals.push({
-            type: 'transform', name: newName, unit: parentCh.units,
-            source: s1Idx, targetType: type,
-            primary: parentCh.primary, secondary: parentCh.secondary, ps: parentCh.ps, isRatio: parentCh.isRatio || false
-        });
+        virtualSignals.push({ type: 'transform', name: newName, unit: parentCh.units, source: s1Idx, targetType: type, primary: parentCh.primary, secondary: parentCh.secondary, ps: parentCh.ps, isRatio: parentCh.isRatio || false });
         document.getElementById('transformModal').style.display = 'none'; processDataAndRender(true);
     });
 
@@ -636,23 +593,18 @@
         if (!cfgData) { alert("Please load a COMTRADE file first."); return; }
         const sel = document.getElementById('scaleTargetSelect'); sel.innerHTML = '';
         customGroups.forEach((g, i) => { 
-            if (!g.indices.every(idx => cfgData.analogs[idx] && cfgData.analogs[idx].deleted)) {
-                const opt = document.createElement('option'); opt.value = 'G_' + i; opt.textContent = 'Group: ' + g.name; sel.appendChild(opt);
-            }
+            if (!g.indices.every(idx => cfgData.analogs[idx] && cfgData.analogs[idx].deleted)) { const opt = document.createElement('option'); opt.value = 'G_' + i; opt.textContent = 'Group: ' + g.name; sel.appendChild(opt); }
         });
         cfgData.analogs.forEach((ch, i) => {
             if (!ch.deleted) { const opt = document.createElement('option'); opt.value = 'A_' + i; opt.textContent = 'Signal: ' + ch.name; sel.appendChild(opt); }
         });
         
         const updateScaleName = () => {
-            const v = document.getElementById('scaleTargetSelect').value;
-            if (!v) return;
+            const v = document.getElementById('scaleTargetSelect').value; if (!v) return;
             if (v.startsWith('G_')) document.getElementById('scaleNameInput').value = customGroups[parseInt(v.split('_')[1])].name + ' (Scaled)';
             else if (v.startsWith('A_')) document.getElementById('scaleNameInput').value = cfgData.analogs[parseInt(v.split('_')[1])].name + ' (Scaled)';
         };
-        sel.onchange = updateScaleName;
-        if(sel.options.length > 0) updateScaleName();
-        
+        sel.onchange = updateScaleName; if(sel.options.length > 0) updateScaleName();
         document.getElementById('scaleModal').style.display = 'flex';
     });
     
@@ -665,102 +617,148 @@
         if (isNameTaken(baseName)) { alert("Name already in use. Please choose a unique name."); return; }
         
         if (target.startsWith('G_')) {
-            const gIdx = parseInt(target.split('_')[1]);
-            let validCount = 0;
-            const names = [];
+            const gIdx = parseInt(target.split('_')[1]); let validCount = 0; const names = [];
             customGroups[gIdx].indices.forEach((cIdx, idx) => {
-                const parentCh = cfgData.analogs[cIdx];
-                if (!parentCh || parentCh.deleted) return;
-                validCount++;
-                const newName = `${baseName} L${idx+1}`;
-                names.push(newName);
-                virtualSignals.push({
-                    type: 'scale', name: newName, unit: parentCh.units,
-                    source: cIdx, mult: mult,
-                    primary: parentCh.primary, secondary: parentCh.secondary, ps: parentCh.ps, isRatio: parentCh.isRatio || false
-                });
+                const parentCh = cfgData.analogs[cIdx]; if (!parentCh || parentCh.deleted) return;
+                validCount++; const newName = `${baseName} L${idx+1}`; names.push(newName);
+                virtualSignals.push({ type: 'scale', name: newName, unit: parentCh.units, source: cIdx, mult: mult, primary: parentCh.primary, secondary: parentCh.secondary, ps: parentCh.ps, isRatio: parentCh.isRatio || false });
             });
-            if (validCount > 0) {
-                virtualSignals.push({ 
-                    type: 'createGroup', 
-                    id: 'vs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5), 
-                    name: baseName, 
-                    count: validCount, 
-                    channelNames: names 
-                });
-            }
+            if (validCount > 0) { virtualSignals.push({ type: 'createGroup', id: 'vs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5), name: baseName, count: validCount, channelNames: names }); }
         } else if (target.startsWith('A_')) {
-            const cIdx = parseInt(target.split('_')[1]);
-            const parentCh = cfgData.analogs[cIdx];
-            if (parentCh && !parentCh.deleted) {
-                virtualSignals.push({
-                    type: 'scale', name: baseName, unit: parentCh.units,
-                    source: cIdx, mult: mult,
-                    primary: parentCh.primary, secondary: parentCh.secondary, ps: parentCh.ps, isRatio: parentCh.isRatio || false
-                });
-            }
+            const cIdx = parseInt(target.split('_')[1]); const parentCh = cfgData.analogs[cIdx];
+            if (parentCh && !parentCh.deleted) { virtualSignals.push({ type: 'scale', name: baseName, unit: parentCh.units, source: cIdx, mult: mult, primary: parentCh.primary, secondary: parentCh.secondary, ps: parentCh.ps, isRatio: parentCh.isRatio || false }); }
         }
-        document.getElementById('scaleModal').style.display = 'none';
-        processDataAndRender(true);
+        document.getElementById('scaleModal').style.display = 'none'; processDataAndRender(true);
     });
+
+    function updateMathModalSelects() {
+        if (!cfgData) return;
+        const op = document.querySelector('input[name="mOp"]:checked').value;
+        const sig1 = document.getElementById('mSig1'); const sig2 = document.getElementById('mSig2');
+        const unitInput = document.getElementById('mUnitInput');
+        
+        const mMag1 = document.getElementById('mMag1'); const mAng1 = document.getElementById('mAng1'); const atSpan1 = document.getElementById('atSpan1');
+        const mMag2 = document.getElementById('mMag2'); const mAng2 = document.getElementById('mAng2'); const atSpan2 = document.getElementById('atSpan2');
+        const lblSigA = document.getElementById('lblSigA'); const lblSigB = document.getElementById('lblSigB');
+
+        const curr1 = sig1.value; const curr2 = sig2.value;
+        sig1.innerHTML = ''; sig2.innerHTML = '';
+
+        if (op === '3P') {
+            lblSigA.textContent = "Select 3-Phase Voltage Group:";
+            lblSigB.textContent = "Select 3-Phase Current Group:";
+            mMag1.style.display = 'none'; mAng1.style.display = 'none'; atSpan1.style.display = 'none';
+            mMag2.style.display = 'none'; mAng2.style.display = 'none'; atSpan2.style.display = 'none';
+            
+            let validV = []; let validI = [];
+            customGroups.forEach((g, i) => {
+                if (g.indices.length === 3 && !g.indices.some(idx => cfgData.analogs[idx] && cfgData.analogs[idx].deleted)) {
+                    let u = cfgData.analogs[g.indices[0]].units;
+                    if (getUnitClass(u) === 'V') validV.push({idx: i, name: g.name});
+                    if (getUnitClass(u) === 'A') validI.push({idx: i, name: g.name});
+                }
+            });
+
+            validV.forEach(v => { const opt = document.createElement('option'); opt.value = v.idx; opt.textContent = v.name; sig1.appendChild(opt); });
+            validI.forEach(v => { const opt = document.createElement('option'); opt.value = v.idx; opt.textContent = v.name; sig2.appendChild(opt); });
+            
+            unitInput.value = 'VA';
+            return;
+        }
+
+        lblSigA.textContent = "Signal A & Scaling (Mag @ Angle°):";
+        lblSigB.textContent = "Signal B & Scaling (Mag @ Angle°):";
+        mMag1.style.display = ''; mAng1.style.display = ''; atSpan1.style.display = '';
+        mMag2.style.display = ''; mAng2.style.display = ''; atSpan2.style.display = '';
+
+        let validS1 = [];
+        cfgData.analogs.forEach((ch, i) => {
+            if (!ch.deleted) {
+                if (op === 'S') { if (getUnitClass(ch.units) === 'V') validS1.push(i); } else { validS1.push(i); }
+            }
+        });
+
+        validS1.forEach(i => { const opt = document.createElement('option'); opt.value = i; opt.textContent = `CH${cfgData.analogs[i].index}: ${cfgData.analogs[i].name}`; sig1.appendChild(opt); });
+        
+        if (validS1.length === 0) return;
+        if (validS1.includes(parseInt(curr1))) sig1.value = curr1; else sig1.value = validS1[0];
+
+        const s1Ch = cfgData.analogs[sig1.value]; const s1Type = getUnitClass(s1Ch.units);
+
+        if (op === '+' || op === '-') unitInput.value = s1Ch.units;
+        else if (op === 'S') unitInput.value = 'VA';
+
+        let validS2 = [];
+        cfgData.analogs.forEach((ch, i) => {
+            if (!ch.deleted) {
+                if (op === '+' || op === '-') { if (getUnitClass(ch.units) === s1Type) validS2.push(i); } 
+                else if (op === 'S') { if (getUnitClass(ch.units) === 'A') validS2.push(i); } 
+                else { validS2.push(i); }
+            }
+        });
+
+        validS2.forEach(i => { const opt = document.createElement('option'); opt.value = i; opt.textContent = `CH${cfgData.analogs[i].index}: ${cfgData.analogs[i].name}`; sig2.appendChild(opt); });
+        if (validS2.length > 0) { if (validS2.includes(parseInt(curr2))) sig2.value = curr2; else sig2.value = validS2[0]; }
+    }
 
     document.getElementById('openMathModalBtn').addEventListener('click', () => {
         if (!cfgData) { alert("Please load a COMTRADE file first."); return; }
-        populateAnalogSelects(['mSig1', 'mSig2']);
-        const sig1Select = document.getElementById('mSig1'), sig2Select = document.getElementById('mSig2');
-        if (sig1Select.options.length > autoNextMathSig1) sig1Select.value = autoNextMathSig1;
-        if (sig2Select.options.length > autoNextMathSig2) sig2Select.value = autoNextMathSig2;
+        document.getElementById('mOpAdd').checked = true; document.getElementById('mTypeA').checked = true;
+        updateMathModalSelects();
         document.getElementById('mathModal').style.display = 'flex';
     });
 
-    // Auto-toggle math result type based on selected operator
-    document.getElementById('mOp').addEventListener('change', (e) => {
-        const op = e.target.value;
-        if (op === '*' || op === '/' || op === 'S') {
-            document.getElementById('mTypeC').checked = true;
-        } else {
-            document.getElementById('mTypeA').checked = true;
-        }
+    document.querySelectorAll('input[name="mOp"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            const op = e.target.value;
+            if (op === '*' || op === '/' || op === 'S' || op === '3P') { document.getElementById('mTypeC').checked = true; } 
+            else { document.getElementById('mTypeA').checked = true; }
+            updateMathModalSelects();
+        });
     });
+
+    document.getElementById('mSig1').addEventListener('change', () => { updateMathModalSelects(); });
 
     document.getElementById('saveMathBtn').addEventListener('click', () => {
         const mName = document.getElementById('mNameInput').value || 'Math Signal';
         if (isNameTaken(mName)) { alert("Name already in use. Please choose a unique name."); return; }
         
         const s1Idx = parseInt(document.getElementById('mSig1').value), s2Idx = parseInt(document.getElementById('mSig2').value);
-        const parentCh1 = cfgData.analogs[s1Idx];
-        const parentCh2 = cfgData.analogs[s2Idx];
-        const op = document.getElementById('mOp').value;
+        if (isNaN(s1Idx) || isNaN(s2Idx)) { alert("Invalid signal selection."); return; }
+
+        const op = document.querySelector('input[name="mOp"]:checked').value;
+        const subType = document.querySelector('input[name="mathType"]:checked').value;
         
-        if ((op === '+' || op === '-') && parentCh1.units !== parentCh2.units) {
-            alert(`Cannot add or subtract signals with different units (${parentCh1.units} and ${parentCh2.units}).`);
-            return;
+        if (op === '3P') {
+            const vGrp = customGroups[s1Idx]; const iGrp = customGroups[s2Idx];
+            if (!vGrp || !iGrp) { alert("Invalid 3-Phase groups selected."); return; }
+            const vCh = cfgData.analogs[vGrp.indices[0]]; const iCh = cfgData.analogs[iGrp.indices[0]];
+            
+            virtualSignals.push({
+                type: 'math', name: mName, unit: document.getElementById('mUnitInput').value || 'VA', subType: subType,
+                s1: s1Idx, s2: s2Idx, mag1: 1, ang1: 0, mag2: 1, ang2: 0,
+                op: '3P', primary: vCh.primary * iCh.primary, secondary: vCh.secondary * iCh.secondary, ps: 'P' 
+            });
+        } else {
+            const parentCh1 = cfgData.analogs[s1Idx]; const parentCh2 = cfgData.analogs[s2Idx];
+            let vMag1 = document.getElementById('mMag1').value; let mag1 = vMag1 === '' ? 1 : parseFloat(vMag1);
+            let vAng1 = document.getElementById('mAng1').value; let ang1 = vAng1 === '' ? 0 : parseFloat(vAng1);
+            let vMag2 = document.getElementById('mMag2').value; let mag2 = vMag2 === '' ? 1 : parseFloat(vMag2);
+            let vAng2 = document.getElementById('mAng2').value; let ang2 = vAng2 === '' ? 0 : parseFloat(vAng2);
+
+            let p, s;
+            const p1 = parentCh1.primary || 1; const s1 = parentCh1.secondary || 1;
+            const p2 = parentCh2.primary || 1; const s2 = parentCh2.secondary || 1;
+
+            if (op === '+' || op === '-') { const ratio1 = p1 / s1; const ratio2 = p2 / s2; if (ratio1 >= ratio2) { p = p1; s = s1; } else { p = p2; s = s2; } } 
+            else if (op === '*' || op === 'S') { p = p1 * p2; s = s1 * s2; } 
+            else if (op === '/') { p = p1 / p2; s = s1 / s2; }
+
+            virtualSignals.push({
+                type: 'math', name: mName, unit: document.getElementById('mUnitInput').value || 'Calc', subType: subType,
+                s1: s1Idx, mag1: mag1, ang1: ang1, s2: s2Idx, mag2: mag2, ang2: ang2, op: op, primary: p, secondary: s, ps: 'P' 
+            });
         }
-
-        let vMag1 = document.getElementById('mMag1').value; let mag1 = vMag1 === '' ? 1 : parseFloat(vMag1);
-        let vAng1 = document.getElementById('mAng1').value; let ang1 = vAng1 === '' ? 0 : parseFloat(vAng1);
-        let vMag2 = document.getElementById('mMag2').value; let mag2 = vMag2 === '' ? 1 : parseFloat(vMag2);
-        let vAng2 = document.getElementById('mAng2').value; let ang2 = vAng2 === '' ? 0 : parseFloat(vAng2);
-
-        let p = parentCh1.primary || 1;
-        let s = parentCh1.secondary || 1;
-        if (op === '*' || op === 'S') { 
-            p = (parentCh1.primary || 1) * (parentCh2.primary || 1); 
-            s = (parentCh1.secondary || 1) * (parentCh2.secondary || 1); 
-        } else if (op === '/') { 
-            p = (parentCh1.primary || 1) / (parentCh2.primary || 1); 
-            s = (parentCh1.secondary || 1) / (parentCh2.secondary || 1); 
-        }
-
-        virtualSignals.push({
-            type: 'math', name: mName, unit: document.getElementById('mUnitInput').value || 'Calc',
-            subType: document.querySelector('input[name="mathType"]:checked').value,
-            s1: s1Idx, mag1: mag1, ang1: ang1,
-            s2: s2Idx, mag2: mag2, ang2: ang2,
-            op: op, primary: p, secondary: s, ps: parentCh1.ps
-        });
-        
-        autoNextMathSig1 = s1Idx + 1; autoNextMathSig2 = s2Idx + 1;
         document.getElementById('mathModal').style.display = 'none'; processDataAndRender(true);
     });
 
@@ -778,24 +776,14 @@
         if (isNameTaken(seqGroupName)) { alert("Name already in use or sequence components for this group already exist."); return; }
         
         const seqNames = [`${sourceGroup.name} (Pos)`, `${sourceGroup.name} (Neg)`, `${sourceGroup.name} (Zero)`];
-        virtualSignals.push({ 
-            type: 'seq', 
-            id: 'vs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5), 
-            name: sourceGroup.name, 
-            indices: [...sourceGroup.indices], 
-            channelNames: seqNames,
-            groupCreated: false, 
-            primary: parentCh.primary, secondary: parentCh.secondary, ps: parentCh.ps 
-        });
+        virtualSignals.push({ type: 'seq', id: 'vs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5), name: sourceGroup.name, indices: [...sourceGroup.indices], channelNames: seqNames, groupCreated: false, primary: parentCh.primary, secondary: parentCh.secondary, ps: parentCh.ps });
         document.getElementById('seqModal').style.display = 'none'; processDataAndRender(true);
     });
 
     document.getElementById('openVisModalBtn').addEventListener('click', () => {
         if (!cfgData) { alert("Please load a COMTRADE file first."); return; }
         const body = document.getElementById('visModalBody'); body.innerHTML = '';
-        if (cfgData.numD > 0) {
-            body.innerHTML += `<h4 style="margin:5px 0;">Digital Events</h4><div class="vis-item"><input type="checkbox" id="visDig" ${digitalVisible ? 'checked' : ''} onchange="toggleVisibility('row-D', 0, this.checked, true);"><label for="visDig">Show All Digital Events</label></div>`;
-        }
+        if (cfgData.numD > 0) { body.innerHTML += `<h4 style="margin:5px 0;">Digital Events</h4><div class="vis-item"><input type="checkbox" id="visDig" ${digitalVisible ? 'checked' : ''} onchange="toggleVisibility('row-D', 0, this.checked, true);"><label for="visDig">Show All Digital Events</label></div>`; }
         if (customGroups.length > 0) {
             let hasValidGroups = false;
             let groupHtml = `<div class="section-header"><h4 style="margin:0;">Custom Groups</h4><div><button onclick="toggleAllVis('groups', true)" class="btn-action btn-small">All</button><button onclick="toggleAllVis('groups', false)" class="btn-danger btn-small">None</button></div></div>`;
@@ -835,13 +823,8 @@
     document.getElementById('saveConfigBtn').addEventListener('click', () => {
         if (!cfgData) { alert("No workspace to save."); return; }
         const config = { 
-            virtualSignals: virtualSignals, 
-            customGroups: customGroups, 
-            colorMap: colorMap, 
-            globalIsComplexMap: globalIsComplexMap,
-            hiddenAnalogs: cfgData.analogs.map(ch => ch.hidden), 
-            deletedAnalogs: cfgData.originalAnalogs.map(ch => ch.deleted || false), 
-            digitalVisible: digitalVisible 
+            virtualSignals: virtualSignals, customGroups: customGroups, colorMap: colorMap, globalIsComplexMap: globalIsComplexMap,
+            hiddenAnalogs: cfgData.analogs.map(ch => ch.hidden), deletedAnalogs: cfgData.originalAnalogs.map(ch => ch.deleted || false), digitalVisible: digitalVisible 
         };
         const blob = new Blob([JSON.stringify(config, null, 2)], { type: "application/json" });
         const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = `${filesLoaded.baseName}.json`;
@@ -871,28 +854,18 @@
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     filesLoaded.baseName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
-                    const buffer = e.target.result;
-                    const bytes = new Uint8Array(buffer);
-                    const headLength = Math.min(bytes.length, 2 * 1024 * 1024);
+                    const buffer = e.target.result; const bytes = new Uint8Array(buffer); const headLength = Math.min(bytes.length, 2 * 1024 * 1024);
                     const headText = new TextDecoder('iso-8859-1').decode(bytes.subarray(0, headLength));
-                    const cfgMatch = headText.match(/---\s*file type:\s*CFG\s*---/i);
-                    const datMatch = headText.match(/---\s*file type:\s*DAT\s*---/i);
-                    
+                    const cfgMatch = headText.match(/---\s*file type:\s*CFG\s*---/i); const datMatch = headText.match(/---\s*file type:\s*DAT\s*---/i);
                     if (cfgMatch && datMatch) {
-                        const cfgStart = cfgMatch.index + cfgMatch[0].length;
-                        const nextSecMatch = headText.substring(cfgStart).match(/---\s*file type:/i);
-                        const cfgEnd = nextSecMatch ? cfgStart + nextSecMatch.index : datMatch.index;
-                        filesLoaded.cfg = headText.substring(cfgStart, cfgEnd).trim();
-                        let datLineEnd = datMatch.index + datMatch[0].length;
-                        while (datLineEnd < bytes.length && (bytes[datLineEnd] === 13 || bytes[datLineEnd] === 10)) { datLineEnd++; }
-                        filesLoaded.dat = buffer.slice(datLineEnd);
-                        parseFiles();
+                        const cfgStart = cfgMatch.index + cfgMatch[0].length; const nextSecMatch = headText.substring(cfgStart).match(/---\s*file type:/i);
+                        const cfgEnd = nextSecMatch ? cfgStart + nextSecMatch.index : datMatch.index; filesLoaded.cfg = headText.substring(cfgStart, cfgEnd).trim();
+                        let datLineEnd = datMatch.index + datMatch[0].length; while (datLineEnd < bytes.length && (bytes[datLineEnd] === 13 || bytes[datLineEnd] === 10)) { datLineEnd++; }
+                        filesLoaded.dat = buffer.slice(datLineEnd); parseFiles();
                     } else { alert("Invalid CFF file format or section markers missing."); }
                 };
-                reader.readAsArrayBuffer(file);
-                return;
+                reader.readAsArrayBuffer(file); return;
             }
-
             const reader = new FileReader();
             reader.onload = (e) => {
                 if (ext === 'cfg') { filesLoaded.cfg = e.target.result; filesLoaded.baseName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name; }
@@ -926,8 +899,7 @@
                 let isRYB = (n1U.includes('R') && n2U.includes('Y') && n3U.includes('B')); let isRST = (n1U.includes('R') && n2U.includes('S') && n3U.includes('T'));
 
                 if (isABC || is123 || isRYB || isRST) {
-                    let gName = u1.includes('V') ? "Voltage" : "Current";
-                    gName = getUniqueName(gName);
+                    let gName = u1.includes('V') ? "Voltage" : "Current"; gName = getUniqueName(gName);
                     customGroups.push({ name: gName, indices: [i, i+1, i+2], channelNames: [n1, n2, n3], hidden: false });
                     grouped.add(i).add(i+1).add(i+2);
                 }
@@ -946,21 +918,13 @@
 
         for (let i = 2; i < 2 + numA; i++) {
             const parts = cfgLines[i].split(',');
-            let rawUnit = parts[4].replace(/ /g, '');
-            let a = parseFloat(parts[5]);
-            let b = parseFloat(parts[6]);
-            
+            let rawUnit = parts[4].replace(/ /g, ''); let a = parseFloat(parts[5]); let b = parseFloat(parts[6]);
             let unitUpper = rawUnit.toUpperCase(); let unitMult = 1;
             if (unitUpper === 'KA') { unitMult = 1000; rawUnit = 'A'; } else if (unitUpper === 'KV') { unitMult = 1000; rawUnit = 'V'; }
             else if (unitUpper === 'MA') { unitMult = 1000000; rawUnit = 'A'; } else if (unitUpper === 'MV') { unitMult = 1000000; rawUnit = 'V'; }
             else if (unitUpper === 'KVA') { unitMult = 1000; rawUnit = 'VA'; } else if (unitUpper === 'MVA') { unitMult = 1000000; rawUnit = 'VA'; }
             a *= unitMult; b *= unitMult;
-
-            cfgData.analogs.push({ 
-                index: parseInt(parts[0]), name: parts[1], units: rawUnit, a: a, b: b, 
-                primary: parseFloat(parts[10]) || 1, secondary: parseFloat(parts[11]) || 1, ps: (parts[12] || 'S').trim().toUpperCase(), 
-                hidden: false, deleted: false, isComplex: false, isRatio: false 
-            });
+            cfgData.analogs.push({ index: parseInt(parts[0]), name: parts[1], units: rawUnit, a: a, b: b, primary: parseFloat(parts[10]) || 1, secondary: parseFloat(parts[11]) || 1, ps: (parts[12] || 'S').trim().toUpperCase(), hidden: false, deleted: false, isComplex: false, isRatio: false });
         }
         cfgData.originalAnalogs = JSON.parse(JSON.stringify(cfgData.analogs));
         for (let i = 2 + numA; i < 2 + numA + numD; i++) { const parts = cfgLines[i].split(','); cfgData.digitals.push({ index: parseInt(parts[0]), name: parts[1] || `D${i - (2 + numA)}` }); }
@@ -975,36 +939,21 @@
     }
 
     function getStationaryPhasors(arr, N, samplesPerCycle) {
-        const len = arr.length;
-        const rArr = new Float32Array(len), iArr = new Float32Array(len), magArr = new Float32Array(len);
-        let real = 0, imag = 0;
-        const extractScale = Math.SQRT2 / samplesPerCycle;
+        const len = arr.length; const rArr = new Float32Array(len), iArr = new Float32Array(len), magArr = new Float32Array(len);
+        let real = 0, imag = 0; const extractScale = Math.SQRT2 / samplesPerCycle;
         for (let i = 0; i < len; i++) {
-            const ang = -2 * Math.PI * i / samplesPerCycle;
-            const cc = Math.cos(ang), ss = Math.sin(ang);
-            let vIn = arr[i] || 0;
-            let vOut = i >= N ? (arr[i - N] || 0) : 0;
-            
-            if (i < N) {
-                real += extractScale * vIn * cc; imag += extractScale * vIn * ss;
-            } else {
-                const d = extractScale * (vIn - vOut);
-                real += d * cc; imag += d * ss;
-            }
-            if (i >= N - 1) {
-                rArr[i] = real; iArr[i] = imag; magArr[i] = Math.sqrt(real*real + imag*imag);
-            }
+            const ang = -2 * Math.PI * i / samplesPerCycle; const cc = Math.cos(ang), ss = Math.sin(ang);
+            let vIn = arr[i] || 0; let vOut = i >= N ? (arr[i - N] || 0) : 0;
+            if (i < N) { real += extractScale * vIn * cc; imag += extractScale * vIn * ss; } 
+            else { const d = extractScale * (vIn - vOut); real += d * cc; imag += d * ss; }
+            if (i >= N - 1) { rArr[i] = real; iArr[i] = imag; magArr[i] = Math.sqrt(real*real + imag*imag); }
         }
-        for (let i = 0; i < N - 1 && i < len; i++) {
-            rArr[i] = rArr[N - 1]; iArr[i] = iArr[N - 1]; magArr[i] = magArr[N - 1];
-        }
+        for (let i = 0; i < N - 1 && i < len; i++) { rArr[i] = rArr[N - 1]; iArr[i] = iArr[N - 1]; magArr[i] = magArr[N - 1]; }
         return { r: rArr, i: iArr, mag: magArr };
     }
 
-    // Helper to safely extract phasor from channel, guaranteeing we operate on the mathematically pure analog raw data
     function getPhasorForChannel(idx, N, samplesPerCycle) {
-        const ch = cfgData.analogs[idx];
-        if (ch && ch.complexData) return ch.complexData;
+        const ch = cfgData.analogs[idx]; if (ch && ch.complexData) return ch.complexData;
         return getStationaryPhasors(signalData[idx], N, samplesPerCycle);
     }
 
@@ -1014,7 +963,6 @@
         if (!cfgData || !filesLoaded.dat) return;
         
         document.getElementById('dropOverlay').style.display = 'none'; 
-        
         const viewModeToggle = document.getElementById('viewModeToggle');
         if (cfgData.is1991) { viewModeToggle.classList.add('disabled'); viewModeToggle.title = "COMTRADE 1991 lacks Primary/Secondary scaling data"; } 
         else { viewModeToggle.classList.remove('disabled'); viewModeToggle.title = ""; }
@@ -1022,10 +970,7 @@
         charts.forEach(c => c.destroy()); charts = []; document.getElementById('workspaceContainer').innerHTML = '';
         
         const hiddenMap = {}; const deletedMap = {};
-        cfgData.analogs.forEach(ch => { 
-            hiddenMap[ch.name] = ch.hidden; deletedMap[ch.name] = ch.deleted; 
-            if (globalIsComplexMap[ch.name] === undefined) globalIsComplexMap[ch.name] = ch.isComplex; 
-        });
+        cfgData.analogs.forEach(ch => { hiddenMap[ch.name] = ch.hidden; deletedMap[ch.name] = ch.deleted; if (globalIsComplexMap[ch.name] === undefined) globalIsComplexMap[ch.name] = ch.isComplex; });
         cfgData.analogs = JSON.parse(JSON.stringify(cfgData.originalAnalogs));
         cfgData.analogs.forEach(ch => { 
             if(hiddenMap[ch.name] !== undefined) ch.hidden = hiddenMap[ch.name]; 
@@ -1056,10 +1001,7 @@
                     signalData[ch].push(val);
                 }
                 const digOffset = 8 + (baseNumAnalogs * 2);
-                for (let w = 0; w < numWords; w++) {
-                    const word = dv.getUint16(offset + digOffset + (w * 2), true);
-                    for (let b = 0; b < 16; b++) { const ch = w * 16 + b; if (ch < numDigitals) digitalData[ch].push((word >> b) & 1); }
-                }
+                for (let w = 0; w < numWords; w++) { const word = dv.getUint16(offset + digOffset + (w * 2), true); for (let b = 0; b < 16; b++) { const ch = w * 16 + b; if (ch < numDigitals) digitalData[ch].push((word >> b) & 1); } }
             }
         } else {
             const decoder = new TextDecoder('utf-8'); const datText = decoder.decode(filesLoaded.dat);
@@ -1087,169 +1029,147 @@
             
             if (vs.type === 'createGroup') {
                 if (!vs.groupCreated) {
-                    const lastIndices = [];
-                    for(let i=0; i<vs.count; i++) lastIndices.push(cfgData.numA - vs.count + i);
-                    customGroups.push({ name: vs.name, indices: lastIndices, channelNames: vs.channelNames, isVirtual: true, hidden: false, vsId: vs.id });
-                    vs.groupCreated = true;
+                    const lastIndices = []; for(let i=0; i<vs.count; i++) lastIndices.push(cfgData.numA - vs.count + i);
+                    customGroups.push({ name: vs.name, indices: lastIndices, channelNames: vs.channelNames, isVirtual: true, hidden: false, vsId: vs.id }); vs.groupCreated = true;
                 }
             }
             else if (vs.type === 'scale') {
-                const srcArr = signalData[vs.source];
-                const len = timeData.length;
-                const arr = new Float32Array(len);
+                const srcArr = signalData[vs.source]; const len = timeData.length; const arr = new Float32Array(len);
                 for (let i = 0; i < len; i++) arr[i] = srcArr[i] * vs.mult;
                 
-                let cData = null;
-                const srcCh = cfgData.analogs[vs.source];
+                let cData = null; const srcCh = cfgData.analogs[vs.source];
                 if (srcCh.complexData) {
-                    const sc = srcCh.complexData;
-                    cData = { r: new Float32Array(len), i: new Float32Array(len), mag: new Float32Array(len) };
-                    for (let i = 0; i < len; i++) {
-                        cData.r[i] = sc.r[i] * vs.mult; cData.i[i] = sc.i[i] * vs.mult; cData.mag[i] = sc.mag[i] * Math.abs(vs.mult);
-                    }
+                    const sc = srcCh.complexData; cData = { r: new Float32Array(len), i: new Float32Array(len), mag: new Float32Array(len) };
+                    for (let i = 0; i < len; i++) { cData.r[i] = sc.r[i] * vs.mult; cData.i[i] = sc.i[i] * vs.mult; cData.mag[i] = sc.mag[i] * Math.abs(vs.mult); }
                 }
                 
                 const newIdx = signalData.length; signalData.push(arr); channelMetadata.push({ unit: vs.unit, maxAbs: 0 });
                 cfgData.analogs.push({ 
                     index: newIdx+1, name: vs.name, units: vs.unit, a: 1, b: 0, primary: vs.primary, secondary: vs.secondary, ps: vs.ps, 
-                    hidden: hiddenMap[vs.name] || false, deleted: deletedMap[vs.name] || false, 
-                    isComplex: globalIsComplexMap[vs.name] !== undefined ? globalIsComplexMap[vs.name] : srcCh.isComplex, 
-                    complexData: cData, isRatio: srcCh.isRatio || false 
-                });
-                cfgData.numA++;
+                    hidden: hiddenMap[vs.name] || false, deleted: deletedMap[vs.name] || false, isComplex: globalIsComplexMap[vs.name] !== undefined ? globalIsComplexMap[vs.name] : srcCh.isComplex, complexData: cData, isRatio: srcCh.isRatio || false 
+                }); cfgData.numA++;
             }
             else if (vs.type === 'transform') {
-                const srcArr = signalData[vs.source];
-                const srcCh = cfgData.analogs[vs.source];
-                const len = timeData.length;
-                const arr = new Float32Array(len);
-                const isC = vs.targetType === 'C';
-                let cData = null;
-                
-                // virtual signal signalData array ALWAYS stores exact time-domain waveform regardless of display format
-                for(let i=0; i<len; i++) arr[i] = srcArr[i]; 
-                cData = getStationaryPhasors(arr, N, samplesPerCycle);
+                const srcArr = signalData[vs.source]; const srcCh = cfgData.analogs[vs.source]; const len = timeData.length; const arr = new Float32Array(len); const isC = vs.targetType === 'C'; let cData = null;
+                for(let i=0; i<len; i++) arr[i] = srcArr[i]; cData = getStationaryPhasors(arr, N, samplesPerCycle);
 
                 const newIdx = signalData.length; signalData.push(arr); channelMetadata.push({ unit: vs.unit, maxAbs: 0 });
                 cfgData.analogs.push({ 
                     index: newIdx+1, name: vs.name, units: vs.unit, a: 1, b: 0, primary: vs.primary, secondary: vs.secondary, ps: vs.ps, 
-                    hidden: hiddenMap[vs.name] || false, deleted: deletedMap[vs.name] || false, 
-                    isComplex: globalIsComplexMap[vs.name] !== undefined ? globalIsComplexMap[vs.name] : isC, 
-                    complexData: cData, isRatio: srcCh.isRatio || false 
+                    hidden: hiddenMap[vs.name] || false, deleted: deletedMap[vs.name] || false, isComplex: globalIsComplexMap[vs.name] !== undefined ? globalIsComplexMap[vs.name] : isC, complexData: cData, isRatio: srcCh.isRatio || false 
+                }); cfgData.numA++;
+            }
+            else if (vs.type === 'math') {
+                const arr = new Float32Array(timeData.length); const len = timeData.length;
+                const forceComplex = vs.subType === 'C';
+                const isC = globalIsComplexMap[vs.name] !== undefined ? globalIsComplexMap[vs.name] : forceComplex;
+                let cData = null;
+                const viewMode = document.querySelector('input[name="scalingMode"]:checked').value;
+                
+                if (vs.op === '3P') {
+                    const vGrp = customGroups[vs.s1]; const iGrp = customGroups[vs.s2];
+                    if (!vGrp || !iGrp) return;
+                    
+                    const vA_idx = vGrp.indices[0], vB_idx = vGrp.indices[1], vC_idx = vGrp.indices[2];
+                    const iA_idx = iGrp.indices[0], iB_idx = iGrp.indices[1], iC_idx = iGrp.indices[2];
+                    
+                    const pChV = cfgData.analogs[vA_idx], pChI = cfgData.analogs[iA_idx];
+                    const toPrimaryV = viewMode === 'S' ? (pChV.primary || 1) / (pChV.secondary || 1) : 1;
+                    const toPrimaryI = viewMode === 'S' ? (pChI.primary || 1) / (pChI.secondary || 1) : 1;
+
+                    if (!isC) {
+                        const sigVa = signalData[vA_idx], sigVb = signalData[vB_idx], sigVc = signalData[vC_idx];
+                        const sigIa = signalData[iA_idx], sigIb = signalData[iB_idx], sigIc = signalData[iC_idx];
+                        const scaleTotal = toPrimaryV * toPrimaryI;
+                        for (let i = 0; i < len; i++) {
+                            const P_inst = (sigVa[i]*sigIa[i] + sigVb[i]*sigIb[i] + sigVc[i]*sigIc[i]) * scaleTotal;
+                            arr[i] = P_inst;
+                        }
+                    } else {
+                        const pVa = getPhasorForChannel(vA_idx, N, samplesPerCycle), pVb = getPhasorForChannel(vB_idx, N, samplesPerCycle), pVc = getPhasorForChannel(vC_idx, N, samplesPerCycle);
+                        const pIa = getPhasorForChannel(iA_idx, N, samplesPerCycle), pIb = getPhasorForChannel(iB_idx, N, samplesPerCycle), pIc = getPhasorForChannel(iC_idx, N, samplesPerCycle);
+                        const scaleTotal = toPrimaryV * toPrimaryI;
+                        const realArr = new Float32Array(len), imagArr = new Float32Array(len), magArr = new Float32Array(len);
+                        
+                        for (let i = 0; i < len; i++) {
+                            const Sa_R = pVa.r[i]*pIa.r[i] + pVa.i[i]*pIa.i[i]; const Sa_I = pVa.i[i]*pIa.r[i] - pVa.r[i]*pIa.i[i];
+                            const Sb_R = pVb.r[i]*pIb.r[i] + pVb.i[i]*pIb.i[i]; const Sb_I = pVb.i[i]*pIb.r[i] - pVb.r[i]*pIb.i[i];
+                            const Sc_R = pVc.r[i]*pIc.r[i] + pVc.i[i]*pIc.i[i]; const Sc_I = pVc.i[i]*pIc.r[i] - pVc.r[i]*pIc.i[i];
+                            
+                            const Total_P = (Sa_R + Sb_R + Sc_R) * scaleTotal; const Total_Q = (Sa_I + Sb_I + Sc_I) * scaleTotal;
+                            
+                            realArr[i] = Total_P; imagArr[i] = Total_Q; magArr[i] = Math.sqrt(Total_P*Total_P + Total_Q*Total_Q);
+                            const ang = 2 * Math.PI * i / samplesPerCycle;
+                            arr[i] = (Total_P * Math.cos(ang) - Total_Q * Math.sin(ang)) * Math.SQRT2;
+                        }
+                        cData = { r: realArr, i: imagArr, mag: magArr };
+                    }
+                } else {
+                    const isScalar = (vs.ang1 % 180 === 0) && (vs.ang2 % 180 === 0);
+                    const usePhasorMath = (vs.op === '*' || vs.op === '/' || vs.op === 'S' || !isScalar || forceComplex);
+                    
+                    const ch1 = cfgData.analogs[vs.s1]; const ch2 = cfgData.analogs[vs.s2];
+                    const toPrimary1 = viewMode === 'S' ? (ch1.primary || 1) / (ch1.secondary || 1) : 1;
+                    const toPrimary2 = viewMode === 'S' ? (ch2.primary || 1) / (ch2.secondary || 1) : 1;
+                    
+                    if (!usePhasorMath) {
+                        const sig1 = signalData[vs.s1], sig2 = signalData[vs.s2];
+                        const coeff1 = vs.mag1 * toPrimary1 * Math.cos(vs.ang1 * Math.PI / 180); const coeff2 = vs.mag2 * toPrimary2 * Math.cos(vs.ang2 * Math.PI / 180);
+                        for (let i = 0; i < len; i++) { const v1 = (sig1[i] || 0) * coeff1; const v2 = (sig2[i] || 0) * coeff2; if (vs.op === '+') arr[i] = v1 + v2; else if (vs.op === '-') arr[i] = v1 - v2; }
+                    } else {
+                        const p1 = getPhasorForChannel(vs.s1, N, samplesPerCycle); const p2 = getPhasorForChannel(vs.s2, N, samplesPerCycle);
+                        const rA_scale = vs.mag1 * toPrimary1 * Math.cos(vs.ang1 * Math.PI / 180); const iA_scale = vs.mag1 * toPrimary1 * Math.sin(vs.ang1 * Math.PI / 180);
+                        const rB_scale = vs.mag2 * toPrimary2 * Math.cos(vs.ang2 * Math.PI / 180); const iB_scale = vs.mag2 * toPrimary2 * Math.sin(vs.ang2 * Math.PI / 180);
+                        const realArr = new Float32Array(len), imagArr = new Float32Array(len), magArr = new Float32Array(len);
+                        for (let i = 0; i < len; i++) {
+                            const A_R = p1.r[i] * rA_scale - p1.i[i] * iA_scale; const A_I = p1.r[i] * iA_scale + p1.i[i] * rA_scale;
+                            const B_R = p2.r[i] * rB_scale - p2.i[i] * iB_scale; const B_I = p2.r[i] * iB_scale + p2.i[i] * rB_scale;
+                            let C_R = 0, C_I = 0;
+                            if (vs.op === '+') { C_R = A_R + B_R; C_I = A_I + B_I; }
+                            else if (vs.op === '-') { C_R = A_R - B_R; C_I = A_I - B_I; }
+                            else if (vs.op === '*' || vs.op === 'S') { const b_R = B_R; const b_I = (vs.op === 'S') ? -B_I : B_I; C_R = A_R * b_R - A_I * b_I; C_I = A_R * b_I + A_I * b_R; }
+                            else if (vs.op === '/') { const D = B_R * B_R + B_I * B_I; if (D < 1e-12) { C_R = 0; C_I = 0; } else { C_R = (A_R * B_R + A_I * B_I) / D; C_I = (A_I * B_R - A_R * B_I) / D; } }
+                            realArr[i] = C_R; imagArr[i] = C_I; magArr[i] = Math.sqrt(C_R*C_R + C_I*C_I);
+                            const ang = 2 * Math.PI * i / samplesPerCycle; arr[i] = (C_R * Math.cos(ang) - C_I * Math.sin(ang)) * Math.SQRT2;
+                        }
+                        cData = { r: realArr, i: imagArr, mag: magArr };
+                    }
+                }
+                
+                if (viewMode === 'S') {
+                    const toSecondary = (vs.secondary || 1) / (vs.primary || 1);
+                    for (let i = 0; i < len; i++) arr[i] *= toSecondary;
+                    if (cData) { for (let i = 0; i < len; i++) { cData.r[i] *= toSecondary; cData.i[i] *= toSecondary; cData.mag[i] *= toSecondary; } }
+                }
+
+                const newIdx = signalData.length; signalData.push(arr); channelMetadata.push({ unit: vs.unit, maxAbs: 0 });
+                cfgData.analogs.push({ 
+                    index: newIdx+1, name: vs.name, units: vs.unit, a: 1, b: 0, primary: vs.primary, secondary: vs.secondary, ps: 'P', 
+                    hidden: hiddenMap[vs.name] || false, deleted: deletedMap[vs.name] || false, isComplex: isC, complexData: cData, isRatio: (vs.op === '/' || vs.op === 'S')
                 });
                 cfgData.numA++;
             }
-            else if (vs.type === 'math') {
-                const arr = new Float32Array(timeData.length); 
-                const len = timeData.length;
-
-                const isScalar = (vs.ang1 % 180 === 0) && (vs.ang2 % 180 === 0);
-                const forceComplex = vs.subType === 'C';
-                const usePhasorMath = (vs.op === '*' || vs.op === '/' || vs.op === 'S' || !isScalar || forceComplex);
-                const isC = globalIsComplexMap[vs.name] !== undefined ? globalIsComplexMap[vs.name] : forceComplex;
-                let cData = null;
-                
-                if (!usePhasorMath) {
-                    const sig1 = signalData[vs.s1], sig2 = signalData[vs.s2];
-                    const coeff1 = vs.mag1 * Math.cos(vs.ang1 * Math.PI / 180);
-                    const coeff2 = vs.mag2 * Math.cos(vs.ang2 * Math.PI / 180);
-
-                    for (let i = 0; i < len; i++) {
-                        const v1 = (sig1[i] || 0) * coeff1; const v2 = (sig2[i] || 0) * coeff2;
-                        if (vs.op === '+') arr[i] = v1 + v2; else if (vs.op === '-') arr[i] = v1 - v2;
-                    }
-                } else {
-                    const p1 = getPhasorForChannel(vs.s1, N, samplesPerCycle);
-                    const p2 = getPhasorForChannel(vs.s2, N, samplesPerCycle);
-                    
-                    const rA_scale = vs.mag1 * Math.cos(vs.ang1 * Math.PI / 180);
-                    const iA_scale = vs.mag1 * Math.sin(vs.ang1 * Math.PI / 180);
-                    const rB_scale = vs.mag2 * Math.cos(vs.ang2 * Math.PI / 180);
-                    const iB_scale = vs.mag2 * Math.sin(vs.ang2 * Math.PI / 180);
-
-                    const realArr = new Float32Array(len), imagArr = new Float32Array(len), magArr = new Float32Array(len);
-
-                    for (let i = 0; i < len; i++) {
-                        const A_R = p1.r[i] * rA_scale - p1.i[i] * iA_scale;
-                        const A_I = p1.r[i] * iA_scale + p1.i[i] * rA_scale;
-                        const B_R = p2.r[i] * rB_scale - p2.i[i] * iB_scale;
-                        const B_I = p2.r[i] * iB_scale + p2.i[i] * rB_scale;
-                        
-                        let C_R = 0, C_I = 0;
-                        if (vs.op === '+') { C_R = A_R + B_R; C_I = A_I + B_I; }
-                        else if (vs.op === '-') { C_R = A_R - B_R; C_I = A_I - B_I; }
-                        else if (vs.op === '*' || vs.op === 'S') { 
-                            const b_R = B_R; const b_I = (vs.op === 'S') ? -B_I : B_I;
-                            C_R = A_R * b_R - A_I * b_I; C_I = A_R * b_I + A_I * b_R; 
-                        }
-                        else if (vs.op === '/') {
-                            const D = B_R * B_R + B_I * B_I;
-                            if (D < 1e-12) { C_R = 0; C_I = 0; } 
-                            else { C_R = (A_R * B_R + A_I * B_I) / D; C_I = (A_I * B_R - A_R * B_I) / D; }
-                        }
-                        
-                        realArr[i] = C_R; imagArr[i] = C_I; magArr[i] = Math.sqrt(C_R*C_R + C_I*C_I);
-                        
-                        // Output true time-domain AC wave to array always
-                        const ang = 2 * Math.PI * i / samplesPerCycle;
-                        arr[i] = (C_R * Math.cos(ang) - C_I * Math.sin(ang)) * Math.SQRT2;
-                    }
-                    cData = { r: realArr, i: imagArr, mag: magArr };
-                }
-                
-                const newIdx = signalData.length; signalData.push(arr); channelMetadata.push({ unit: vs.unit, maxAbs: 0 });
-                cfgData.analogs.push({ 
-                    index: newIdx+1, name: vs.name, units: vs.unit, a: 1, b: 0, primary: vs.primary, secondary: vs.secondary, ps: vs.ps, 
-                    hidden: hiddenMap[vs.name] || false, deleted: deletedMap[vs.name] || false,
-                    isComplex: isC, complexData: cData, 
-                    isRatio: (vs.op === '/' || vs.op === 'S')
-                });
-                cfgData.numA++;
-            } 
             else if (vs.type === 'seq') {
-                const seqUnit = cfgData.analogs[vs.indices[0]].units;
-                const len = timeData.length; 
-                
+                const seqUnit = cfgData.analogs[vs.indices[0]].units; const len = timeData.length; 
                 const seqPosMag = new Float32Array(len), seqPosR = new Float32Array(len), seqPosI = new Float32Array(len), seqPosAnalog = new Float32Array(len);
                 const seqNegMag = new Float32Array(len), seqNegR = new Float32Array(len), seqNegI = new Float32Array(len), seqNegAnalog = new Float32Array(len);
                 const seqZeroMag = new Float32Array(len), seqZeroR = new Float32Array(len), seqZeroI = new Float32Array(len), seqZeroAnalog = new Float32Array(len);
                 
                 if (len >= N && N > 0) {
-                    const pA = getPhasorForChannel(vs.indices[0], N, samplesPerCycle);
-                    const pB = getPhasorForChannel(vs.indices[1], N, samplesPerCycle);
-                    const pC = getPhasorForChannel(vs.indices[2], N, samplesPerCycle);
-                    
-                    // a = 1∠120°  and  a² = 1∠240° (-120°)
+                    const pA = getPhasorForChannel(vs.indices[0], N, samplesPerCycle), pB = getPhasorForChannel(vs.indices[1], N, samplesPerCycle), pC = getPhasorForChannel(vs.indices[2], N, samplesPerCycle);
                     const a_R = -0.5, a_I = Math.sqrt(3)/2, a2_R = -0.5, a2_I = -Math.sqrt(3)/2;
-
                     for (let i = 0; i < len; i++) {
-                        const Va_R = pA.r[i], Va_I = pA.i[i];
-                        const Vb_R = pB.r[i], Vb_I = pB.i[i];
-                        const Vc_R = pC.r[i], Vc_I = pC.i[i];
-
-                        // V0 = 1/3 * (Va + Vb + Vc)
-                        const V0_R = (Va_R + Vb_R + Vc_R)/3;
-                        const V0_I = (Va_I + Vb_I + Vc_I)/3;
-                        
-                        // a * Vb
-                        const aVb_R = a_R*Vb_R - a_I*Vb_I, aVb_I = a_R*Vb_I + a_I*Vb_R;
-                        // a² * Vc
-                        const a2Vc_R = a2_R*Vc_R - a2_I*Vc_I, a2Vc_I = a2_R*Vc_I + a2_I*Vc_R;
-                        // V1 = 1/3 * (Va + a*Vb + a²*Vc)
+                        const Va_R = pA.r[i], Va_I = pA.i[i]; const Vb_R = pB.r[i], Vb_I = pB.i[i]; const Vc_R = pC.r[i], Vc_I = pC.i[i];
+                        const V0_R = (Va_R + Vb_R + Vc_R)/3; const V0_I = (Va_I + Vb_I + Vc_I)/3;
+                        const aVb_R = a_R*Vb_R - a_I*Vb_I, aVb_I = a_R*Vb_I + a_I*Vb_R; const a2Vc_R = a2_R*Vc_R - a2_I*Vc_I, a2Vc_I = a2_R*Vc_I + a2_I*Vc_R;
                         const V1_R = (Va_R + aVb_R + a2Vc_R)/3, V1_I = (Va_I + aVb_I + a2Vc_I)/3;
-                        
-                        // a² * Vb
-                        const a2Vb_R = a2_R*Vb_R - a2_I*Vb_I, a2Vb_I = a2_R*Vb_I + a2_I*Vb_R;
-                        // a * Vc
-                        const aVc_R = a_R*Vc_R - a_I*Vc_I, aVc_I = a_R*Vc_I + a_I*Vc_R;
-                        // V2 = 1/3 * (Va + a²*Vb + a*Vc)
+                        const a2Vb_R = a2_R*Vb_R - a2_I*Vb_I, a2Vb_I = a2_R*Vb_I + a2_I*Vb_R; const aVc_R = a_R*Vc_R - a_I*Vc_I, aVc_I = a_R*Vc_I + a_I*Vc_R;
                         const V2_R = (Va_R + a2Vb_R + aVc_R)/3, V2_I = (Va_I + a2Vb_I + aVc_I)/3;
 
                         seqPosR[i] = V1_R; seqPosI[i] = V1_I; seqPosMag[i] = Math.sqrt(V1_R*V1_R + V1_I*V1_I);
                         seqNegR[i] = V2_R; seqNegI[i] = V2_I; seqNegMag[i] = Math.sqrt(V2_R*V2_R + V2_I*V2_I);
                         seqZeroR[i] = V0_R; seqZeroI[i] = V0_I; seqZeroMag[i] = Math.sqrt(V0_R*V0_R + V0_I*V0_I);
                         
-                        // Convert phasors directly back to stationary time-domain equivalent analogs
                         const ang = 2 * Math.PI * i / samplesPerCycle;
                         seqPosAnalog[i] = (V1_R * Math.cos(ang) - V1_I * Math.sin(ang)) * Math.SQRT2;
                         seqNegAnalog[i] = (V2_R * Math.cos(ang) - V2_I * Math.sin(ang)) * Math.SQRT2;
@@ -1259,13 +1179,8 @@
                 
                 const baseIdx = signalData.length; signalData.push(seqPosAnalog, seqNegAnalog, seqZeroAnalog);
                 channelMetadata.push({ unit: seqUnit, maxAbs: 0 }, { unit: seqUnit, maxAbs: 0 }, { unit: seqUnit, maxAbs: 0 });
-                const nP = vs.channelNames ? vs.channelNames[0] : vs.name + ' (Pos)';
-                const nN = vs.channelNames ? vs.channelNames[1] : vs.name + ' (Neg)';
-                const nZ = vs.channelNames ? vs.channelNames[2] : vs.name + ' (Zero)';
-
-                const cPos = { r: seqPosR, i: seqPosI, mag: seqPosMag };
-                const cNeg = { r: seqNegR, i: seqNegI, mag: seqNegMag };
-                const cZero = { r: seqZeroR, i: seqZeroI, mag: seqZeroMag };
+                const nP = vs.channelNames ? vs.channelNames[0] : vs.name + ' (Pos)'; const nN = vs.channelNames ? vs.channelNames[1] : vs.name + ' (Neg)'; const nZ = vs.channelNames ? vs.channelNames[2] : vs.name + ' (Zero)';
+                const cPos = { r: seqPosR, i: seqPosI, mag: seqPosMag }; const cNeg = { r: seqNegR, i: seqNegI, mag: seqNegMag }; const cZero = { r: seqZeroR, i: seqZeroI, mag: seqZeroMag };
 
                 cfgData.analogs.push(
                     { index: baseIdx+1, name: nP, units: seqUnit, a:1, b:0, primary: vs.primary, secondary: vs.secondary, ps: vs.ps, hidden: hiddenMap[nP] || false, deleted: deletedMap[nP] || false, isComplex: globalIsComplexMap[nP] !== undefined ? globalIsComplexMap[nP] : true, complexData: cPos, isRatio: false },
@@ -1274,61 +1189,45 @@
                 );
                 cfgData.numA += 3;
 
-                if (!vs.groupCreated) { 
-                    customGroups.push({ name: vs.name + " (Seq)", indices: [baseIdx, baseIdx+1, baseIdx+2], channelNames: [nP, nN, nZ], isVirtual: true, hidden: false, vsId: vs.id }); 
-                    vs.groupCreated = true; 
-                }
+                if (!vs.groupCreated) { customGroups.push({ name: vs.name + " (Seq)", indices: [baseIdx, baseIdx+1, baseIdx+2], channelNames: [nP, nN, nZ], isVirtual: true, hidden: false, vsId: vs.id }); vs.groupCreated = true; }
             }
         });
 
         for (let cIdx = 0; cIdx < cfgData.numA; cIdx++) {
             const ch = cfgData.analogs[cIdx]; const arr = signalData[cIdx]; const len = arr.length;
             if (ch.isComplex && !ch.complexData) { ch.complexData = getStationaryPhasors(arr, N, samplesPerCycle); }
-
             let maxAbs = 0; const scanArr = ch.isComplex && ch.complexData ? ch.complexData.mag : arr;
             for(let i = 0; i < len; i++) { if(Math.abs(scanArr[i]) > maxAbs) maxAbs = Math.abs(scanArr[i]); }
             channelMetadata[cIdx].maxAbs = maxAbs;
         }
 
         const refSelect = document.getElementById('refAngleSelect'); 
-        const currentRef = refSelect.value;
-        refSelect.innerHTML = '<option value="-1">Absolute (0°)</option>';
+        const currentRef = refSelect.value; refSelect.innerHTML = '<option value="-1">Absolute (0°)</option>';
         cfgData.analogs.forEach((ch, i) => { 
             if (ch.deleted) return; 
             const cleanName = ch.name.replace(/\(\s*\)/g, '').replace(/CH\d+/i, '').trim(); 
-            const opt = document.createElement('option'); opt.value = i; opt.textContent = `CH${ch.index}: ${cleanName}`; 
-            refSelect.appendChild(opt); 
+            const opt = document.createElement('option'); opt.value = i; opt.textContent = `CH${ch.index}: ${cleanName}`; refSelect.appendChild(opt); 
         });
         if (Array.from(refSelect.options).some(o => o.value === currentRef)) refSelect.value = currentRef; else refSelect.value = "-1";
 
-        // Resolve dynamic indices for groups based on channelNames to prevent out-of-sync issues
         customGroups.forEach(g => {
-            if (!g.channelNames || g.channelNames.length === 0) {
-                g.channelNames = g.indices.map(i => cfgData.analogs[i] ? cfgData.analogs[i].name : null).filter(n => n !== null);
-            }
+            if (!g.channelNames || g.channelNames.length === 0) { g.channelNames = g.indices.map(i => cfgData.analogs[i] ? cfgData.analogs[i].name : null).filter(n => n !== null); }
             if (g.channelNames && g.channelNames.length > 0) {
                 const resolvedIndices = [];
-                g.channelNames.forEach(name => {
-                    const idx = cfgData.analogs.findIndex(ch => ch && ch.name === name && !ch.deleted);
-                    if (idx !== -1) resolvedIndices.push(idx);
-                });
+                g.channelNames.forEach(name => { const idx = cfgData.analogs.findIndex(ch => ch && ch.name === name && !ch.deleted); if (idx !== -1) resolvedIndices.push(idx); });
                 g.indices = resolvedIndices;
             }
         });
         
-        // Filter out groups that have no valid traces left to avoid rendering empty charts
         customGroups = customGroups.filter(g => g.indices.length > 0);
-
         let groupedChannels = new Set(); customGroups.forEach(g => { g.indices.forEach(idx => groupedChannels.add(idx)); });
         channelScales = new Array(cfgData.numA).fill(1);
         
         customGroups.forEach(g => {
             if (g.hidden || (g.isVirtual && !g.name)) return;
             let maxAbs = 0; g.indices.forEach(idx => { if (channelMetadata[idx]) maxAbs = Math.max(maxAbs, channelMetadata[idx].maxAbs); });
-            
             let scale = 1; let pfx = '';
             if (maxAbs >= 1e6) { scale = 1e6; pfx = 'M'; } else if (maxAbs >= 1e3) { scale = 1e3; pfx = 'k'; } else if (maxAbs > 0 && maxAbs < 1) { scale = 1e-3; pfx = 'm'; }
-            
             g.indices.forEach(idx => { if (channelMetadata[idx]) { channelScales[idx] = scale; channelMetadata[idx].unit = pfx + cfgData.analogs[idx].units; } });
         });
 
@@ -1386,6 +1285,32 @@
         canvas.addEventListener('mousemove', (e) => { if (!activeDragCursor || e.shiftKey || isBoxZoomActive) return; const t = getXVal(e); if (activeDragCursor === 1) cursor1 = t; else cursor2 = t; if(!cursorUpdatePending) { cursorUpdatePending = true; requestAnimationFrame(() => { updateCursors(); cursorUpdatePending = false; }); } });
         canvas.addEventListener('mouseup', () => activeDragCursor = null); canvas.addEventListener('mouseleave', () => activeDragCursor = null); canvas.oncontextmenu = (e) => e.preventDefault(); 
     }
+    
+    function getDependentSignals(targetIdx) {
+        let deps = new Set();
+        virtualSignals.forEach(vs => {
+            if (vs.type === 'transform' && vs.source === targetIdx) deps.add(vs.name);
+            if (vs.type === 'scale' && vs.source === targetIdx) deps.add(vs.name);
+            if (vs.type === 'math' && (vs.s1 === targetIdx || vs.s2 === targetIdx)) deps.add(vs.name);
+            if (vs.type === 'seq' && vs.indices && vs.indices.includes(targetIdx)) {
+                const seqName = (vs.channelNames && vs.channelNames[0]) ? vs.channelNames[0].replace(' (Pos)', ' (Seq)') : vs.name + " (Seq)";
+                deps.add(seqName);
+            }
+        });
+        customGroups.forEach(g => { if (g.indices && g.indices.includes(targetIdx)) deps.add("Group: " + g.name); });
+        return Array.from(deps);
+    }
+    
+    function handleWipeAction(traceName, wipeCallback, depsArray) {
+        if (depsArray.length > 0) {
+            const list = document.getElementById('deleteWarningList');
+            list.innerHTML = depsArray.map(d => `<li>${d}</li>`).join('');
+            document.getElementById('deleteWarningModal').style.display = 'flex';
+            return false;
+        }
+        wipeCallback();
+        return true;
+    }
 
     function createChartRow(channel, idx, cleanName) {
         const row = document.createElement('div'); row.className = 'chart-row'; row.id = `row-A-${idx}`;
@@ -1393,7 +1318,6 @@
         
         const canvasSec = document.createElement('div'); canvasSec.className = 'canvas-section';
         const header = document.createElement('div'); header.className = 'chart-header';
-        
         const mapKey = `A_${idx}_${cleanName}`; const defaultColor = colorMap[mapKey] || defaultColors[idx % defaultColors.length];
         
         const titleBox = document.createElement('div'); titleBox.className = 'chart-title-box';
@@ -1409,63 +1333,47 @@
         const tableSec = document.createElement('div'); tableSec.className = 'table-section';
         const actionBox = document.createElement('div'); actionBox.className = 'action-box';
         
-        const btnAC = document.createElement('button');
-        btnAC.className = 'icon-btn'; btnAC.style.fontWeight = 'bold'; btnAC.style.fontFamily = 'monospace';
-        btnAC.textContent = channel.isComplex ? 'A' : 'C'; 
+        const btnAC = document.createElement('button'); btnAC.className = 'icon-btn'; btnAC.style.fontWeight = 'bold'; btnAC.style.fontFamily = 'monospace'; btnAC.textContent = channel.isComplex ? 'A' : 'C'; 
         btnAC.title = channel.isComplex ? 'Currently Complex (Click to transform to Analog)' : 'Currently Analog (Click to transform to Complex)';
         btnAC.onclick = () => {
             const targetState = !channel.isComplex;
             if (cfgData.originalAnalogs[idx]) { cfgData.originalAnalogs[idx].isComplex = targetState; if (!targetState) cfgData.originalAnalogs[idx].complexData = null; }
             if (cfgData.analogs[idx]) { cfgData.analogs[idx].isComplex = targetState; if (!targetState) cfgData.analogs[idx].complexData = null; }
-            globalIsComplexMap[channel.name] = targetState;
-            processDataAndRender(true);
+            globalIsComplexMap[channel.name] = targetState; processDataAndRender(true);
         };
 
         const hideBtn = document.createElement('button'); hideBtn.className = 'icon-btn'; hideBtn.title = 'Hide Signal';
         hideBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><line x1="3" y1="3" x2="21" y2="21"></line></svg>`;
         hideBtn.onclick = () => { toggleVisibility('row-A-', idx, false); };
         
-        const deleteBtn = document.createElement('button'); deleteBtn.className = 'icon-btn'; deleteBtn.title = 'Permanently Delete Trace';
+        const deleteBtn = document.createElement('button'); deleteBtn.className = 'icon-btn'; deleteBtn.title = 'Permanently Wipe Trace';
         deleteBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`;
         deleteBtn.onclick = () => { 
-            if (cfgData.originalAnalogs[idx]) cfgData.originalAnalogs[idx].deleted = true;
-            if (cfgData.analogs[idx]) cfgData.analogs[idx].deleted = true;
-            // We NO LONGER splice from virtualSignals here. 
-            // The signal remains as a hidden intermediate calculation to prevent index shifting and crashes for downstream dependencies.
-            processDataAndRender(true);
+            const deps = getDependentSignals(idx);
+            const wiped = handleWipeAction(cleanName, () => {
+                if (cfgData.originalAnalogs[idx]) cfgData.originalAnalogs[idx].deleted = true;
+                if (cfgData.analogs[idx]) cfgData.analogs[idx].deleted = true;
+                virtualSignals = virtualSignals.filter(vs => vs.name !== channel.name);
+                processDataAndRender(true);
+            }, deps);
+            
+            if (!wiped) { toggleVisibility('row-A-', idx, false); }
         };
         
         actionBox.appendChild(btnAC); actionBox.appendChild(hideBtn); actionBox.appendChild(deleteBtn); tableSec.appendChild(actionBox);
         
         const tableWrapper = document.createElement('div'); tableWrapper.style.width = '100%';
-        if (channel.isComplex) {
-            tableWrapper.innerHTML = `<table class="stats-table"><tr><th>Parameter</th><th style="color: #ef4444;">C1</th><th style="color: #3b82f6;">C2</th></tr><tr><td>Mag</td><td id="c1-magC-${idx}" class="val-t1">--</td><td id="c2-magC-${idx}" class="val-t2">--</td></tr><tr><td>Angle</td><td id="c1-angC-${idx}" class="val-t1">--</td><td id="c2-angC-${idx}" class="val-t2">--</td></tr><tr><td>Real</td><td id="c1-realC-${idx}" class="val-t1">--</td><td id="c2-realC-${idx}" class="val-t2">--</td></tr><tr><td>Imag</td><td id="c1-imagC-${idx}" class="val-t1">--</td><td id="c2-imagC-${idx}" class="val-t2">--</td></tr></table>`;
-        } else {
-            tableWrapper.innerHTML = `<table class="stats-table"><tr><th>Parameter</th><th style="color: #ef4444;">C1</th><th style="color: #3b82f6;">C2</th></tr><tr><td>Inst</td><td id="c1-inst-${idx}" class="val-t1">--</td><td id="c2-inst-${idx}" class="val-t2">--</td></tr><tr><td>RMS</td><td id="c1-rms-${idx}" class="val-t1">--</td><td id="c2-rms-${idx}" class="val-t2">--</td></tr><tr><td>Fund Mag</td><td id="c1-mag-${idx}" class="val-t1">--</td><td id="c2-mag-${idx}" class="val-t2">--</td></tr><tr><td>Phase Ang</td><td id="c1-pha-${idx}" class="val-t1">--</td><td id="c2-pha-${idx}" class="val-t2">--</td></tr></table>`;
-        }
-        
+        if (channel.isComplex) { tableWrapper.innerHTML = `<table class="stats-table"><tr><th>Parameter</th><th style="color: #ef4444;">C1</th><th style="color: #3b82f6;">C2</th></tr><tr><td>Mag</td><td id="c1-magC-${idx}" class="val-t1">--</td><td id="c2-magC-${idx}" class="val-t2">--</td></tr><tr><td>Angle</td><td id="c1-angC-${idx}" class="val-t1">--</td><td id="c2-angC-${idx}" class="val-t2">--</td></tr><tr><td>Real</td><td id="c1-realC-${idx}" class="val-t1">--</td><td id="c2-realC-${idx}" class="val-t2">--</td></tr><tr><td>Imag</td><td id="c1-imagC-${idx}" class="val-t1">--</td><td id="c2-imagC-${idx}" class="val-t2">--</td></tr></table>`; } 
+        else { tableWrapper.innerHTML = `<table class="stats-table"><tr><th>Parameter</th><th style="color: #ef4444;">C1</th><th style="color: #3b82f6;">C2</th></tr><tr><td>Inst</td><td id="c1-inst-${idx}" class="val-t1">--</td><td id="c2-inst-${idx}" class="val-t2">--</td></tr><tr><td>RMS</td><td id="c1-rms-${idx}" class="val-t1">--</td><td id="c2-rms-${idx}" class="val-t2">--</td></tr><tr><td>Fund Mag</td><td id="c1-mag-${idx}" class="val-t1">--</td><td id="c2-mag-${idx}" class="val-t2">--</td></tr><tr><td>Phase Ang</td><td id="c1-pha-${idx}" class="val-t1">--</td><td id="c2-pha-${idx}" class="val-t2">--</td></tr></table>`; }
         tableSec.appendChild(tableWrapper); row.appendChild(canvasSec); row.appendChild(tableSec); document.getElementById('workspaceContainer').appendChild(row);
 
-        const scale = channelScales[idx] || 1; 
-        const chartFormattedData = new Array(timeData.length); 
-        const sourceArr = channel.isComplex && channel.complexData ? channel.complexData.mag : signalData[idx];
-        
+        const scale = channelScales[idx] || 1; const chartFormattedData = new Array(timeData.length); const sourceArr = channel.isComplex && channel.complexData ? channel.complexData.mag : signalData[idx];
         for(let i=0; i<timeData.length; i++) chartFormattedData[i] = { x: timeData[i], y: sourceArr[i] / scale };
-
         const ctx = canvas.getContext('2d'); const minX = savedZoom ? savedZoom.min : timeData[0], maxX = savedZoom ? savedZoom.max : timeData[timeData.length - 1]; const gridCol = getGridColor();
-
         const chart = new Chart(ctx, {
             type: 'line', data: { datasets: [{ data: chartFormattedData, borderColor: defaultColor, borderWidth: 1.5 }] },
-            options: {
-                responsive: true, maintainAspectRatio: false, animation: false, normalized: true, parsing: false, interaction: { mode: 'nearest', axis: 'x', intersect: false },
-                plugins: { legend: { display: false }, decimation: { enabled: true, algorithm: 'min-max' }, tooltip: { enabled: false }, zoom: { zoom: { wheel: { enabled: false }, drag: { enabled: true, backgroundColor: 'rgba(14,165,233,0.2)', modifierKey: isBoxZoomActive ? null : 'shift' }, mode: 'x', onZoomComplete: ({chart}) => syncAxes(chart) }, pan: { enabled: !isBoxZoomActive, mode: 'x', onPan: ({chart}) => syncAxes(chart) } } },
-                scales: { 
-                    x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})` }, grid: { color: gridCol } }, 
-                    y: { grid: { color: gridCol }, afterFit: (scale) => { scale.width = 75; } } 
-                }
-            }, plugins: [cursorRendererPlugin]
+            options: { responsive: true, maintainAspectRatio: false, animation: false, normalized: true, parsing: false, interaction: { mode: 'nearest', axis: 'x', intersect: false }, plugins: { legend: { display: false }, decimation: { enabled: true, algorithm: 'min-max' }, tooltip: { enabled: false }, zoom: { zoom: { wheel: { enabled: false }, drag: { enabled: true, backgroundColor: 'rgba(14,165,233,0.2)', modifierKey: isBoxZoomActive ? null : 'shift' }, mode: 'x', onZoomComplete: ({chart}) => syncAxes(chart) }, pan: { enabled: !isBoxZoomActive, mode: 'x', onPan: ({chart}) => syncAxes(chart) } } }, scales: { x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})` }, grid: { color: gridCol } }, y: { grid: { color: gridCol }, afterFit: (scale) => { scale.width = 75; } } } }, plugins: [cursorRendererPlugin]
         });
-        
         colorPicker.addEventListener('input', (e) => { chart.data.datasets[0].borderColor = e.target.value; titleText.style.color = e.target.value; colorMap[mapKey] = e.target.value; chart.update('none'); });
         attachCursorEvents(canvas, chart); charts.push(chart);
     }
@@ -1480,13 +1388,8 @@
         const titleBox = document.createElement('div'); titleBox.className = 'chart-title-box';
         const gTitleInput = document.createElement('input'); gTitleInput.type = 'text'; gTitleInput.value = group.name; gTitleInput.className = 'group-title-input';
         gTitleInput.addEventListener('change', (e) => { 
-            let newName = e.target.value.trim();
-            if (newName === '') newName = 'Group'; 
-            if (isNameTaken(newName, gIdx)) {
-                alert("Name already in use. Reverting to previous name.");
-                e.target.value = group.name;
-                return;
-            }
+            let newName = e.target.value.trim(); if (newName === '') newName = 'Group'; 
+            if (isNameTaken(newName, gIdx)) { alert("Name already in use. Reverting to previous name."); e.target.value = group.name; return; }
             customGroups[gIdx].name = newName; 
         });
         const colon = document.createElement('span'); colon.textContent = ': '; colon.style.color = 'var(--text-main)'; colon.style.marginRight = '5px';
@@ -1501,9 +1404,7 @@
             const span = document.createElement('span'); span.style.color = col; span.textContent = `${cleanName}`;
             wrapper.appendChild(picker); wrapper.appendChild(span); titleBox.appendChild(wrapper);
             
-            const scale = channelScales[cIdx] || 1; 
-            const chartFormattedData = new Array(timeData.length); 
-            const sourceArr = ch.isComplex && ch.complexData ? ch.complexData.mag : signalData[cIdx];
+            const scale = channelScales[cIdx] || 1; const chartFormattedData = new Array(timeData.length); const sourceArr = ch.isComplex && ch.complexData ? ch.complexData.mag : signalData[cIdx];
             for(let k=0; k<timeData.length; k++) chartFormattedData[k] = { x: timeData[k], y: sourceArr[k] / scale };
             datasets.push({ label: cleanName, data: chartFormattedData, borderColor: col, borderWidth: 1.5 });
         });
@@ -1512,7 +1413,6 @@
         const canvasContainer = document.createElement('div'); canvasContainer.className = 'canvas-container';
         const isGrpComplex = group.indices.some(cIdx => cfgData.analogs[cIdx] && cfgData.analogs[cIdx].isComplex);
         if (isGrpComplex) { canvasContainer.style.minHeight = '120px'; canvasContainer.style.height = '120px'; }
-        
         const canvas = document.createElement('canvas'); canvas.style.flexGrow = '1';
         canvasContainer.appendChild(canvas); canvasSec.appendChild(header); canvasSec.appendChild(canvasContainer);
         
@@ -1521,16 +1421,9 @@
 
         const ungroupBtn = document.createElement('button'); ungroupBtn.className = 'icon-btn'; ungroupBtn.title = 'Ungroup Traces';
         ungroupBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path><line x1="2" y1="2" x2="22" y2="22"></line></svg>`;
-        ungroupBtn.onclick = () => { 
-            if (group.vsId) {
-                virtualSignals = virtualSignals.filter(v => !(v.id === group.vsId && v.type === 'createGroup'));
-            }
-            customGroups.splice(gIdx, 1); processDataAndRender(true); 
-        };
+        ungroupBtn.onclick = () => { if (group.vsId) { virtualSignals = virtualSignals.filter(v => !(v.id === group.vsId && v.type === 'createGroup')); } customGroups.splice(gIdx, 1); processDataAndRender(true); };
 
-        const btnAC = document.createElement('button');
-        btnAC.className = 'icon-btn'; btnAC.style.fontWeight = 'bold'; btnAC.style.fontFamily = 'monospace';
-        btnAC.textContent = isGrpComplex ? 'A' : 'C'; 
+        const btnAC = document.createElement('button'); btnAC.className = 'icon-btn'; btnAC.style.fontWeight = 'bold'; btnAC.style.fontFamily = 'monospace'; btnAC.textContent = isGrpComplex ? 'A' : 'C'; 
         btnAC.title = isGrpComplex ? 'Group: Complex (Click to transform to Analog)' : 'Group: Analog (Click to transform to Complex)';
         btnAC.onclick = () => {
             const targetState = !isGrpComplex;
@@ -1538,28 +1431,39 @@
                 const ch = cfgData.analogs[cIdx];
                 if (cfgData.originalAnalogs[cIdx]) { cfgData.originalAnalogs[cIdx].isComplex = targetState; if (!targetState) cfgData.originalAnalogs[cIdx].complexData = null; }
                 if (ch) { ch.isComplex = targetState; if (!targetState) ch.complexData = null; globalIsComplexMap[ch.name] = targetState; }
-            });
-            processDataAndRender(true);
+            }); processDataAndRender(true);
         };
         
         const hideBtn = document.createElement('button'); hideBtn.className = 'icon-btn'; hideBtn.title = 'Hide Group';
         hideBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><line x1="3" y1="3" x2="21" y2="21"></line></svg>`;
         hideBtn.onclick = () => { toggleVisibility('row-G-', gIdx, false); };
         
-        const deleteBtn = document.createElement('button'); deleteBtn.className = 'icon-btn'; deleteBtn.title = 'Permanently Delete Group & Traces';
+        const deleteBtn = document.createElement('button'); deleteBtn.className = 'icon-btn'; deleteBtn.title = 'Permanently Wipe Group & Traces';
         deleteBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`;
         deleteBtn.onclick = () => {
-            group.indices.forEach(cIdx => {
-                if (cfgData.originalAnalogs[cIdx]) cfgData.originalAnalogs[cIdx].deleted = true;
-                if (cfgData.analogs[cIdx]) cfgData.analogs[cIdx].deleted = true;
-            });
-            // We NO LONGER splice from virtualSignals here to preserve absolute indices for downstream math/seq traces.
-            customGroups.splice(gIdx, 1); 
-            processDataAndRender(true);
+            let allDeps = [];
+            group.indices.forEach(idx => { const deps = getDependentSignals(idx); deps.forEach(d => { if (d !== "Group: " + group.name && !allDeps.includes(d)) allDeps.push(d); }); });
+            
+            const wiped = handleWipeAction(group.name, () => {
+                const chNames = group.indices.map(i => cfgData.analogs[i].name);
+                group.indices.forEach(cIdx => {
+                    if (cfgData.originalAnalogs[cIdx]) cfgData.originalAnalogs[cIdx].deleted = true;
+                    if (cfgData.analogs[cIdx]) cfgData.analogs[cIdx].deleted = true;
+                });
+                
+                virtualSignals = virtualSignals.filter(vs => {
+                    if (chNames.includes(vs.name)) return false;
+                    if (vs.type === 'seq' && vs.channelNames && chNames.some(n => vs.channelNames.includes(n))) return false;
+                    if (vs.type === 'createGroup' && vs.id === group.vsId) return false;
+                    return true;
+                });
+                customGroups.splice(gIdx, 1); processDataAndRender(true);
+            }, allDeps);
+
+            if (!wiped) { toggleVisibility('row-G-', gIdx, false); }
         };
         
-        actionBox.appendChild(ungroupBtn); actionBox.appendChild(btnAC); 
-        actionBox.appendChild(hideBtn); actionBox.appendChild(deleteBtn); tableSec.appendChild(actionBox);
+        actionBox.appendChild(ungroupBtn); actionBox.appendChild(btnAC); actionBox.appendChild(hideBtn); actionBox.appendChild(deleteBtn); tableSec.appendChild(actionBox);
         
         const tableWrapper = document.createElement('div'); tableWrapper.style.width = '100%'; tableWrapper.style.maxHeight = '100%'; tableWrapper.style.overflowY = 'auto'; tableWrapper.style.paddingRight = '5px';
         let tablesHTML = '';
@@ -1567,26 +1471,15 @@
             if(!cfgData.analogs[cIdx] || cfgData.analogs[cIdx].deleted) return; 
             const ch = cfgData.analogs[cIdx]; const cleanName = ch.name.replace(/\(\s*\)/g, '').replace(/CH\d+/i, '').trim();
             tablesHTML += `<table class="stats-table"><tr><th colspan="3" style="font-size: 0.9em;">${cleanName} [${channelMetadata[cIdx].unit}]</th></tr><tr><th>Parameter</th><th style="color: #ef4444;">C1</th><th style="color: #3b82f6;">C2</th></tr>`;
-            if (ch.isComplex) {
-                tablesHTML += `<tr><td>Mag</td><td id="c1-magC-${cIdx}" class="val-t1">--</td><td id="c2-magC-${cIdx}" class="val-t2">--</td></tr><tr><td>Angle</td><td id="c1-angC-${cIdx}" class="val-t1">--</td><td id="c2-angC-${cIdx}" class="val-t2">--</td></tr><tr><td>Real</td><td id="c1-realC-${cIdx}" class="val-t1">--</td><td id="c2-realC-${cIdx}" class="val-t2">--</td></tr><tr><td>Imag</td><td id="c1-imagC-${cIdx}" class="val-t1">--</td><td id="c2-imagC-${cIdx}" class="val-t2">--</td></tr></table>`;
-            } else {
-                tablesHTML += `<tr><td>Inst</td><td id="c1-inst-${cIdx}" class="val-t1">--</td><td id="c2-inst-${cIdx}" class="val-t2">--</td></tr><tr><td>RMS</td><td id="c1-rms-${cIdx}" class="val-t1">--</td><td id="c2-rms-${cIdx}" class="val-t2">--</td></tr><tr><td>Fund Mag</td><td id="c1-mag-${cIdx}" class="val-t1">--</td><td id="c2-mag-${cIdx}" class="val-t2">--</td></tr><tr><td>Phase Ang</td><td id="c1-pha-${cIdx}" class="val-t1">--</td><td id="c2-pha-${cIdx}" class="val-t2">--</td></tr></table>`;
-            }
+            if (ch.isComplex) { tablesHTML += `<tr><td>Mag</td><td id="c1-magC-${cIdx}" class="val-t1">--</td><td id="c2-magC-${cIdx}" class="val-t2">--</td></tr><tr><td>Angle</td><td id="c1-angC-${cIdx}" class="val-t1">--</td><td id="c2-angC-${cIdx}" class="val-t2">--</td></tr><tr><td>Real</td><td id="c1-realC-${cIdx}" class="val-t1">--</td><td id="c2-realC-${cIdx}" class="val-t2">--</td></tr><tr><td>Imag</td><td id="c1-imagC-${cIdx}" class="val-t1">--</td><td id="c2-imagC-${cIdx}" class="val-t2">--</td></tr></table>`; } 
+            else { tablesHTML += `<tr><td>Inst</td><td id="c1-inst-${cIdx}" class="val-t1">--</td><td id="c2-inst-${cIdx}" class="val-t2">--</td></tr><tr><td>RMS</td><td id="c1-rms-${cIdx}" class="val-t1">--</td><td id="c2-rms-${cIdx}" class="val-t2">--</td></tr><tr><td>Fund Mag</td><td id="c1-mag-${cIdx}" class="val-t1">--</td><td id="c2-mag-${cIdx}" class="val-t2">--</td></tr><tr><td>Phase Ang</td><td id="c1-pha-${cIdx}" class="val-t1">--</td><td id="c2-pha-${cIdx}" class="val-t2">--</td></tr></table>`; }
         });
         tableWrapper.innerHTML = tablesHTML; tableSec.appendChild(tableWrapper); row.appendChild(canvasSec); row.appendChild(tableSec); document.getElementById('workspaceContainer').appendChild(row);
 
         const ctx = canvas.getContext('2d'); const minX = savedZoom ? savedZoom.min : timeData[0], maxX = savedZoom ? savedZoom.max : timeData[timeData.length - 1]; const gridCol = getGridColor();
-
         const chart = new Chart(ctx, {
             type: 'line', data: { datasets: datasets },
-            options: {
-                responsive: true, maintainAspectRatio: false, animation: false, normalized: true, parsing: false, interaction: { mode: 'nearest', axis: 'x', intersect: false },
-                plugins: { legend: { display: false }, decimation: { enabled: true, algorithm: 'min-max' }, tooltip: { enabled: false }, zoom: { zoom: { wheel: { enabled: false }, drag: { enabled: true, backgroundColor: 'rgba(14,165,233,0.2)', modifierKey: isBoxZoomActive ? null : 'shift' }, mode: 'x', onZoomComplete: ({chart}) => syncAxes(chart) }, pan: { enabled: !isBoxZoomActive, mode: 'x', onPan: ({chart}) => syncAxes(chart) } } },
-                scales: { 
-                    x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})` }, grid: { color: gridCol } }, 
-                    y: { grid: { color: gridCol }, afterFit: (scale) => { scale.width = 75; } } 
-                }
-            }, plugins: [cursorRendererPlugin]
+            options: { responsive: true, maintainAspectRatio: false, animation: false, normalized: true, parsing: false, interaction: { mode: 'nearest', axis: 'x', intersect: false }, plugins: { legend: { display: false }, decimation: { enabled: true, algorithm: 'min-max' }, tooltip: { enabled: false }, zoom: { zoom: { wheel: { enabled: false }, drag: { enabled: true, backgroundColor: 'rgba(14,165,233,0.2)', modifierKey: isBoxZoomActive ? null : 'shift' }, mode: 'x', onZoomComplete: ({chart}) => syncAxes(chart) }, pan: { enabled: !isBoxZoomActive, mode: 'x', onPan: ({chart}) => syncAxes(chart) } } }, scales: { x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})` }, grid: { color: gridCol } }, y: { grid: { color: gridCol }, afterFit: (scale) => { scale.width = 75; } } } }, plugins: [cursorRendererPlugin]
         });
         
         const pickers = titleBox.querySelectorAll('.color-picker');
@@ -1603,39 +1496,67 @@
         const titleSpan = document.createElement('span'); titleSpan.style.color = 'var(--primary-color)'; titleSpan.textContent = 'Digital Events';
         
         const actionBox = document.createElement('div'); actionBox.className = 'action-box';
+        
+        let currentDigitalFilter = 'ALL'; 
+        const btnA = document.createElement('button'); btnA.className = 'icon-btn'; btnA.style.fontWeight = 'bold'; btnA.style.fontFamily = 'monospace'; btnA.textContent = 'A'; btnA.title = 'Show Active Signals Only (Has 1s)';
+        const btnI = document.createElement('button'); btnI.className = 'icon-btn'; btnI.style.fontWeight = 'bold'; btnI.style.fontFamily = 'monospace'; btnI.textContent = 'I'; btnI.title = 'Show Inactive Signals Only (Always 0)';
+        
         const hideBtn = document.createElement('button'); hideBtn.className = 'icon-btn'; hideBtn.title = 'Hide Digital Events';
         hideBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><line x1="3" y1="3" x2="21" y2="21"></line></svg>`;
         hideBtn.onclick = () => { toggleVisibility('row-D', 0, false, true); };
         
-        actionBox.appendChild(hideBtn); header.appendChild(titleSpan); header.appendChild(actionBox);
-        const canvasContainer = document.createElement('div'); canvasContainer.className = 'canvas-container'; canvasContainer.style.minHeight = Math.max(200, cfgData.numD * 35) + 'px';
+        actionBox.appendChild(btnA); actionBox.appendChild(btnI); actionBox.appendChild(hideBtn); 
+        header.appendChild(titleSpan); header.appendChild(actionBox);
+        
+        const canvasContainer = document.createElement('div'); canvasContainer.className = 'canvas-container'; 
         const canvas = document.createElement('canvas'); canvas.style.flexGrow = '1';
         canvasContainer.appendChild(canvas); canvasSec.appendChild(header); canvasSec.appendChild(canvasContainer); row.appendChild(canvasSec); document.getElementById('workspaceContainer').appendChild(row);
 
-        const datasets = [];
-        cfgData.digitals.forEach((dCh, ch) => {
-            const col = defaultColors[ch % defaultColors.length]; const cData = new Array(timeData.length); const yOffset = (cfgData.numD - 1 - ch) * 2;
-            for(let i=0; i<timeData.length; i++) cData[i] = { x: timeData[i], y: digitalData[ch][i] + yOffset };
-            datasets.push({ label: dCh.name, data: cData, borderColor: col, borderWidth: 1.5, stepped: true });
-        });
-
         const ctx = canvas.getContext('2d'); const minX = savedZoom ? savedZoom.min : timeData[0], maxX = savedZoom ? savedZoom.max : timeData[timeData.length - 1]; const gridCol = getGridColor();
-
+        
         const chart = new Chart(ctx, {
-            type: 'line', data: { datasets: datasets },
-            options: {
-                responsive: true, maintainAspectRatio: false, animation: false, normalized: true, parsing: false, interaction: { mode: 'nearest', axis: 'x', intersect: false },
-                plugins: { legend: { display: false }, decimation: { enabled: true, algorithm: 'min-max' }, tooltip: { enabled: false }, zoom: { zoom: { wheel: { enabled: false }, drag: { enabled: true, backgroundColor: 'rgba(14,165,233,0.2)', modifierKey: isBoxZoomActive ? null : 'shift' }, mode: 'x', onZoomComplete: ({chart}) => syncAxes(chart) }, pan: { enabled: !isBoxZoomActive, mode: 'x', onPan: ({chart}) => syncAxes(chart) } } },
-                scales: { 
-                    x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})` }, grid: { color: gridCol } }, 
-                    y: { 
-                        min: -0.5, max: (cfgData.numD - 1) * 2 + 1.5, grid: { display: false }, 
-                        afterFit: (scale) => { scale.width = 75; },
-                        ticks: { stepSize: 2, autoSkip: false, color: getTextColor(), callback: function(value) { const chIndex = cfgData.numD - 1 - Math.floor(value / 2); return (chIndex >= 0 && chIndex < cfgData.numD) ? cfgData.digitals[chIndex].name : ''; } } 
-                    } 
-                }
-            }, plugins: [cursorRendererPlugin]
+            type: 'line', data: { datasets: [] },
+            options: { responsive: true, maintainAspectRatio: false, animation: false, normalized: true, parsing: false, interaction: { mode: 'nearest', axis: 'x', intersect: false }, plugins: { legend: { display: false }, decimation: { enabled: true, algorithm: 'min-max' }, tooltip: { enabled: false }, zoom: { zoom: { wheel: { enabled: false }, drag: { enabled: true, backgroundColor: 'rgba(14,165,233,0.2)', modifierKey: isBoxZoomActive ? null : 'shift' }, mode: 'x', onZoomComplete: ({chart}) => syncAxes(chart) }, pan: { enabled: !isBoxZoomActive, mode: 'x', onPan: ({chart}) => syncAxes(chart) } } }, scales: { x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})` }, grid: { color: gridCol } }, y: { min: -0.5, max: 1.5, grid: { display: false }, afterFit: (scale) => { scale.width = 75; }, ticks: { stepSize: 2, autoSkip: false, color: getTextColor() } } } }, plugins: [cursorRendererPlugin]
         });
+
+        const updateFilterButtons = () => {
+            btnA.classList.toggle('active-filter', currentDigitalFilter === 'ACTIVE');
+            btnI.classList.toggle('active-filter', currentDigitalFilter === 'INACTIVE');
+        };
+
+        const renderDigitalChart = () => {
+            let visibleChannels = [];
+            cfgData.digitals.forEach((dCh, ch) => {
+                let isActive = false; const arr = digitalData[ch]; const len = arr.length;
+                for (let i = 0; i < len; i++) { if (arr[i] === 1) { isActive = true; break; } }
+                if (currentDigitalFilter === 'ALL') visibleChannels.push({ch, dCh});
+                else if (currentDigitalFilter === 'ACTIVE' && isActive) visibleChannels.push({ch, dCh});
+                else if (currentDigitalFilter === 'INACTIVE' && !isActive) visibleChannels.push({ch, dCh});
+            });
+            
+            const numVis = visibleChannels.length;
+            const datasets = [];
+            visibleChannels.forEach((item, idx) => {
+                const col = defaultColors[item.ch % defaultColors.length]; const cData = new Array(timeData.length); const yOffset = (numVis - 1 - idx) * 2;
+                const dArr = digitalData[item.ch];
+                for(let i=0; i<timeData.length; i++) cData[i] = { x: timeData[i], y: dArr[i] + yOffset };
+                datasets.push({ label: item.dCh.name, data: cData, borderColor: col, borderWidth: 1.5, stepped: true });
+            });
+            
+            chart.data.datasets = datasets;
+            chart.options.scales.y.max = numVis > 0 ? (numVis - 1) * 2 + 1.5 : 1.5;
+            chart.options.scales.y.ticks.callback = function(value) { 
+                const reversedIdx = numVis - 1 - Math.floor(value / 2); 
+                return (reversedIdx >= 0 && reversedIdx < numVis) ? visibleChannels[reversedIdx].dCh.name : ''; 
+            };
+            canvasContainer.style.minHeight = Math.max(100, numVis * 35) + 'px';
+            chart.update('none');
+        };
+
+        btnA.onclick = () => { currentDigitalFilter = currentDigitalFilter === 'ACTIVE' ? 'ALL' : 'ACTIVE'; updateFilterButtons(); renderDigitalChart(); };
+        btnI.onclick = () => { currentDigitalFilter = currentDigitalFilter === 'INACTIVE' ? 'ALL' : 'INACTIVE'; updateFilterButtons(); renderDigitalChart(); };
+
+        renderDigitalChart();
         attachCursorEvents(canvas, chart); charts.push(chart);
     }
 
@@ -1648,13 +1569,10 @@
     function calculateMetrics(idx, cIdx, rmsCycles, fftCycles) {
         if (idx < 0 || !signalData[cIdx]) return { inst: 0, rms: 0, mag: 0, phaRaw: 0 };
         const inst = signalData[cIdx][idx]; const samplesPerCycle = Math.round(cfgData.sampleRate / cfgData.nominalFreq);
-        
         const N_rms = samplesPerCycle * rmsCycles; const startRms = idx - N_rms + 1; let sumSq = 0;
         for (let n = 0; n < N_rms; n++) { const targetIdx = startRms + n; const val = (targetIdx >= 0 && targetIdx < timeData.length) ? signalData[cIdx][targetIdx] : 0; sumSq += val * val; }
         const rms = Math.sqrt(sumSq / N_rms);
-        
-        const N_fft = samplesPerCycle * fftCycles; const startFft = idx - N_fft + 1; let real = 0, imag = 0;
-        const extractScale = Math.SQRT2 / N_fft;
+        const N_fft = samplesPerCycle * fftCycles; const startFft = idx - N_fft + 1; let real = 0, imag = 0; const extractScale = Math.SQRT2 / N_fft;
         for (let n = 0; n < N_fft; n++) { const targetIdx = startFft + n; const val = (targetIdx >= 0 && targetIdx < timeData.length) ? signalData[cIdx][targetIdx] : 0; const angle = 2 * Math.PI * n / samplesPerCycle; real += val * extractScale * Math.cos(angle); imag -= val * extractScale * Math.sin(angle); }
         const magRms = Math.sqrt(real * real + imag * imag); const phaRaw = Math.atan2(imag, real) * (180 / Math.PI);
         return { inst, rms, mag: magRms, phaRaw };
@@ -1665,130 +1583,64 @@
         const t1Str = cursor1 !== null ? cursor1.toFixed(3) : '--', t2Str = cursor2 !== null ? cursor2.toFixed(3) : '--';
         document.getElementById('headerTime1').textContent = `T1: ${t1Str} ${timeUnit}`; document.getElementById('headerTime2').textContent = `T2: ${t2Str} ${timeUnit}`;
         document.getElementById('headerDeltaTime').innerHTML = (cursor1 !== null && cursor2 !== null) ? `&Delta;T: ${(Math.abs(cursor1 - cursor2)).toFixed(3)} ${timeUnit}` : `&Delta;T: --`;
-        
         const rmsCycles = parseInt(document.getElementById('rmsWindowSelect').value); const fftCycles = parseInt(document.getElementById('fftWindowSelect').value);
-        const refChIdx = parseInt(document.getElementById('refAngleSelect').value);
-        const samplesPerCycle = Math.round(cfgData.sampleRate / cfgData.nominalFreq);
-        const N = samplesPerCycle * fftCycles;
-
-        const idx1 = getIndexForTime(cursor1), idx2 = getIndexForTime(cursor2);
-        let refPhase1 = 0, refPhase2 = 0;
+        const refChIdx = parseInt(document.getElementById('refAngleSelect').value); const samplesPerCycle = Math.round(cfgData.sampleRate / cfgData.nominalFreq); const N = samplesPerCycle * fftCycles;
+        const idx1 = getIndexForTime(cursor1), idx2 = getIndexForTime(cursor2); let refPhase1 = 0, refPhase2 = 0;
         
-        // Ensure ALL channels are mathematically populated before computing angles
         for(let cIdx=0; cIdx<cfgData.numA; cIdx++) {
             const channel = cfgData.analogs[cIdx]; if(!channel || channel.deleted) continue;
             if(!channel.complexData) channel.complexData = getStationaryPhasors(signalData[cIdx], N, samplesPerCycle);
         }
 
-        if (refChIdx >= 0 && refChIdx < cfgData.numA) {
-            const refCh = cfgData.analogs[refChIdx];
-            if (idx1 >= 0) { refPhase1 = Math.atan2(refCh.complexData.i[idx1], refCh.complexData.r[idx1]) * 180 / Math.PI; refPhase2 = refPhase1; }
-        }
+        if (refChIdx >= 0 && refChIdx < cfgData.numA) { const refCh = cfgData.analogs[refChIdx]; if (idx1 >= 0) { refPhase1 = Math.atan2(refCh.complexData.i[idx1], refCh.complexData.r[idx1]) * 180 / Math.PI; refPhase2 = refPhase1; } }
         
-        // Helper to shift unit prefix down by 1000x
         const getShiftedUnit = (unit) => {
-            if (unit.startsWith('M')) return 'k' + unit.substring(1);
-            if (unit.startsWith('k')) return unit.substring(1);
-            if (unit === 'V' || unit === 'A' || unit === 'VA') return 'm' + unit;
-            if (unit.startsWith('m')) return 'µ' + unit.substring(1);
-            return unit;
+            if (unit.startsWith('M')) return 'k' + unit.substring(1); if (unit.startsWith('k')) return unit.substring(1);
+            if (unit === 'V' || unit === 'A' || unit === 'VA') return 'm' + unit; if (unit.startsWith('m')) return 'µ' + unit.substring(1); return unit;
         };
 
         for (let cIdx = 0; cIdx < cfgData.numA; cIdx++) {
             if (!cfgData.analogs[cIdx] || cfgData.analogs[cIdx].deleted) continue;
-            const channel = cfgData.analogs[cIdx];
-            const scale = channelScales[cIdx] || 1;
-            const baseUnit = channelMetadata[cIdx].unit;
-            
+            const channel = cfgData.analogs[cIdx]; const scale = channelScales[cIdx] || 1; const baseUnit = channelMetadata[cIdx].unit;
             if (channel.isComplex) {
                 if (cursor1 !== null && cursor2 !== null && idx1 >= 0 && idx2 >= 0 && channel.complexData) {
-                    let r1 = channel.complexData.r[idx1] / scale, i1 = channel.complexData.i[idx1] / scale;
-                    let r2 = channel.complexData.r[idx2] / scale, i2 = channel.complexData.i[idx2] / scale;
-                    let mag1 = Math.sqrt(r1*r1 + i1*i1), mag2 = Math.sqrt(r2*r2 + i2*i2);
-                    
-                    let suffix = "";
-                    if (mag1 > 0 && mag1 < 1 && mag2 > 0 && mag2 < 1) {
-                        r1 *= 1000; i1 *= 1000; mag1 *= 1000;
-                        r2 *= 1000; i2 *= 1000; mag2 *= 1000;
-                        suffix = " " + getShiftedUnit(baseUnit);
-                    }
-
-                    let ang1 = (Math.atan2(channel.complexData.i[idx1] / scale, channel.complexData.r[idx1] / scale) * 180 / Math.PI);
-                    let ang2 = (Math.atan2(channel.complexData.i[idx2] / scale, channel.complexData.r[idx2] / scale) * 180 / Math.PI);
+                    let r1 = channel.complexData.r[idx1] / scale, i1 = channel.complexData.i[idx1] / scale; let r2 = channel.complexData.r[idx2] / scale, i2 = channel.complexData.i[idx2] / scale;
+                    let mag1 = Math.sqrt(r1*r1 + i1*i1), mag2 = Math.sqrt(r2*r2 + i2*i2); let suffix = "";
+                    if (mag1 > 0 && mag1 < 1 && mag2 > 0 && mag2 < 1) { r1 *= 1000; i1 *= 1000; mag1 *= 1000; r2 *= 1000; i2 *= 1000; mag2 *= 1000; suffix = " " + getShiftedUnit(baseUnit); }
+                    let ang1 = (Math.atan2(channel.complexData.i[idx1] / scale, channel.complexData.r[idx1] / scale) * 180 / Math.PI); let ang2 = (Math.atan2(channel.complexData.i[idx2] / scale, channel.complexData.r[idx2] / scale) * 180 / Math.PI);
                     if (!channel.isRatio) { ang1 -= refPhase1; ang2 -= refPhase2; }
-                    while (ang1 > 180) ang1 -= 360; while (ang1 <= -180) ang1 += 360;
-                    while (ang2 > 180) ang2 -= 360; while (ang2 <= -180) ang2 += 360;
-
-                    document.getElementById(`c1-magC-${cIdx}`).textContent = mag1.toFixed(3) + suffix; document.getElementById(`c2-magC-${cIdx}`).textContent = mag2.toFixed(3) + suffix;
-                    document.getElementById(`c1-angC-${cIdx}`).textContent = ang1.toFixed(2) + '°'; document.getElementById(`c2-angC-${cIdx}`).textContent = ang2.toFixed(2) + '°';
-                    document.getElementById(`c1-realC-${cIdx}`).textContent = r1.toFixed(3) + suffix; document.getElementById(`c2-realC-${cIdx}`).textContent = r2.toFixed(3) + suffix;
-                    document.getElementById(`c1-imagC-${cIdx}`).textContent = i1.toFixed(3) + suffix; document.getElementById(`c2-imagC-${cIdx}`).textContent = i2.toFixed(3) + suffix;
+                    while (ang1 > 180) ang1 -= 360; while (ang1 <= -180) ang1 += 360; while (ang2 > 180) ang2 -= 360; while (ang2 <= -180) ang2 += 360;
+                    document.getElementById(`c1-magC-${cIdx}`).textContent = mag1.toFixed(3) + suffix; document.getElementById(`c2-magC-${cIdx}`).textContent = mag2.toFixed(3) + suffix; document.getElementById(`c1-angC-${cIdx}`).textContent = ang1.toFixed(2) + '°'; document.getElementById(`c2-angC-${cIdx}`).textContent = ang2.toFixed(2) + '°'; document.getElementById(`c1-realC-${cIdx}`).textContent = r1.toFixed(3) + suffix; document.getElementById(`c2-realC-${cIdx}`).textContent = r2.toFixed(3) + suffix; document.getElementById(`c1-imagC-${cIdx}`).textContent = i1.toFixed(3) + suffix; document.getElementById(`c2-imagC-${cIdx}`).textContent = i2.toFixed(3) + suffix;
                 }
             } else {
                 if (cursor1 !== null && cursor2 !== null && document.getElementById(`c1-inst-${cIdx}`) && document.getElementById(`c2-inst-${cIdx}`)) {
-                    let m1 = calculateMetrics(idx1, cIdx, rmsCycles, fftCycles);
-                    let m2 = calculateMetrics(idx2, cIdx, rmsCycles, fftCycles);
-                    
-                    let inst1 = m1.inst / scale, rms1 = m1.rms / scale, fMag1 = m1.mag / scale;
-                    let inst2 = m2.inst / scale, rms2 = m2.rms / scale, fMag2 = m2.mag / scale;
-                    
-                    let suffix = "";
-                    // Use RMS as the gauge for whether to dynamically scale down
-                    if (rms1 > 0 && rms1 < 1 && rms2 > 0 && rms2 < 1) {
-                        inst1 *= 1000; rms1 *= 1000; fMag1 *= 1000;
-                        inst2 *= 1000; rms2 *= 1000; fMag2 *= 1000;
-                        suffix = " " + getShiftedUnit(baseUnit);
-                    }
-
-                    let p1 = (Math.atan2(channel.complexData.i[idx1], channel.complexData.r[idx1]) * 180 / Math.PI);
-                    let p2 = (Math.atan2(channel.complexData.i[idx2], channel.complexData.r[idx2]) * 180 / Math.PI);
+                    let m1 = calculateMetrics(idx1, cIdx, rmsCycles, fftCycles); let m2 = calculateMetrics(idx2, cIdx, rmsCycles, fftCycles);
+                    let inst1 = m1.inst / scale, rms1 = m1.rms / scale, fMag1 = m1.mag / scale; let inst2 = m2.inst / scale, rms2 = m2.rms / scale, fMag2 = m2.mag / scale;
+                    let suffix = ""; if (rms1 > 0 && rms1 < 1 && rms2 > 0 && rms2 < 1) { inst1 *= 1000; rms1 *= 1000; fMag1 *= 1000; inst2 *= 1000; rms2 *= 1000; fMag2 *= 1000; suffix = " " + getShiftedUnit(baseUnit); }
+                    let p1 = (Math.atan2(channel.complexData.i[idx1], channel.complexData.r[idx1]) * 180 / Math.PI); let p2 = (Math.atan2(channel.complexData.i[idx2], channel.complexData.r[idx2]) * 180 / Math.PI);
                     if (!channel.isRatio) { p1 -= refPhase1; p2 -= refPhase2; }
-                    while (p1 > 180) p1 -= 360; while (p1 <= -180) p1 += 360;
-                    while (p2 > 180) p2 -= 360; while (p2 <= -180) p2 += 360;
-
-                    document.getElementById(`c1-inst-${cIdx}`).textContent = inst1.toFixed(3) + suffix; document.getElementById(`c2-inst-${cIdx}`).textContent = inst2.toFixed(3) + suffix;
-                    document.getElementById(`c1-rms-${cIdx}`).textContent = rms1.toFixed(3) + suffix; document.getElementById(`c2-rms-${cIdx}`).textContent = rms2.toFixed(3) + suffix;
-                    document.getElementById(`c1-mag-${cIdx}`).textContent = fMag1.toFixed(3) + suffix; document.getElementById(`c2-mag-${cIdx}`).textContent = fMag2.toFixed(3) + suffix;
-                    document.getElementById(`c1-pha-${cIdx}`).textContent = p1.toFixed(2) + '°'; document.getElementById(`c2-pha-${cIdx}`).textContent = p2.toFixed(2) + '°';
+                    while (p1 > 180) p1 -= 360; while (p1 <= -180) p1 += 360; while (p2 > 180) p2 -= 360; while (p2 <= -180) p2 += 360;
+                    document.getElementById(`c1-inst-${cIdx}`).textContent = inst1.toFixed(3) + suffix; document.getElementById(`c2-inst-${cIdx}`).textContent = inst2.toFixed(3) + suffix; document.getElementById(`c1-rms-${cIdx}`).textContent = rms1.toFixed(3) + suffix; document.getElementById(`c2-rms-${cIdx}`).textContent = rms2.toFixed(3) + suffix; document.getElementById(`c1-mag-${cIdx}`).textContent = fMag1.toFixed(3) + suffix; document.getElementById(`c2-mag-${cIdx}`).textContent = fMag2.toFixed(3) + suffix; document.getElementById(`c1-pha-${cIdx}`).textContent = p1.toFixed(2) + '°'; document.getElementById(`c2-pha-${cIdx}`).textContent = p2.toFixed(2) + '°';
                 }
             }
         }
     }
 
     function exportComtrade() {
-        const version = document.getElementById('expVersion').value;
-        const format = document.getElementById('expFormat').value; 
-        const incDigitals = document.getElementById('expDigitals').checked; 
-        const viewMode = document.querySelector('input[name="scalingMode"]:checked').value;
-        const is1991Export = version === '1991';
-        
+        const version = document.getElementById('expVersion').value; const format = document.getElementById('expFormat').value; const incDigitals = document.getElementById('expDigitals').checked; const viewMode = document.querySelector('input[name="scalingMode"]:checked').value; const is1991Export = version === '1991';
         let exportIndices = []; for (let i = 0; i < cfgData.numA; i++) { const cb = document.getElementById(`expA_${i}`); if (cb && cb.checked) exportIndices.push(i); }
         if (exportIndices.length === 0 && (!incDigitals || cfgData.numD === 0)) { alert("No signals selected for export."); return; }
-
         const exportAnalogs = exportIndices.map((origIdx, newIdx) => {
             const ch = cfgData.analogs[origIdx]; const maxVal = Math.max(...signalData[origIdx].map(Math.abs)); let a = maxVal / 32767.0; if (a === 0) a = 1.0;
             return { origIdx, newIdx: newIdx + 1, name: ch.name, unit: ch.units, a: a, b: 0, primary: ch.primary, secondary: ch.secondary, ps: viewMode };
         });
-
         const numA = exportAnalogs.length; const numD = incDigitals ? cfgData.numD : 0;
-        
-        let cfgStr = `COMTRADE Export,Analyzer`;
-        if (version === '1999') cfgStr += `,1999`;
-        else if (version === '2013' || version === 'CFF') cfgStr += `,2013`;
-        cfgStr += `\r\n`;
-        
+        let cfgStr = `COMTRADE Export,Analyzer`; if (version === '1999') cfgStr += `,1999`; else if (version === '2013' || version === 'CFF') cfgStr += `,2013`; cfgStr += `\r\n`;
         cfgStr += `${numA + numD},${numA}A,${numD}D\r\n`;
-        exportAnalogs.forEach(ch => {
-            if (is1991Export) {
-                cfgStr += `${ch.newIdx},${ch.name},,,${ch.unit},${ch.a.toExponential(5)},${ch.b},0,-32767,32767\r\n`;
-            } else {
-                cfgStr += `${ch.newIdx},${ch.name},,,${ch.unit},${ch.a.toExponential(5)},${ch.b},0,-32767,32767,${ch.primary},${ch.secondary},${ch.ps}\r\n`;
-            }
-        });
+        exportAnalogs.forEach(ch => { if (is1991Export) { cfgStr += `${ch.newIdx},${ch.name},,,${ch.unit},${ch.a.toExponential(5)},${ch.b},0,-32767,32767\r\n`; } else { cfgStr += `${ch.newIdx},${ch.name},,,${ch.unit},${ch.a.toExponential(5)},${ch.b},0,-32767,32767,${ch.primary},${ch.secondary},${ch.ps}\r\n`; } });
         if (incDigitals) { cfgData.digitals.forEach((d, i) => { cfgStr += `${i+1},${d.name},,,0\r\n`; }); }
         cfgStr += `${cfgData.nominalFreq}\r\n1\r\n${cfgData.sampleRate},${timeData.length}\r\n`;
-        const pad = (n, w) => String(n).padStart(w, '0'); const st = new Date(cfgData.startTimeSec * 1000);
-        const timeStr = `${pad(st.getUTCDate(),2)}/${pad(st.getUTCMonth()+1,2)}/${st.getUTCFullYear()},${pad(st.getUTCHours(),2)}:${pad(st.getUTCMinutes(),2)}:${pad(st.getUTCSeconds(),2)}.000000`;
+        const pad = (n, w) => String(n).padStart(w, '0'); const st = new Date(cfgData.startTimeSec * 1000); const timeStr = `${pad(st.getUTCDate(),2)}/${pad(st.getUTCMonth()+1,2)}/${st.getUTCFullYear()},${pad(st.getUTCHours(),2)}:${pad(st.getUTCMinutes(),2)}:${pad(st.getUTCSeconds(),2)}.000000`;
         cfgStr += `${timeStr}\r\n${timeStr}\r\n${format}\r\n1\r\n`;
 
         let datBlob;
@@ -1797,8 +1649,7 @@
             for (let i = 0; i < timeData.length; i++) {
                 const t_us = Math.round((i * 1000000) / cfgData.sampleRate); let row = `${i+1},${t_us}`;
                 exportAnalogs.forEach(ch => { row += `,${Math.round(signalData[ch.origIdx][i] / ch.a)}`; });
-                if (incDigitals) { for (let d = 0; d < numD; d++) row += `,${digitalData[d][i]}`; }
-                datLines.push(row);
+                if (incDigitals) { for (let d = 0; d < numD; d++) row += `,${digitalData[d][i]}`; } datLines.push(row);
             }
             datBlob = new Blob([datLines.join('\r\n') + '\r\n'], { type: "text/plain" });
         } else {
@@ -1810,30 +1661,19 @@
                 exportAnalogs.forEach((ch, cIdx) => { const intVal = Math.round(signalData[ch.origIdx][i] / ch.a); view.setInt16(offset + 8 + (cIdx * 2), intVal, true); });
                 if (incDigitals) {
                     const digOffset = offset + 8 + (numA * 2);
-                    for (let w = 0; w < numWords; w++) {
-                        let word = 0; for (let b = 0; b < 16; b++) { const dIdx = w * 16 + b; if (dIdx < numD && digitalData[dIdx][i] === 1) word |= (1 << b); }
-                        view.setUint16(digOffset + (w * 2), word, true);
-                    }
+                    for (let w = 0; w < numWords; w++) { let word = 0; for (let b = 0; b < 16; b++) { const dIdx = w * 16 + b; if (dIdx < numD && digitalData[dIdx][i] === 1) word |= (1 << b); } view.setUint16(digOffset + (w * 2), word, true); }
                 }
             }
             datBlob = new Blob([buffer], { type: "application/octet-stream" });
         }
 
         if (version === 'CFF') {
-            const cffParts = [];
-            cffParts.push("--- file type: CFG ---\r\n");
-            cffParts.push(cfgStr);
-            cffParts.push("--- file type: INF ---\r\n");
-            cffParts.push("--- file type: HDR ---\r\n");
-            if (format === 'ASCII') { cffParts.push("--- file type: DAT ASCII ---\r\n"); } 
-            else { cffParts.push(`--- file type: DAT BINARY:${datBlob.size} ---\r\n`); }
-            cffParts.push(datBlob);
-            
-            const cffBlob = new Blob(cffParts, { type: "application/octet-stream" });
+            const cffParts = []; cffParts.push("--- file type: CFG ---\r\n"); cffParts.push(cfgStr); cffParts.push("--- file type: INF ---\r\n"); cffParts.push("--- file type: HDR ---\r\n");
+            if (format === 'ASCII') { cffParts.push("--- file type: DAT ASCII ---\r\n"); } else { cffParts.push(`--- file type: DAT BINARY:${datBlob.size} ---\r\n`); }
+            cffParts.push(datBlob); const cffBlob = new Blob(cffParts, { type: "application/octet-stream" });
             const link = document.createElement("a"); link.href = URL.createObjectURL(cffBlob); link.download = "export.cff"; document.body.appendChild(link); link.click(); document.body.removeChild(link);
         } else {
-            const cfgBlob = new Blob([cfgStr], { type: "text/plain" });
-            const link = document.createElement("a"); link.href = URL.createObjectURL(cfgBlob); link.download = "export.cfg"; document.body.appendChild(link); link.click();
+            const cfgBlob = new Blob([cfgStr], { type: "text/plain" }); const link = document.createElement("a"); link.href = URL.createObjectURL(cfgBlob); link.download = "export.cfg"; document.body.appendChild(link); link.click();
             setTimeout(() => { link.href = URL.createObjectURL(datBlob); link.download = "export.dat"; link.click(); document.body.removeChild(link); }, 500);
         }
     }
