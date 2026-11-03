@@ -29,31 +29,37 @@
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 0; transition: background-color 0.3s, color 0.3s; min-height: 100vh; display: flex; flex-direction: column; }
         
         .control-panel {
-            background-color: var(--surface-color); padding: 0 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            background-color: var(--surface-color); padding: 0 10px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; 
-            position: sticky; top: 0; z-index: 100; height: 70px; box-sizing: border-box; flex-shrink: 0;
-            transition: background-color 0.3s, border-color 0.3s;
+            position: sticky; top: 0; z-index: 100; height: 75px; box-sizing: border-box; flex-shrink: 0;
+            transition: background-color 0.3s, border-color 0.3s; overflow-x: auto;
         }
         
-        .header-left { display: flex; gap: 12px; align-items: center; flex: 1; min-width: max-content; }
-        .header-center { display: flex; gap: 8px; align-items: center; justify-content: center; flex: 1; min-width: max-content; }
-        .header-right { display: flex; gap: 15px; align-items: center; justify-content: flex-end; flex: 1; min-width: max-content; }
+        .header-left { display: flex; gap: 8px; align-items: center; flex: 1; min-width: max-content; }
+        .header-center { display: flex; gap: 6px; align-items: center; justify-content: center; flex: 1; min-width: max-content; padding: 0 10px; }
+        .header-right { display: flex; gap: 10px; align-items: center; justify-content: flex-end; flex: 1; min-width: max-content; }
 
         .control-group { display: flex; flex-direction: column; gap: 4px; justify-content: center; }
-        .control-group label { font-size: 0.7em; color: var(--text-muted); text-transform: uppercase; font-weight: 600; line-height: 1; }
+        .control-group label { font-size: 0.65em; color: var(--text-muted); text-transform: uppercase; font-weight: 600; line-height: 1; white-space: nowrap; }
         
         .toggle-container { display: flex; background: var(--input-bg); border-radius: 4px; border: 1px solid var(--border-color); overflow: hidden; }
         .toggle-container input { display: none; }
-        .toggle-container label { padding: 6px 12px; font-size: 0.85em; font-weight: bold; color: var(--text-muted); cursor: pointer; transition: 0.2s; line-height: 1; margin: 0; white-space: nowrap;}
+        .toggle-container label { padding: 6px 10px; font-size: 0.85em; font-weight: bold; color: var(--text-muted); cursor: pointer; transition: 0.2s; line-height: 1; margin: 0; white-space: nowrap;}
         .toggle-container input:checked + label { background: var(--primary-color); color: #fff; }
         .toggle-container.disabled { opacity: 0.5; pointer-events: none; }
         
         select, input[type="text"], input[type="number"] { 
             background-color: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color); 
-            padding: 6px 8px; border-radius: 4px; font-size: 0.85em; outline: none; 
-            min-width: 110px; max-width: 140px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+            padding: 5px 6px; border-radius: 4px; font-size: 0.8em; outline: none; 
+            min-width: 90px; max-width: 120px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
         }
         select:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Adaptive width overrides for specific dropdowns */
+        #calcMethodSelect, #afcSourceSelect, #refAngleSelect {
+            max-width: max-content;
+            width: auto;
+        }
         
         button { font-family: inherit; font-weight: 600; border: none; border-radius: 6px; padding: 6px 12px; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); outline: none; }
         button:hover { transform: translateY(-1px); filter: brightness(1.1); box-shadow: 0 4px 6px rgba(0,0,0,0.15); }
@@ -69,15 +75,15 @@
         .btn-config { background-color: #8b5cf6; color: #fff; }
         .btn-small { padding: 4px 8px; font-size: 0.75em; border-radius: 4px; }
         
-        .tool-btn { width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 6px; }
-        .tool-btn svg { width: 20px; height: 20px; }
-        .theme-btn { background: transparent !important; color: var(--text-main) !important; border: 1px solid var(--border-color) !important; padding: 5px !important; display: flex; align-items: center; justify-content: center; border-radius: 50% !important; width: 36px; height: 36px; margin-left: 10px; box-shadow: none; flex-shrink: 0; }
+        .tool-btn { width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 6px; }
+        .tool-btn svg { width: 18px; height: 18px; }
+        .theme-btn { background: transparent !important; color: var(--text-main) !important; border: 1px solid var(--border-color) !important; padding: 5px !important; display: flex; align-items: center; justify-content: center; border-radius: 50% !important; width: 32px; height: 32px; margin-left: 5px; box-shadow: none; flex-shrink: 0; }
         .theme-btn:hover { background-color: var(--input-bg) !important; }
         
-        .header-stats { display: flex; gap: 15px; align-items: center; font-family: monospace; font-size: 1.1em; }
+        .header-stats { display: flex; gap: 10px; align-items: center; font-family: monospace; font-size: 1em; }
         .t1-display { color: #ef4444; font-weight: bold; }
         .t2-display { color: #3b82f6; font-weight: bold; }
-        .delta-display { color: #eab308; font-weight: bold; font-size: 1.2em; padding: 4px 12px; background: var(--table-bg); border-radius: 4px; border: 1px solid var(--border-color); }
+        .delta-display { color: #eab308; font-weight: bold; padding: 4px 8px; background: var(--table-bg); border-radius: 4px; border: 1px solid var(--border-color); }
 
         .main-container { position: relative; flex-grow: 1; display: flex; flex-direction: column; }
         .drop-overlay { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); border: 3px dashed var(--border-color); border-radius: 12px; padding: 50px 80px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; transition: all 0.2s; z-index: 10; background-color: var(--bg-color); }
@@ -137,7 +143,7 @@
 <div class="control-panel">
     <div class="header-left">
         <div class="control-group">
-            <label>Scaling</label>
+            <label>Scale</label>
             <div class="toggle-container" id="viewModeToggle">
                 <input type="radio" id="smP" name="scalingMode" value="P" checked onchange="processDataAndRender(true)">
                 <label for="smP" title="Primary Values">P</label>
@@ -145,9 +151,11 @@
                 <label for="smS" title="Secondary Values">S</label>
             </div>
         </div>
-        <div class="control-group"><label>RMS Window</label><select id="rmsWindowSelect"><option value="1" selected>1 Cycle</option><option value="2">2 Cycles</option><option value="5">5 Cycles</option></select></div>
-        <div class="control-group"><label>FFT Window</label><select id="fftWindowSelect"><option value="1" selected>1 Cycle</option><option value="2">2 Cycles</option><option value="5">5 Cycles</option></select></div>
-        <div class="control-group"><label>Ref. Angle (0°)</label><select id="refAngleSelect"><option value="-1">Absolute (0°)</option></select></div>
+        <div class="control-group"><label>Methodology</label><select id="calcMethodSelect" onchange="processDataAndRender(true)"><option value="causal" selected>Relay (Causal)</option><option value="centered">Centered</option></select></div>
+        <div class="control-group"><label>AFC Source</label><select id="afcSourceSelect" onchange="processDataAndRender(true)"><option value="-1">Fixed (Nominal)</option></select></div>
+        <div class="control-group"><label>RMS Win</label><select id="rmsWindowSelect" onchange="updateCursors()"><option value="1" selected>1 Cyc</option><option value="2">2 Cyc</option><option value="5">5 Cyc</option></select></div>
+        <div class="control-group"><label>FFT Win</label><select id="fftWindowSelect" onchange="processDataAndRender(true)"><option value="1" selected>1 Cyc</option><option value="2">2 Cyc</option><option value="5">5 Cyc</option></select></div>
+        <div class="control-group"><label>Ref Angle</label><select id="refAngleSelect" onchange="updateCursors()"><option value="-1">Abs (0°)</option></select></div>
     </div>
     
     <div class="header-center">
@@ -329,7 +337,7 @@
         <div class="modal-body">
             <div class="modal-field">
                 <label>Select Base 3-Phase Group:</label><select id="seqGroupSelect"></select>
-                <small style="color: var(--text-muted); margin-top: 5px;">Generates sequence components based on the currently selected FFT Cycle Window dropdown.</small>
+                <small style="color: var(--text-muted); margin-top: 5px;">Generates sequence components using the active Calculation Methodology (Causal or Centered) and Frequency Tracking settings.</small>
             </div>
             <div style="display: flex; gap: 10px; margin-top: 20px;"><button id="saveSeqBtn" class="btn-seq" style="flex: 1;">Generate Sequence</button></div>
         </div>
@@ -382,11 +390,17 @@
     let charts = [];
     let channelScales = [];
     
+    // AFC & Sync Globals
+    let globalFTrackArr = null;
+    let globalThetaRef = null;
+    let globalIsCentered = false;
+
     let cursor1 = null, cursor2 = null; 
     let activeDragCursor = null, lastActiveCursor = 1; 
     let isSyncing = false; let syncPending = false; let cursorUpdatePending = false;
     let digitalVisible = true;
     let isBoxZoomActive = false;
+    let savedZoom = null;
     
     const defaultColors = ['#a855f7', '#06b6d4', '#ef4444', '#3b82f6', '#f59e0b', '#10b981', '#ec4899', '#eab308'];
     const phaseColors = ['#ef4444', '#eab308', '#3b82f6'];
@@ -448,10 +462,6 @@
     document.body.addEventListener('drop', (e) => { e.preventDefault(); document.body.classList.remove('drag-active'); handleFiles(e.dataTransfer.files); });
     document.getElementById('fileInput').addEventListener('change', (e) => handleFiles(e.target.files));
     
-    document.getElementById('rmsWindowSelect').addEventListener('change', updateCursors);
-    document.getElementById('fftWindowSelect').addEventListener('change', () => { updateCursors(); if (virtualSignals.some(vs => vs.type === 'seq') || cfgData.analogs.some(a => a.isComplex)) processDataAndRender(true); });
-    document.getElementById('refAngleSelect').addEventListener('change', updateCursors);
-    
     document.getElementById('boxZoomBtn').addEventListener('click', () => { toggleBoxZoom(!isBoxZoomActive); });
 
     function toggleBoxZoom(state) {
@@ -490,7 +500,7 @@
         selectIds.forEach(id => {
             const sel = document.getElementById(id); sel.innerHTML = '';
             cfgData.analogs.forEach((ch, i) => {
-                if(ch.deleted) return;
+                if(ch.deleted || ch.name === 'AFC Frequency') return;
                 const opt = document.createElement('option'); opt.value = i; opt.textContent = `CH${ch.index}: ${ch.name}`; sel.appendChild(opt); 
             });
         });
@@ -505,35 +515,25 @@
 
     document.getElementById('openGroupModalBtn').addEventListener('click', () => {
         if (!cfgData) { alert("Please load a COMTRADE file first."); return; }
-        
-        let groupedChannels = new Set();
-        customGroups.forEach(g => { g.indices.forEach(idx => groupedChannels.add(idx)); });
-        
+        let groupedChannels = new Set(); customGroups.forEach(g => { g.indices.forEach(idx => groupedChannels.add(idx)); });
         ['gSig1', 'gSig2', 'gSig3'].forEach(id => {
             const sel = document.getElementById(id); sel.innerHTML = '';
             cfgData.analogs.forEach((ch, i) => {
-                if(ch.deleted || groupedChannels.has(i)) return;
+                if(ch.deleted || groupedChannels.has(i) || ch.name === 'AFC Frequency') return;
                 const opt = document.createElement('option'); opt.value = i; opt.textContent = `CH${ch.index}: ${ch.name}`; sel.appendChild(opt); 
             });
         });
-        
-        const gSig1 = document.getElementById('gSig1');
-        if (gSig1.options.length > 0) gSig1.dispatchEvent(new Event('change'));
-        
+        const gSig1 = document.getElementById('gSig1'); if (gSig1.options.length > 0) gSig1.dispatchEvent(new Event('change'));
         document.getElementById('groupModal').style.display = 'flex';
     });
 
     document.getElementById('gSig1').addEventListener('change', (e) => {
-        const selectedIdx = e.target.value;
-        if (!selectedIdx || !cfgData) return;
-        const refCh = cfgData.analogs[selectedIdx];
-        const refUnit = getUnitClass(refCh.units);
-        
+        const selectedIdx = e.target.value; if (!selectedIdx || !cfgData) return;
+        const refCh = cfgData.analogs[selectedIdx]; const refUnit = getUnitClass(refCh.units);
         ['gSig2', 'gSig3'].forEach(id => {
             const sel = document.getElementById(id);
             Array.from(sel.options).forEach(opt => {
-                const optCh = cfgData.analogs[opt.value];
-                const optUnit = getUnitClass(optCh.units);
+                const optCh = cfgData.analogs[opt.value]; const optUnit = getUnitClass(optCh.units);
                 if (optUnit === refUnit) { opt.style.display = ''; opt.disabled = false; } else { opt.style.display = 'none'; opt.disabled = true; }
             });
             if (sel.options[sel.selectedIndex] && sel.options[sel.selectedIndex].disabled) {
@@ -546,7 +546,6 @@
     document.getElementById('saveGroupBtn').addEventListener('click', () => {
         const s1 = parseInt(document.getElementById('gSig1').value), s2 = parseInt(document.getElementById('gSig2').value), s3 = parseInt(document.getElementById('gSig3').value);
         if (isNaN(s1) || isNaN(s2) || isNaN(s3)) { alert("Cannot create group: Incompatible or missing signals."); return; }
-        
         const gName = document.getElementById('gNameInput').value || 'Custom Group';
         if (isNameTaken(gName)) { alert("Name already in use. Please choose a unique name."); return; }
         
@@ -554,7 +553,6 @@
             if (cfgData.originalAnalogs[cIdx]) { cfgData.originalAnalogs[cIdx].isComplex = false; cfgData.originalAnalogs[cIdx].complexData = null; }
             if (cfgData.analogs[cIdx]) { cfgData.analogs[cIdx].isComplex = false; cfgData.analogs[cIdx].complexData = null; globalIsComplexMap[cfgData.analogs[cIdx].name] = false; }
         });
-        
         const names = [cfgData.analogs[s1].name, cfgData.analogs[s2].name, cfgData.analogs[s3].name];
         customGroups.push({ name: gName, indices: [s1, s2, s3], channelNames: names, hidden: false });
         document.getElementById('groupModal').style.display = 'none'; processDataAndRender(true);
@@ -569,8 +567,7 @@
     });
 
     document.getElementById('tSig1').addEventListener('change', (e) => {
-        const ch = cfgData.analogs[e.target.value];
-        if (!ch) return;
+        const ch = cfgData.analogs[e.target.value]; if (!ch) return;
         const isC = ch.isComplex;
         document.getElementById('tTypeC').disabled = isC; document.getElementById('tTypeA').disabled = !isC;
         document.getElementById('tTypeC').checked = !isC; document.getElementById('tTypeA').checked = isC;
@@ -578,11 +575,8 @@
     });
     
     document.getElementById('saveTransformBtn').addEventListener('click', () => {
-        const s1Idx = parseInt(document.getElementById('tSig1').value);
-        const type = document.querySelector('input[name="tType"]:checked').value;
-        const parentCh = cfgData.analogs[s1Idx];
-        const newName = document.getElementById('tNameInput').value || 'Transformed Signal';
-        
+        const s1Idx = parseInt(document.getElementById('tSig1').value); const type = document.querySelector('input[name="tType"]:checked').value;
+        const parentCh = cfgData.analogs[s1Idx]; const newName = document.getElementById('tNameInput').value || 'Transformed Signal';
         if (isNameTaken(newName)) { alert("Name already in use. Please choose a unique name."); return; }
         globalIsComplexMap[newName] = (type === 'C');
         virtualSignals.push({ type: 'transform', name: newName, unit: parentCh.units, source: s1Idx, targetType: type, primary: parentCh.primary, secondary: parentCh.secondary, ps: parentCh.ps, isRatio: parentCh.isRatio || false });
@@ -592,13 +586,8 @@
     document.getElementById('openScaleModalBtn').addEventListener('click', () => {
         if (!cfgData) { alert("Please load a COMTRADE file first."); return; }
         const sel = document.getElementById('scaleTargetSelect'); sel.innerHTML = '';
-        customGroups.forEach((g, i) => { 
-            if (!g.indices.every(idx => cfgData.analogs[idx] && cfgData.analogs[idx].deleted)) { const opt = document.createElement('option'); opt.value = 'G_' + i; opt.textContent = 'Group: ' + g.name; sel.appendChild(opt); }
-        });
-        cfgData.analogs.forEach((ch, i) => {
-            if (!ch.deleted) { const opt = document.createElement('option'); opt.value = 'A_' + i; opt.textContent = 'Signal: ' + ch.name; sel.appendChild(opt); }
-        });
-        
+        customGroups.forEach((g, i) => { if (!g.indices.every(idx => cfgData.analogs[idx] && cfgData.analogs[idx].deleted)) { const opt = document.createElement('option'); opt.value = 'G_' + i; opt.textContent = 'Group: ' + g.name; sel.appendChild(opt); } });
+        cfgData.analogs.forEach((ch, i) => { if (!ch.deleted && ch.name !== 'AFC Frequency') { const opt = document.createElement('option'); opt.value = 'A_' + i; opt.textContent = 'Signal: ' + ch.name; sel.appendChild(opt); } });
         const updateScaleName = () => {
             const v = document.getElementById('scaleTargetSelect').value; if (!v) return;
             if (v.startsWith('G_')) document.getElementById('scaleNameInput').value = customGroups[parseInt(v.split('_')[1])].name + ' (Scaled)';
@@ -609,11 +598,8 @@
     });
     
     document.getElementById('saveScaleBtn').addEventListener('click', () => {
-        const target = document.getElementById('scaleTargetSelect').value;
-        const multVal = document.getElementById('scaleMultiplier').value;
-        const mult = multVal === '' ? 1 : parseFloat(multVal);
+        const target = document.getElementById('scaleTargetSelect').value; const multVal = document.getElementById('scaleMultiplier').value; const mult = multVal === '' ? 1 : parseFloat(multVal);
         const baseName = document.getElementById('scaleNameInput').value || 'Scaled Trace';
-        
         if (isNameTaken(baseName)) { alert("Name already in use. Please choose a unique name."); return; }
         
         if (target.startsWith('G_')) {
@@ -634,22 +620,16 @@
     function updateMathModalSelects() {
         if (!cfgData) return;
         const op = document.querySelector('input[name="mOp"]:checked').value;
-        const sig1 = document.getElementById('mSig1'); const sig2 = document.getElementById('mSig2');
-        const unitInput = document.getElementById('mUnitInput');
-        
+        const sig1 = document.getElementById('mSig1'); const sig2 = document.getElementById('mSig2'); const unitInput = document.getElementById('mUnitInput');
         const mMag1 = document.getElementById('mMag1'); const mAng1 = document.getElementById('mAng1'); const atSpan1 = document.getElementById('atSpan1');
         const mMag2 = document.getElementById('mMag2'); const mAng2 = document.getElementById('mAng2'); const atSpan2 = document.getElementById('atSpan2');
         const lblSigA = document.getElementById('lblSigA'); const lblSigB = document.getElementById('lblSigB');
 
-        const curr1 = sig1.value; const curr2 = sig2.value;
-        sig1.innerHTML = ''; sig2.innerHTML = '';
+        const curr1 = sig1.value; const curr2 = sig2.value; sig1.innerHTML = ''; sig2.innerHTML = '';
 
         if (op === '3P') {
-            lblSigA.textContent = "Select 3-Phase Voltage Group:";
-            lblSigB.textContent = "Select 3-Phase Current Group:";
-            mMag1.style.display = 'none'; mAng1.style.display = 'none'; atSpan1.style.display = 'none';
-            mMag2.style.display = 'none'; mAng2.style.display = 'none'; atSpan2.style.display = 'none';
-            
+            lblSigA.textContent = "Select 3-Phase Voltage Group:"; lblSigB.textContent = "Select 3-Phase Current Group:";
+            mMag1.style.display = 'none'; mAng1.style.display = 'none'; atSpan1.style.display = 'none'; mMag2.style.display = 'none'; mAng2.style.display = 'none'; atSpan2.style.display = 'none';
             let validV = []; let validI = [];
             customGroups.forEach((g, i) => {
                 if (g.indices.length === 3 && !g.indices.some(idx => cfgData.analogs[idx] && cfgData.analogs[idx].deleted)) {
@@ -658,45 +638,34 @@
                     if (getUnitClass(u) === 'A') validI.push({idx: i, name: g.name});
                 }
             });
-
             validV.forEach(v => { const opt = document.createElement('option'); opt.value = v.idx; opt.textContent = v.name; sig1.appendChild(opt); });
             validI.forEach(v => { const opt = document.createElement('option'); opt.value = v.idx; opt.textContent = v.name; sig2.appendChild(opt); });
-            
-            unitInput.value = 'VA';
-            return;
+            unitInput.value = 'VA'; return;
         }
 
-        lblSigA.textContent = "Signal A & Scaling (Mag @ Angle°):";
-        lblSigB.textContent = "Signal B & Scaling (Mag @ Angle°):";
-        mMag1.style.display = ''; mAng1.style.display = ''; atSpan1.style.display = '';
-        mMag2.style.display = ''; mAng2.style.display = ''; atSpan2.style.display = '';
+        lblSigA.textContent = "Signal A & Scaling (Mag @ Angle°):"; lblSigB.textContent = "Signal B & Scaling (Mag @ Angle°):";
+        mMag1.style.display = ''; mAng1.style.display = ''; atSpan1.style.display = ''; mMag2.style.display = ''; mAng2.style.display = ''; atSpan2.style.display = '';
 
         let validS1 = [];
         cfgData.analogs.forEach((ch, i) => {
-            if (!ch.deleted) {
-                if (op === 'S') { if (getUnitClass(ch.units) === 'V') validS1.push(i); } else { validS1.push(i); }
-            }
+            if (!ch.deleted && ch.name !== 'AFC Frequency') { if (op === 'S') { if (getUnitClass(ch.units) === 'V') validS1.push(i); } else { validS1.push(i); } }
         });
-
         validS1.forEach(i => { const opt = document.createElement('option'); opt.value = i; opt.textContent = `CH${cfgData.analogs[i].index}: ${cfgData.analogs[i].name}`; sig1.appendChild(opt); });
         
         if (validS1.length === 0) return;
         if (validS1.includes(parseInt(curr1))) sig1.value = curr1; else sig1.value = validS1[0];
 
         const s1Ch = cfgData.analogs[sig1.value]; const s1Type = getUnitClass(s1Ch.units);
-
-        if (op === '+' || op === '-') unitInput.value = s1Ch.units;
-        else if (op === 'S') unitInput.value = 'VA';
+        if (op === '+' || op === '-') unitInput.value = s1Ch.units; else if (op === 'S') unitInput.value = 'VA';
 
         let validS2 = [];
         cfgData.analogs.forEach((ch, i) => {
-            if (!ch.deleted) {
+            if (!ch.deleted && ch.name !== 'AFC Frequency') {
                 if (op === '+' || op === '-') { if (getUnitClass(ch.units) === s1Type) validS2.push(i); } 
                 else if (op === 'S') { if (getUnitClass(ch.units) === 'A') validS2.push(i); } 
                 else { validS2.push(i); }
             }
         });
-
         validS2.forEach(i => { const opt = document.createElement('option'); opt.value = i; opt.textContent = `CH${cfgData.analogs[i].index}: ${cfgData.analogs[i].name}`; sig2.appendChild(opt); });
         if (validS2.length > 0) { if (validS2.includes(parseInt(curr2))) sig2.value = curr2; else sig2.value = validS2[0]; }
     }
@@ -704,15 +673,12 @@
     document.getElementById('openMathModalBtn').addEventListener('click', () => {
         if (!cfgData) { alert("Please load a COMTRADE file first."); return; }
         document.getElementById('mOpAdd').checked = true; document.getElementById('mTypeA').checked = true;
-        updateMathModalSelects();
-        document.getElementById('mathModal').style.display = 'flex';
+        updateMathModalSelects(); document.getElementById('mathModal').style.display = 'flex';
     });
 
     document.querySelectorAll('input[name="mOp"]').forEach(radio => {
         radio.addEventListener('change', (e) => {
-            const op = e.target.value;
-            if (op === '*' || op === '/' || op === 'S' || op === '3P') { document.getElementById('mTypeC').checked = true; } 
-            else { document.getElementById('mTypeA').checked = true; }
+            const op = e.target.value; if (op === '*' || op === '/' || op === 'S' || op === '3P') { document.getElementById('mTypeC').checked = true; } else { document.getElementById('mTypeA').checked = true; }
             updateMathModalSelects();
         });
     });
@@ -726,19 +692,13 @@
         const s1Idx = parseInt(document.getElementById('mSig1').value), s2Idx = parseInt(document.getElementById('mSig2').value);
         if (isNaN(s1Idx) || isNaN(s2Idx)) { alert("Invalid signal selection."); return; }
 
-        const op = document.querySelector('input[name="mOp"]:checked').value;
-        const subType = document.querySelector('input[name="mathType"]:checked').value;
+        const op = document.querySelector('input[name="mOp"]:checked').value; const subType = document.querySelector('input[name="mathType"]:checked').value;
         
         if (op === '3P') {
             const vGrp = customGroups[s1Idx]; const iGrp = customGroups[s2Idx];
             if (!vGrp || !iGrp) { alert("Invalid 3-Phase groups selected."); return; }
             const vCh = cfgData.analogs[vGrp.indices[0]]; const iCh = cfgData.analogs[iGrp.indices[0]];
-            
-            virtualSignals.push({
-                type: 'math', name: mName, unit: document.getElementById('mUnitInput').value || 'VA', subType: subType,
-                s1: s1Idx, s2: s2Idx, mag1: 1, ang1: 0, mag2: 1, ang2: 0,
-                op: '3P', primary: vCh.primary * iCh.primary, secondary: vCh.secondary * iCh.secondary, ps: 'P' 
-            });
+            virtualSignals.push({ type: 'math', name: mName, unit: document.getElementById('mUnitInput').value || 'VA', subType: subType, s1: s1Idx, s2: s2Idx, mag1: 1, ang1: 0, mag2: 1, ang2: 0, op: '3P', primary: vCh.primary * iCh.primary, secondary: vCh.secondary * iCh.secondary, ps: 'P' });
         } else {
             const parentCh1 = cfgData.analogs[s1Idx]; const parentCh2 = cfgData.analogs[s2Idx];
             let vMag1 = document.getElementById('mMag1').value; let mag1 = vMag1 === '' ? 1 : parseFloat(vMag1);
@@ -746,18 +706,12 @@
             let vMag2 = document.getElementById('mMag2').value; let mag2 = vMag2 === '' ? 1 : parseFloat(vMag2);
             let vAng2 = document.getElementById('mAng2').value; let ang2 = vAng2 === '' ? 0 : parseFloat(vAng2);
 
-            let p, s;
-            const p1 = parentCh1.primary || 1; const s1 = parentCh1.secondary || 1;
-            const p2 = parentCh2.primary || 1; const s2 = parentCh2.secondary || 1;
-
+            let p, s; const p1 = parentCh1.primary || 1; const s1 = parentCh1.secondary || 1; const p2 = parentCh2.primary || 1; const s2 = parentCh2.secondary || 1;
             if (op === '+' || op === '-') { const ratio1 = p1 / s1; const ratio2 = p2 / s2; if (ratio1 >= ratio2) { p = p1; s = s1; } else { p = p2; s = s2; } } 
             else if (op === '*' || op === 'S') { p = p1 * p2; s = s1 * s2; } 
             else if (op === '/') { p = p1 / p2; s = s1 / s2; }
 
-            virtualSignals.push({
-                type: 'math', name: mName, unit: document.getElementById('mUnitInput').value || 'Calc', subType: subType,
-                s1: s1Idx, mag1: mag1, ang1: ang1, s2: s2Idx, mag2: mag2, ang2: ang2, op: op, primary: p, secondary: s, ps: 'P' 
-            });
+            virtualSignals.push({ type: 'math', name: mName, unit: document.getElementById('mUnitInput').value || 'Calc', subType: subType, s1: s1Idx, mag1: mag1, ang1: ang1, s2: s2Idx, mag2: mag2, ang2: ang2, op: op, primary: p, secondary: s, ps: 'P' });
         }
         document.getElementById('mathModal').style.display = 'none'; processDataAndRender(true);
     });
@@ -774,7 +728,6 @@
         const gIdx = parseInt(document.getElementById('seqGroupSelect').value); const sourceGroup = customGroups[gIdx]; const parentCh = cfgData.analogs[sourceGroup.indices[0]];
         const seqGroupName = `${sourceGroup.name} (Seq)`;
         if (isNameTaken(seqGroupName)) { alert("Name already in use or sequence components for this group already exist."); return; }
-        
         const seqNames = [`${sourceGroup.name} (Pos)`, `${sourceGroup.name} (Neg)`, `${sourceGroup.name} (Zero)`];
         virtualSignals.push({ type: 'seq', id: 'vs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5), name: sourceGroup.name, indices: [...sourceGroup.indices], channelNames: seqNames, groupCreated: false, primary: parentCh.primary, secondary: parentCh.secondary, ps: parentCh.ps });
         document.getElementById('seqModal').style.display = 'none'; processDataAndRender(true);
@@ -789,10 +742,7 @@
             let groupHtml = `<div class="section-header"><h4 style="margin:0;">Custom Groups</h4><div><button onclick="toggleAllVis('groups', true)" class="btn-action btn-small">All</button><button onclick="toggleAllVis('groups', false)" class="btn-danger btn-small">None</button></div></div>`;
             customGroups.forEach((g, i) => { 
                 const allDeleted = g.indices.every(cIdx => cfgData.analogs[cIdx] && cfgData.analogs[cIdx].deleted);
-                if (!allDeleted) {
-                    hasValidGroups = true;
-                    groupHtml += `<div class="vis-item"><input type="checkbox" id="visG_${i}" ${!g.hidden ? 'checked' : ''} onchange="toggleVisibility('row-G-', ${i}, this.checked);"><label for="visG_${i}">${g.name}</label></div>`;
-                }
+                if (!allDeleted) { hasValidGroups = true; groupHtml += `<div class="vis-item"><input type="checkbox" id="visG_${i}" ${!g.hidden ? 'checked' : ''} onchange="toggleVisibility('row-G-', ${i}, this.checked);"><label for="visG_${i}">${g.name}</label></div>`; }
             });
             if (hasValidGroups) body.innerHTML += groupHtml;
         }
@@ -811,7 +761,7 @@
         let allGroupedChannels = new Set(); customGroups.forEach(g => { g.indices.forEach(i => allGroupedChannels.add(i)); });
         const list = document.getElementById('expAnalogsList'); list.innerHTML = '';
         cfgData.analogs.forEach((ch, i) => {
-            if (ch.deleted) return;
+            if (ch.deleted || ch.name === 'AFC Frequency') return;
             let isVis = false; if (renderedChannels.has(i)) isVis = true; else if (!allGroupedChannels.has(i) && !ch.hidden) isVis = true;
             list.innerHTML += `<div class="vis-item" style="padding:2px 0;"><input type="checkbox" id="expA_${i}" ${isVis ? 'checked' : ''}><label for="expA_${i}">CH${ch.index}: ${ch.name}</label></div>`;
         });
@@ -888,7 +838,6 @@
     function autoDetectGroups() {
         customGroups = customGroups.filter(g => g.isVirtual); 
         let grouped = new Set(); let analogs = cfgData.analogs;
-
         for (let i = 0; i <= analogs.length - 3; i++) {
             if (grouped.has(i)) continue;
             let u1 = analogs[i].units.toUpperCase(), u2 = analogs[i+1].units.toUpperCase(), u3 = analogs[i+2].units.toUpperCase();
@@ -897,7 +846,6 @@
                 let n1U = n1.toUpperCase(), n2U = n2.toUpperCase(), n3U = n3.toUpperCase();
                 let isABC = (n1U.includes('A') && n2U.includes('B') && n3U.includes('C')); let is123 = (n1U.includes('1') && n2U.includes('2') && n3U.includes('3'));
                 let isRYB = (n1U.includes('R') && n2U.includes('Y') && n3U.includes('B')); let isRST = (n1U.includes('R') && n2U.includes('S') && n3U.includes('T'));
-
                 if (isABC || is123 || isRYB || isRST) {
                     let gName = u1.includes('V') ? "Voltage" : "Current"; gName = getUniqueName(gName);
                     customGroups.push({ name: gName, indices: [i, i+1, i+2], channelNames: [n1, n2, n3], hidden: false });
@@ -909,16 +857,13 @@
 
     function parseFiles() {
         const cfgLines = filesLoaded.cfg.split('\n').map(l => l.trim().replace(/\r/g, ''));
-        const firstLineParts = cfgLines[0].split(',');
-        const is1991 = firstLineParts.length < 3 || (firstLineParts[2].trim() !== '1999' && firstLineParts[2].trim() !== '2013');
+        const firstLineParts = cfgLines[0].split(','); const is1991 = firstLineParts.length < 3 || (firstLineParts[2].trim() !== '1999' && firstLineParts[2].trim() !== '2013');
         const counts = cfgLines[1].split(','); const numA = parseInt(counts[1].replace(/[^\d]/g, '')); const numD = parseInt(counts[2].replace(/[^\d]/g, ''));
-        
         cfgData = { analogs: [], originalAnalogs: [], digitals: [], numA: numA, originalNumA: numA, numD: numD, sampleRate: 1000, nominalFreq: 50, startTimeSec: 0, isBinary: false, is1991: is1991 };
         cfgData.isBinary = cfgLines.some(l => l.trim().toUpperCase() === 'BINARY');
 
         for (let i = 2; i < 2 + numA; i++) {
-            const parts = cfgLines[i].split(',');
-            let rawUnit = parts[4].replace(/ /g, ''); let a = parseFloat(parts[5]); let b = parseFloat(parts[6]);
+            const parts = cfgLines[i].split(','); let rawUnit = parts[4].replace(/ /g, ''); let a = parseFloat(parts[5]); let b = parseFloat(parts[6]);
             let unitUpper = rawUnit.toUpperCase(); let unitMult = 1;
             if (unitUpper === 'KA') { unitMult = 1000; rawUnit = 'A'; } else if (unitUpper === 'KV') { unitMult = 1000; rawUnit = 'V'; }
             else if (unitUpper === 'MA') { unitMult = 1000000; rawUnit = 'A'; } else if (unitUpper === 'MV') { unitMult = 1000000; rawUnit = 'V'; }
@@ -938,23 +883,96 @@
         virtualSignals = []; colorMap = {}; globalIsComplexMap = {}; autoDetectGroups(); processDataAndRender(false);
     }
 
-    function getStationaryPhasors(arr, N, samplesPerCycle) {
-        const len = arr.length; const rArr = new Float32Array(len), iArr = new Float32Array(len), magArr = new Float32Array(len);
-        let real = 0, imag = 0; const extractScale = Math.SQRT2 / samplesPerCycle;
-        for (let i = 0; i < len; i++) {
-            const ang = -2 * Math.PI * i / samplesPerCycle; const cc = Math.cos(ang), ss = Math.sin(ang);
-            let vIn = arr[i] || 0; let vOut = i >= N ? (arr[i - N] || 0) : 0;
-            if (i < N) { real += extractScale * vIn * cc; imag += extractScale * vIn * ss; } 
-            else { const d = extractScale * (vIn - vOut); real += d * cc; imag += d * ss; }
-            if (i >= N - 1) { rArr[i] = real; iArr[i] = imag; magArr[i] = Math.sqrt(real*real + imag*imag); }
+    function generateFrequencyTrack(sourceIdx) {
+        const arr = signalData[sourceIdx];
+        const len = arr.length;
+        const sr = cfgData.sampleRate;
+        const nomF = cfgData.nominalFreq;
+        
+        let zc = [];
+        let maxVal = 0;
+        for(let i=0; i<len; i++) if(Math.abs(arr[i])>maxVal) maxVal = Math.abs(arr[i]);
+        let threshold = maxVal * 0.02; // 2% hysteresis
+        let isPos = arr[0] > 0;
+        
+        for(let i=1; i<len; i++) {
+            if (!isPos && arr[i] > threshold) {
+                isPos = true;
+                let crossIdx = i;
+                while(crossIdx > 0 && arr[crossIdx] > 0) crossIdx--;
+                let frac = (0 - arr[crossIdx]) / (arr[crossIdx+1] - arr[crossIdx] || 1);
+                zc.push(crossIdx + frac);
+            } else if (isPos && arr[i] < -threshold) {
+                isPos = false;
+            }
         }
-        for (let i = 0; i < N - 1 && i < len; i++) { rArr[i] = rArr[N - 1]; iArr[i] = iArr[N - 1]; magArr[i] = magArr[N - 1]; }
+
+        let f_track = new Float32Array(len);
+        f_track.fill(nomF);
+        if (zc.length < 2) return f_track;
+
+        let currentZcIdx = 0;
+        for(let i=0; i<len; i++) {
+            if (currentZcIdx < zc.length - 2 && i > zc[currentZcIdx+1]) currentZcIdx++;
+            let periodSamples = zc[currentZcIdx+1] - zc[currentZcIdx];
+            let f = sr / periodSamples;
+            if (f < 10 || f > 120) f = nomF; 
+            f_track[i] = f;
+        }
+
+        const N = Math.round(sr / nomF);
+        let smoothed = new Float32Array(len);
+        let sum = 0;
+        for(let i=0; i<len; i++) {
+            sum += f_track[i];
+            if (i >= N) sum -= f_track[i-N];
+            smoothed[i] = i >= N ? sum / N : sum / (i+1);
+        }
+        return smoothed;
+    }
+
+    function getStationaryPhasors(arr, fftCycles) {
+        const len = arr.length;
+        const rArr = new Float32Array(len), iArr = new Float32Array(len), magArr = new Float32Array(len);
+        const sampleRate = cfgData.sampleRate;
+
+        for (let i = 0; i < len; i++) {
+            const freq = globalFTrackArr ? globalFTrackArr[i] : cfgData.nominalFreq;
+            const spc = sampleRate / freq;
+            const N = Math.max(1, Math.round(spc * fftCycles));
+            const extractScale = Math.SQRT2 / N;
+
+            let real = 0, imag = 0, count = 0;
+            let startK, endK;
+
+            if (globalIsCentered) {
+                const halfN = Math.floor(N / 2);
+                startK = i - halfN;
+                endK = i + halfN - (N % 2 === 0 ? 1 : 0);
+            } else {
+                startK = i - N + 1;
+                endK = i;
+            }
+
+            for (let k = startK; k <= endK; k++) {
+                if (k >= 0 && k < len) {
+                    const ang = -globalThetaRef[k];
+                    real += arr[k] * Math.cos(ang);
+                    imag += arr[k] * Math.sin(ang);
+                    count++;
+                }
+            }
+            const scaleFactor = count > 0 ? (Math.SQRT2 / count) : extractScale;
+            rArr[i] = real * scaleFactor;
+            iArr[i] = imag * scaleFactor;
+            magArr[i] = Math.sqrt(rArr[i]*rArr[i] + iArr[i]*iArr[i]); 
+        }
         return { r: rArr, i: iArr, mag: magArr };
     }
 
-    function getPhasorForChannel(idx, N, samplesPerCycle) {
+    function getPhasorForChannel(idx, fftCycles) {
         const ch = cfgData.analogs[idx]; if (ch && ch.complexData) return ch.complexData;
-        return getStationaryPhasors(signalData[idx], N, samplesPerCycle);
+        return getStationaryPhasors(signalData[idx], fftCycles);
     }
 
     function processDataAndRender(preserveZoom = false) {
@@ -1020,9 +1038,36 @@
             }
         }
         
+        globalIsCentered = document.getElementById('calcMethodSelect').value === 'centered';
         const fftCycles = parseInt(document.getElementById('fftWindowSelect').value) || 1;
-        const samplesPerCycle = Math.round(cfgData.sampleRate / cfgData.nominalFreq);
-        const N = samplesPerCycle * fftCycles;
+        
+        // --- Process AFC (Adaptive Frequency Control) Trace ---
+        let afcSourceIdx = parseInt(document.getElementById('afcSourceSelect').value);
+        if (afcSourceIdx >= 0 && afcSourceIdx < cfgData.originalNumA && signalData[afcSourceIdx]) {
+            globalFTrackArr = generateFrequencyTrack(afcSourceIdx);
+            globalThetaRef = new Float64Array(timeData.length);
+            let currentTheta = 0;
+            for(let i=0; i<timeData.length; i++) {
+                currentTheta += 2 * Math.PI * globalFTrackArr[i] / cfgData.sampleRate;
+                globalThetaRef[i] = currentTheta;
+            }
+            
+            const newIdx = signalData.length;
+            signalData.push(globalFTrackArr);
+            channelMetadata.push({ unit: 'Hz', maxAbs: 0 });
+            cfgData.analogs.push({
+                index: newIdx+1, name: 'AFC Frequency', units: 'Hz', a: 1, b: 0, 
+                primary: 1, secondary: 1, ps: 'P', hidden: hiddenMap['AFC Frequency'] || false, deleted: deletedMap['AFC Frequency'] || false, 
+                isComplex: false, complexData: null, isRatio: false
+            });
+            cfgData.numA++;
+        } else {
+            globalFTrackArr = null;
+            globalThetaRef = new Float64Array(timeData.length);
+            for(let i=0; i<timeData.length; i++) {
+                globalThetaRef[i] = 2 * Math.PI * cfgData.nominalFreq * i / cfgData.sampleRate;
+            }
+        }
         
         virtualSignals.forEach((vs, vIndex) => {
             if (!vs.id) vs.id = 'vs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
@@ -1051,7 +1096,7 @@
             }
             else if (vs.type === 'transform') {
                 const srcArr = signalData[vs.source]; const srcCh = cfgData.analogs[vs.source]; const len = timeData.length; const arr = new Float32Array(len); const isC = vs.targetType === 'C'; let cData = null;
-                for(let i=0; i<len; i++) arr[i] = srcArr[i]; cData = getStationaryPhasors(arr, N, samplesPerCycle);
+                for(let i=0; i<len; i++) arr[i] = srcArr[i]; cData = getStationaryPhasors(arr, fftCycles);
 
                 const newIdx = signalData.length; signalData.push(arr); channelMetadata.push({ unit: vs.unit, maxAbs: 0 });
                 cfgData.analogs.push({ 
@@ -1086,8 +1131,8 @@
                             arr[i] = P_inst;
                         }
                     } else {
-                        const pVa = getPhasorForChannel(vA_idx, N, samplesPerCycle), pVb = getPhasorForChannel(vB_idx, N, samplesPerCycle), pVc = getPhasorForChannel(vC_idx, N, samplesPerCycle);
-                        const pIa = getPhasorForChannel(iA_idx, N, samplesPerCycle), pIb = getPhasorForChannel(iB_idx, N, samplesPerCycle), pIc = getPhasorForChannel(iC_idx, N, samplesPerCycle);
+                        const pVa = getPhasorForChannel(vA_idx, fftCycles), pVb = getPhasorForChannel(vB_idx, fftCycles), pVc = getPhasorForChannel(vC_idx, fftCycles);
+                        const pIa = getPhasorForChannel(iA_idx, fftCycles), pIb = getPhasorForChannel(iB_idx, fftCycles), pIc = getPhasorForChannel(iC_idx, fftCycles);
                         const scaleTotal = toPrimaryV * toPrimaryI;
                         const realArr = new Float32Array(len), imagArr = new Float32Array(len), magArr = new Float32Array(len);
                         
@@ -1099,7 +1144,7 @@
                             const Total_P = (Sa_R + Sb_R + Sc_R) * scaleTotal; const Total_Q = (Sa_I + Sb_I + Sc_I) * scaleTotal;
                             
                             realArr[i] = Total_P; imagArr[i] = Total_Q; magArr[i] = Math.sqrt(Total_P*Total_P + Total_Q*Total_Q);
-                            const ang = 2 * Math.PI * i / samplesPerCycle;
+                            const ang = globalThetaRef[i];
                             arr[i] = (Total_P * Math.cos(ang) - Total_Q * Math.sin(ang)) * Math.SQRT2;
                         }
                         cData = { r: realArr, i: imagArr, mag: magArr };
@@ -1117,7 +1162,7 @@
                         const coeff1 = vs.mag1 * toPrimary1 * Math.cos(vs.ang1 * Math.PI / 180); const coeff2 = vs.mag2 * toPrimary2 * Math.cos(vs.ang2 * Math.PI / 180);
                         for (let i = 0; i < len; i++) { const v1 = (sig1[i] || 0) * coeff1; const v2 = (sig2[i] || 0) * coeff2; if (vs.op === '+') arr[i] = v1 + v2; else if (vs.op === '-') arr[i] = v1 - v2; }
                     } else {
-                        const p1 = getPhasorForChannel(vs.s1, N, samplesPerCycle); const p2 = getPhasorForChannel(vs.s2, N, samplesPerCycle);
+                        const p1 = getPhasorForChannel(vs.s1, fftCycles); const p2 = getPhasorForChannel(vs.s2, fftCycles);
                         const rA_scale = vs.mag1 * toPrimary1 * Math.cos(vs.ang1 * Math.PI / 180); const iA_scale = vs.mag1 * toPrimary1 * Math.sin(vs.ang1 * Math.PI / 180);
                         const rB_scale = vs.mag2 * toPrimary2 * Math.cos(vs.ang2 * Math.PI / 180); const iB_scale = vs.mag2 * toPrimary2 * Math.sin(vs.ang2 * Math.PI / 180);
                         const realArr = new Float32Array(len), imagArr = new Float32Array(len), magArr = new Float32Array(len);
@@ -1130,7 +1175,7 @@
                             else if (vs.op === '*' || vs.op === 'S') { const b_R = B_R; const b_I = (vs.op === 'S') ? -B_I : B_I; C_R = A_R * b_R - A_I * b_I; C_I = A_R * b_I + A_I * b_R; }
                             else if (vs.op === '/') { const D = B_R * B_R + B_I * B_I; if (D < 1e-12) { C_R = 0; C_I = 0; } else { C_R = (A_R * B_R + A_I * B_I) / D; C_I = (A_I * B_R - A_R * B_I) / D; } }
                             realArr[i] = C_R; imagArr[i] = C_I; magArr[i] = Math.sqrt(C_R*C_R + C_I*C_I);
-                            const ang = 2 * Math.PI * i / samplesPerCycle; arr[i] = (C_R * Math.cos(ang) - C_I * Math.sin(ang)) * Math.SQRT2;
+                            const ang = globalThetaRef[i]; arr[i] = (C_R * Math.cos(ang) - C_I * Math.sin(ang)) * Math.SQRT2;
                         }
                         cData = { r: realArr, i: imagArr, mag: magArr };
                     }
@@ -1155,26 +1200,24 @@
                 const seqNegMag = new Float32Array(len), seqNegR = new Float32Array(len), seqNegI = new Float32Array(len), seqNegAnalog = new Float32Array(len);
                 const seqZeroMag = new Float32Array(len), seqZeroR = new Float32Array(len), seqZeroI = new Float32Array(len), seqZeroAnalog = new Float32Array(len);
                 
-                if (len >= N && N > 0) {
-                    const pA = getPhasorForChannel(vs.indices[0], N, samplesPerCycle), pB = getPhasorForChannel(vs.indices[1], N, samplesPerCycle), pC = getPhasorForChannel(vs.indices[2], N, samplesPerCycle);
-                    const a_R = -0.5, a_I = Math.sqrt(3)/2, a2_R = -0.5, a2_I = -Math.sqrt(3)/2;
-                    for (let i = 0; i < len; i++) {
-                        const Va_R = pA.r[i], Va_I = pA.i[i]; const Vb_R = pB.r[i], Vb_I = pB.i[i]; const Vc_R = pC.r[i], Vc_I = pC.i[i];
-                        const V0_R = (Va_R + Vb_R + Vc_R)/3; const V0_I = (Va_I + Vb_I + Vc_I)/3;
-                        const aVb_R = a_R*Vb_R - a_I*Vb_I, aVb_I = a_R*Vb_I + a_I*Vb_R; const a2Vc_R = a2_R*Vc_R - a2_I*Vc_I, a2Vc_I = a2_R*Vc_I + a2_I*Vc_R;
-                        const V1_R = (Va_R + aVb_R + a2Vc_R)/3, V1_I = (Va_I + aVb_I + a2Vc_I)/3;
-                        const a2Vb_R = a2_R*Vb_R - a2_I*Vb_I, a2Vb_I = a2_R*Vb_I + a2_I*Vb_R; const aVc_R = a_R*Vc_R - a_I*Vc_I, aVc_I = a_R*Vc_I + a_I*Vc_R;
-                        const V2_R = (Va_R + a2Vb_R + aVc_R)/3, V2_I = (Va_I + a2Vb_I + aVc_I)/3;
+                const pA = getPhasorForChannel(vs.indices[0], fftCycles), pB = getPhasorForChannel(vs.indices[1], fftCycles), pC = getPhasorForChannel(vs.indices[2], fftCycles);
+                const a_R = -0.5, a_I = Math.sqrt(3)/2, a2_R = -0.5, a2_I = -Math.sqrt(3)/2;
+                for (let i = 0; i < len; i++) {
+                    const Va_R = pA.r[i], Va_I = pA.i[i]; const Vb_R = pB.r[i], Vb_I = pB.i[i]; const Vc_R = pC.r[i], Vc_I = pC.i[i];
+                    const V0_R = (Va_R + Vb_R + Vc_R)/3; const V0_I = (Va_I + Vb_I + Vc_I)/3;
+                    const aVb_R = a_R*Vb_R - a_I*Vb_I, aVb_I = a_R*Vb_I + a_I*Vb_R; const a2Vc_R = a2_R*Vc_R - a2_I*Vc_I, a2Vc_I = a2_R*Vc_I + a2_I*Vc_R;
+                    const V1_R = (Va_R + aVb_R + a2Vc_R)/3, V1_I = (Va_I + aVb_I + a2Vc_I)/3;
+                    const a2Vb_R = a2_R*Vb_R - a2_I*Vb_I, a2Vb_I = a2_R*Vb_I + a2_I*Vb_R; const aVc_R = a_R*Vc_R - a_I*Vc_I, aVc_I = a_R*Vc_I + a_I*Vc_R;
+                    const V2_R = (Va_R + a2Vb_R + aVc_R)/3, V2_I = (Va_I + a2Vb_I + aVc_I)/3;
 
-                        seqPosR[i] = V1_R; seqPosI[i] = V1_I; seqPosMag[i] = Math.sqrt(V1_R*V1_R + V1_I*V1_I);
-                        seqNegR[i] = V2_R; seqNegI[i] = V2_I; seqNegMag[i] = Math.sqrt(V2_R*V2_R + V2_I*V2_I);
-                        seqZeroR[i] = V0_R; seqZeroI[i] = V0_I; seqZeroMag[i] = Math.sqrt(V0_R*V0_R + V0_I*V0_I);
-                        
-                        const ang = 2 * Math.PI * i / samplesPerCycle;
-                        seqPosAnalog[i] = (V1_R * Math.cos(ang) - V1_I * Math.sin(ang)) * Math.SQRT2;
-                        seqNegAnalog[i] = (V2_R * Math.cos(ang) - V2_I * Math.sin(ang)) * Math.SQRT2;
-                        seqZeroAnalog[i] = (V0_R * Math.cos(ang) - V0_I * Math.sin(ang)) * Math.SQRT2;
-                    }
+                    seqPosR[i] = V1_R; seqPosI[i] = V1_I; seqPosMag[i] = Math.sqrt(V1_R*V1_R + V1_I*V1_I);
+                    seqNegR[i] = V2_R; seqNegI[i] = V2_I; seqNegMag[i] = Math.sqrt(V2_R*V2_R + V2_I*V2_I);
+                    seqZeroR[i] = V0_R; seqZeroI[i] = V0_I; seqZeroMag[i] = Math.sqrt(V0_R*V0_R + V0_I*V0_I);
+                    
+                    const ang = globalThetaRef[i];
+                    seqPosAnalog[i] = (V1_R * Math.cos(ang) - V1_I * Math.sin(ang)) * Math.SQRT2;
+                    seqNegAnalog[i] = (V2_R * Math.cos(ang) - V2_I * Math.sin(ang)) * Math.SQRT2;
+                    seqZeroAnalog[i] = (V0_R * Math.cos(ang) - V0_I * Math.sin(ang)) * Math.SQRT2;
                 }
                 
                 const baseIdx = signalData.length; signalData.push(seqPosAnalog, seqNegAnalog, seqZeroAnalog);
@@ -1195,16 +1238,26 @@
 
         for (let cIdx = 0; cIdx < cfgData.numA; cIdx++) {
             const ch = cfgData.analogs[cIdx]; const arr = signalData[cIdx]; const len = arr.length;
-            if (ch.isComplex && !ch.complexData) { ch.complexData = getStationaryPhasors(arr, N, samplesPerCycle); }
+            if (ch.isComplex && !ch.complexData) { ch.complexData = getStationaryPhasors(arr, fftCycles); }
             let maxAbs = 0; const scanArr = ch.isComplex && ch.complexData ? ch.complexData.mag : arr;
             for(let i = 0; i < len; i++) { if(Math.abs(scanArr[i]) > maxAbs) maxAbs = Math.abs(scanArr[i]); }
             channelMetadata[cIdx].maxAbs = maxAbs;
         }
 
+        const afcSelect = document.getElementById('afcSourceSelect'); 
+        const currentAfc = afcSelect.value;
+        afcSelect.innerHTML = '<option value="-1">Fixed (Nominal)</option>';
+        cfgData.analogs.forEach((ch, i) => { 
+            if (ch.deleted || ch.name === 'AFC Frequency') return; 
+            const cleanName = ch.name.replace(/\(\s*\)/g, '').replace(/CH\d+/i, '').trim(); 
+            const opt = document.createElement('option'); opt.value = i; opt.textContent = `CH${ch.index}: ${cleanName}`; afcSelect.appendChild(opt); 
+        });
+        if (Array.from(afcSelect.options).some(o => o.value === currentAfc)) afcSelect.value = currentAfc; else afcSelect.value = "-1";
+
         const refSelect = document.getElementById('refAngleSelect'); 
         const currentRef = refSelect.value; refSelect.innerHTML = '<option value="-1">Absolute (0°)</option>';
         cfgData.analogs.forEach((ch, i) => { 
-            if (ch.deleted) return; 
+            if (ch.deleted || ch.name === 'AFC Frequency') return; 
             const cleanName = ch.name.replace(/\(\s*\)/g, '').replace(/CH\d+/i, '').trim(); 
             const opt = document.createElement('option'); opt.value = i; opt.textContent = `CH${ch.index}: ${cleanName}`; refSelect.appendChild(opt); 
         });
@@ -1392,7 +1445,7 @@
             if (isNameTaken(newName, gIdx)) { alert("Name already in use. Reverting to previous name."); e.target.value = group.name; return; }
             customGroups[gIdx].name = newName; 
         });
-        const colon = document.createElement('span'); colon.textContent = ': '; colon.style.color = 'var(--text-main)'; colon.style.marginRight = '5px';
+        const colon = document.createElement('span'); colon.textContent = ': '; colon.style.marginRight = '5px';
         titleBox.appendChild(gTitleInput); titleBox.appendChild(colon);
         
         const datasets = [];
@@ -1568,13 +1621,45 @@
 
     function calculateMetrics(idx, cIdx, rmsCycles, fftCycles) {
         if (idx < 0 || !signalData[cIdx]) return { inst: 0, rms: 0, mag: 0, phaRaw: 0 };
-        const inst = signalData[cIdx][idx]; const samplesPerCycle = Math.round(cfgData.sampleRate / cfgData.nominalFreq);
-        const N_rms = samplesPerCycle * rmsCycles; const startRms = idx - N_rms + 1; let sumSq = 0;
-        for (let n = 0; n < N_rms; n++) { const targetIdx = startRms + n; const val = (targetIdx >= 0 && targetIdx < timeData.length) ? signalData[cIdx][targetIdx] : 0; sumSq += val * val; }
-        const rms = Math.sqrt(sumSq / N_rms);
-        const N_fft = samplesPerCycle * fftCycles; const startFft = idx - N_fft + 1; let real = 0, imag = 0; const extractScale = Math.SQRT2 / N_fft;
-        for (let n = 0; n < N_fft; n++) { const targetIdx = startFft + n; const val = (targetIdx >= 0 && targetIdx < timeData.length) ? signalData[cIdx][targetIdx] : 0; const angle = 2 * Math.PI * n / samplesPerCycle; real += val * extractScale * Math.cos(angle); imag -= val * extractScale * Math.sin(angle); }
-        const magRms = Math.sqrt(real * real + imag * imag); const phaRaw = Math.atan2(imag, real) * (180 / Math.PI);
+        const inst = signalData[cIdx][idx]; 
+        
+        const freq = globalFTrackArr ? globalFTrackArr[idx] : cfgData.nominalFreq;
+        const spc = cfgData.sampleRate / freq;
+        const N_rms = Math.max(1, Math.round(spc * rmsCycles));
+        const N_fft = Math.max(1, Math.round(spc * fftCycles));
+        
+        let startRms, endRms, startFft, endFft;
+        if (globalIsCentered) {
+            startRms = idx - Math.floor(N_rms / 2); endRms = idx + Math.floor(N_rms / 2) - (N_rms % 2 === 0 ? 1 : 0);
+            startFft = idx - Math.floor(N_fft / 2); endFft = idx + Math.floor(N_fft / 2) - (N_fft % 2 === 0 ? 1 : 0);
+        } else {
+            startRms = idx - N_rms + 1; endRms = idx;
+            startFft = idx - N_fft + 1; endFft = idx;
+        }
+
+        let sumSq = 0, countRms = 0;
+        for (let targetIdx = startRms; targetIdx <= endRms; targetIdx++) { 
+            if (targetIdx >= 0 && targetIdx < timeData.length) {
+                const val = signalData[cIdx][targetIdx]; 
+                sumSq += val * val; countRms++;
+            }
+        }
+        const rms = countRms > 0 ? Math.sqrt(sumSq / countRms) : 0;
+        
+        let real = 0, imag = 0, countFft = 0;
+        const extractScale = Math.SQRT2 / N_fft;
+        for (let targetIdx = startFft; targetIdx <= endFft; targetIdx++) { 
+            if (targetIdx >= 0 && targetIdx < timeData.length) {
+                const val = signalData[cIdx][targetIdx]; 
+                const angle = -globalThetaRef[targetIdx];
+                real += val * Math.cos(angle); 
+                imag += val * Math.sin(angle); countFft++;
+            }
+        }
+        const scaleFactor = countFft > 0 ? (Math.SQRT2 / countFft) : extractScale;
+        const magRms = Math.sqrt(real * real + imag * imag) * scaleFactor; 
+        const phaRaw = Math.atan2(imag * scaleFactor, real * scaleFactor) * (180 / Math.PI);
+
         return { inst, rms, mag: magRms, phaRaw };
     }
 
@@ -1584,15 +1669,15 @@
         document.getElementById('headerTime1').textContent = `T1: ${t1Str} ${timeUnit}`; document.getElementById('headerTime2').textContent = `T2: ${t2Str} ${timeUnit}`;
         document.getElementById('headerDeltaTime').innerHTML = (cursor1 !== null && cursor2 !== null) ? `&Delta;T: ${(Math.abs(cursor1 - cursor2)).toFixed(3)} ${timeUnit}` : `&Delta;T: --`;
         const rmsCycles = parseInt(document.getElementById('rmsWindowSelect').value); const fftCycles = parseInt(document.getElementById('fftWindowSelect').value);
-        const refChIdx = parseInt(document.getElementById('refAngleSelect').value); const samplesPerCycle = Math.round(cfgData.sampleRate / cfgData.nominalFreq); const N = samplesPerCycle * fftCycles;
+        const refChIdx = parseInt(document.getElementById('refAngleSelect').value); 
         const idx1 = getIndexForTime(cursor1), idx2 = getIndexForTime(cursor2); let refPhase1 = 0, refPhase2 = 0;
         
         for(let cIdx=0; cIdx<cfgData.numA; cIdx++) {
             const channel = cfgData.analogs[cIdx]; if(!channel || channel.deleted) continue;
-            if(!channel.complexData) channel.complexData = getStationaryPhasors(signalData[cIdx], N, samplesPerCycle);
+            if(!channel.complexData) channel.complexData = getStationaryPhasors(signalData[cIdx], fftCycles);
         }
 
-        if (refChIdx >= 0 && refChIdx < cfgData.numA) { const refCh = cfgData.analogs[refChIdx]; if (idx1 >= 0) { refPhase1 = Math.atan2(refCh.complexData.i[idx1], refCh.complexData.r[idx1]) * 180 / Math.PI; refPhase2 = refPhase1; } }
+        if (refChIdx >= 0 && refChIdx < cfgData.numA) { const refCh = cfgData.analogs[refChIdx]; if (idx1 >= 0) { refPhase1 = Math.atan2(refCh.complexData.i[idx1], refCh.complexData.r[idx1]) * 180 / Math.PI; refPhase2 = Math.atan2(refCh.complexData.i[idx2], refCh.complexData.r[idx2]) * 180 / Math.PI; } }
         
         const getShiftedUnit = (unit) => {
             if (unit.startsWith('M')) return 'k' + unit.substring(1); if (unit.startsWith('k')) return unit.substring(1);
@@ -1617,7 +1702,7 @@
                     let m1 = calculateMetrics(idx1, cIdx, rmsCycles, fftCycles); let m2 = calculateMetrics(idx2, cIdx, rmsCycles, fftCycles);
                     let inst1 = m1.inst / scale, rms1 = m1.rms / scale, fMag1 = m1.mag / scale; let inst2 = m2.inst / scale, rms2 = m2.rms / scale, fMag2 = m2.mag / scale;
                     let suffix = ""; if (rms1 > 0 && rms1 < 1 && rms2 > 0 && rms2 < 1) { inst1 *= 1000; rms1 *= 1000; fMag1 *= 1000; inst2 *= 1000; rms2 *= 1000; fMag2 *= 1000; suffix = " " + getShiftedUnit(baseUnit); }
-                    let p1 = (Math.atan2(channel.complexData.i[idx1], channel.complexData.r[idx1]) * 180 / Math.PI); let p2 = (Math.atan2(channel.complexData.i[idx2], channel.complexData.r[idx2]) * 180 / Math.PI);
+                    let p1 = m1.phaRaw; let p2 = m2.phaRaw;
                     if (!channel.isRatio) { p1 -= refPhase1; p2 -= refPhase2; }
                     while (p1 > 180) p1 -= 360; while (p1 <= -180) p1 += 360; while (p2 > 180) p2 -= 360; while (p2 <= -180) p2 += 360;
                     document.getElementById(`c1-inst-${cIdx}`).textContent = inst1.toFixed(3) + suffix; document.getElementById(`c2-inst-${cIdx}`).textContent = inst2.toFixed(3) + suffix; document.getElementById(`c1-rms-${cIdx}`).textContent = rms1.toFixed(3) + suffix; document.getElementById(`c2-rms-${cIdx}`).textContent = rms2.toFixed(3) + suffix; document.getElementById(`c1-mag-${cIdx}`).textContent = fMag1.toFixed(3) + suffix; document.getElementById(`c2-mag-${cIdx}`).textContent = fMag2.toFixed(3) + suffix; document.getElementById(`c1-pha-${cIdx}`).textContent = p1.toFixed(2) + '°'; document.getElementById(`c2-pha-${cIdx}`).textContent = p2.toFixed(2) + '°';
