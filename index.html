@@ -9,6 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <!-- SheetJS for Excel XLSX Export -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     
     <style>
         :root {
@@ -133,10 +135,19 @@
         .stats-table th:nth-child(2), .stats-table td:nth-child(2), .stats-table th:nth-child(3), .stats-table td:nth-child(3) { width: 35%; }
         .val-t1, .val-t2 { font-family: monospace; }
         
-        /* SOE Dynamic Table Width Fixes */
-        .soe-table { width: 100%; table-layout: auto; }
-        .soe-table th:first-child, .soe-table td:first-child { min-width: 20ch; width: max-content; white-space: nowrap; }
-        .soe-table th:not(:first-child), .soe-table td:not(:first-child) { width: 1%; text-align: center; }
+        /* Signal Timing Table overrides */
+        .stats-table.soe-table { width: max-content; table-layout: auto; border-collapse: collapse; margin: 0; }
+        .stats-table.soe-table th, .stats-table.soe-table td { padding: 6px 12px; white-space: nowrap; text-align: center; width: auto; border: 1px solid var(--border-color); }
+        .stats-table.soe-table th:first-child, .stats-table.soe-table td:first-child { width: auto; background: transparent; font-weight: normal; color: var(--text-main); text-align: left; }
+        .stats-table.soe-table th { background: var(--table-th) !important; font-weight: bold !important; color: var(--text-main) !important; }
+
+        /* Chronological SOE Table overrides */
+        .stats-table.chron-table { width: max-content; table-layout: auto; border-collapse: collapse; margin: 0; }
+        .stats-table.chron-table th, .stats-table.chron-table td { padding: 6px 12px; white-space: nowrap; text-align: center; width: auto; border: 1px solid var(--border-color); }
+        .stats-table.chron-table th:nth-child(4), .stats-table.chron-table td:nth-child(4) { text-align: left; }
+        .stats-table.chron-table th:nth-child(5), .stats-table.chron-table td:nth-child(5) { min-width: 100px; text-align: center; } /* Wider State Column */
+        .stats-table.chron-table th:first-child, .stats-table.chron-table td:first-child { width: auto; background: transparent; font-weight: normal; color: var(--text-main); text-align: center; }
+        .stats-table.chron-table th { background: var(--table-th) !important; font-weight: bold !important; color: var(--text-main) !important; }
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; }
         .modal-content { background-color: var(--surface-color); padding: 20px; border-radius: 8px; width: 90%; max-width: 480px; border: 1px solid var(--border-color); max-height: 90vh; overflow-y: auto; }
@@ -227,12 +238,17 @@
 				display: flex !important;
 				flex-direction: column !important;
 			}
-			
+            
             #row-D {
-				display: block !important; /* Must be block so the browser can natively slice the canvas across pages */
+				display: block !important; 
 				break-inside: auto !important; 
 				page-break-inside: auto !important;
 			}
+            
+            /* Target only the digital event chart heading to hide the title during print */
+            #row-D h3 {
+                display: none !important;
+            }
 			
 			#row-D .chart-header {
 				break-after: avoid !important;
@@ -246,7 +262,7 @@
 				page-break-before: avoid !important;
 			}
 
-            #row-SOE {
+            #row-SignalTiming, #row-Chronological-SOE {
 				display: block !important;
 				break-inside: auto !important; 
 				page-break-inside: auto !important;
@@ -259,7 +275,7 @@
 				color: #000 !important; 
 			}
 
-			.soe-table {
+			.soe-table, .chron-table {
 				border-collapse: collapse !important;
 				border: 1px solid #cbd5e1 !important;
 			}
@@ -268,6 +284,13 @@
             canvas { max-width: 100% !important; }
             .val-t1 { color: #ef4444 !important; }
             .val-t2 { color: #3b82f6 !important; }
+
+            /* Content selection toggles */
+            body.print-hide-analog .chart-row[id^="row-A-"],
+            body.print-hide-analog .chart-row[id^="row-G-"] { display: none !important; }
+            body.print-hide-digital #row-D { display: none !important; }
+            body.print-hide-timing #row-SignalTiming { display: none !important; }
+            body.print-hide-soe #row-Chronological-SOE { display: none !important; }
         }
     </style>
 </head>
@@ -327,7 +350,7 @@
         <button id="openSeqModalBtn" class="btn-seq tool-btn" title="Sequence Components"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></button>
         <button id="openVisModalBtn" class="btn-view tool-btn" title="Views & Visibility"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
         <button id="openTriggerModalBtn" class="btn-config tool-btn" title="Adjust Trigger Time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></button>
-        <button id="printBtn" class="btn-default tool-btn" title="Print to PDF" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></button>
+        <button id="printBtn" class="btn-default tool-btn" title="Print to PDF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></button>
         <button id="openExportModalBtn" class="btn-export tool-btn" title="Export COMTRADE"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></button>
         <button id="saveConfigBtn" class="btn-config tool-btn" title="Save Configuration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button>
         <button id="loadConfigBtn" class="btn-config tool-btn" title="Load Configuration" onclick="document.getElementById('fileInput').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg></button>
@@ -551,6 +574,26 @@
     </div>
 </div>
 
+<!-- Modal: Print Configuration -->
+<div class="modal" id="printModal">
+    <div class="modal-content">
+        <div class="modal-header"><h3 style="margin: 0; color: var(--text-main);">Print Configuration</h3><button class="close-btn" onclick="document.getElementById('printModal').style.display='none'">&times;</button></div>
+        <div class="modal-body">
+            <p style="margin-top: 0; margin-bottom: 15px; font-size: 0.9em; color: var(--text-muted);">Select the sections you want to include in the exported report.</p>
+            <div class="vis-item"><input type="checkbox" id="printOptAnalog" checked><label for="printOptAnalog">Analog & Math Traces</label></div>
+            <div class="vis-item"><input type="checkbox" id="printOptDigital" checked><label for="printOptDigital">Digital Event Chart</label></div>
+            <div class="vis-item"><input type="checkbox" id="printOptTiming" checked><label for="printOptTiming">Digital Signal Timing Table</label></div>
+            <div class="vis-item"><input type="checkbox" id="printOptSoe" checked><label for="printOptSoe">Sequence of Events Table</label></div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button id="execPrintBtn" class="btn-default" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    Print Report
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal: Visibility -->
 <div class="modal" id="visModal">
     <div class="modal-content">
@@ -646,7 +689,6 @@
         }
 
         if (cfgData) {
-            // ... (keep all your existing document.getElementById('pc-...').textContent assignments here) ...
             document.getElementById('pc-station').textContent = cfgData.stationName || 'Unknown';
             document.getElementById('pc-version').textContent = cfgData.version || '1991';
             document.getElementById('pc-sig-freq').textContent = cfgData.nominalFreq + ' Hz';
@@ -686,15 +728,17 @@
             document.getElementById('pc-delta').textContent = dTStr;
         }
 
-        Chart.defaults.color = '#000000'; // Pure black for print
+        Chart.defaults.color = '#000000';
         charts.forEach(chart => {
             if(chart.options.scales.x) {
                 chart.options.scales.x.grid.color = '#cbd5e1';
                 if(chart.options.scales.x.ticks) chart.options.scales.x.ticks.color = '#000000';
+                if(chart.options.scales.x.title) chart.options.scales.x.title.color = '#000000';
             }
             if(chart.options.scales.y && chart.options.scales.y.grid.display !== false) {
                 chart.options.scales.y.grid.color = '#cbd5e1';
                 if(chart.options.scales.y.ticks) chart.options.scales.y.ticks.color = '#000000';
+                if(chart.options.scales.y.title) chart.options.scales.y.title.color = '#000000';
             }
             chart.resize();
             chart.update('none');
@@ -707,7 +751,7 @@
             delete document.body.dataset.revertDark;
         }
         const isLight = document.body.classList.contains('light-theme');
-        const txtCol = isLight ? '#1e293b' : '#cbd5e1'; // Restore customized dark text
+        const txtCol = isLight ? '#000000' : '#cbd5e1';
         Chart.defaults.color = txtCol;
         
         const gridCol = isLight ? '#e2e8f0' : '#334155';
@@ -715,14 +759,37 @@
             if(chart.options.scales.x) {
                 chart.options.scales.x.grid.color = gridCol;
                 if(chart.options.scales.x.ticks) chart.options.scales.x.ticks.color = txtCol;
+                if(chart.options.scales.x.title) chart.options.scales.x.title.color = txtCol;
             }
             if(chart.options.scales.y && chart.options.scales.y.grid.display !== false) {
                 chart.options.scales.y.grid.color = gridCol;
                 if(chart.options.scales.y.ticks) chart.options.scales.y.ticks.color = txtCol;
+                if(chart.options.scales.y.title) chart.options.scales.y.title.color = txtCol;
             }
             chart.resize();
             chart.update('none');
         });
+    });
+
+    // Print Modal Execution Logic
+    document.getElementById('printBtn').addEventListener('click', () => {
+        if (!cfgData) { alert("Please load a COMTRADE file first."); return; }
+        document.getElementById('printModal').style.display = 'flex';
+    });
+
+    document.getElementById('execPrintBtn').addEventListener('click', () => {
+        const hideAnalog = !document.getElementById('printOptAnalog').checked;
+        const hideDigital = !document.getElementById('printOptDigital').checked;
+        const hideTiming = !document.getElementById('printOptTiming').checked;
+        const hideSoe = !document.getElementById('printOptSoe').checked;
+
+        document.body.classList.toggle('print-hide-analog', hideAnalog);
+        document.body.classList.toggle('print-hide-digital', hideDigital);
+        document.body.classList.toggle('print-hide-timing', hideTiming);
+        document.body.classList.toggle('print-hide-soe', hideSoe);
+
+        document.getElementById('printModal').style.display = 'none';
+        window.print();
     });
 
     function isNameTaken(proposedName, ignoreGroupIdx = -1) {
@@ -746,13 +813,14 @@
     }
     
     function getGridColor() { return document.body.classList.contains('light-theme') ? '#e2e8f0' : '#334155'; }
-    function getTextColor() { return document.body.classList.contains('light-theme') ? '#1e293b' : '#cbd5e1'; }
+    function getTextColor() { return document.body.classList.contains('light-theme') ? '#000000' : '#cbd5e1'; }
 
     window.toggleVisibility = function(idPrefix, index, state, isDigital = false) {
         if (isDigital) { 
             digitalVisible = state; 
             const rD = document.getElementById('row-D'); if (rD) rD.style.display = state ? 'flex' : 'none'; 
-            const rS = document.getElementById('row-SOE'); if (rS) rS.style.display = state ? 'flex' : 'none'; 
+            const rS = document.getElementById('row-SignalTiming'); if (rS) rS.style.display = state ? 'flex' : 'none'; 
+            const rC = document.getElementById('row-Chronological-SOE'); if (rC) rC.style.display = state ? 'flex' : 'none'; 
             return; 
         }
         const r = document.getElementById(`${idPrefix}${index}`); if (r) r.style.display = state ? 'flex' : 'none';
@@ -773,10 +841,21 @@
         const isLight = document.body.classList.contains('light-theme');
         document.getElementById('themeIconSun').style.display = isLight ? 'none' : 'block';
         document.getElementById('themeIconMoon').style.display = isLight ? 'block' : 'none';
-        Chart.defaults.color = getTextColor();
+        
+        const txtCol = getTextColor();
+        Chart.defaults.color = txtCol;
+        
         charts.forEach(chart => {
-            if(chart.options.scales.x) chart.options.scales.x.grid.color = getGridColor();
-            if(chart.options.scales.y && chart.options.scales.y.grid.display !== false) chart.options.scales.y.grid.color = getGridColor();
+            if(chart.options.scales.x) {
+                chart.options.scales.x.grid.color = getGridColor();
+                if(chart.options.scales.x.ticks) chart.options.scales.x.ticks.color = txtCol;
+                if(chart.options.scales.x.title) chart.options.scales.x.title.color = txtCol;
+            }
+            if(chart.options.scales.y && chart.options.scales.y.grid.display !== false) {
+                chart.options.scales.y.grid.color = getGridColor();
+                if(chart.options.scales.y.ticks) chart.options.scales.y.ticks.color = txtCol;
+                if(chart.options.scales.y.title) chart.options.scales.y.title.color = txtCol;
+            }
             chart.update('none');
         });
     });
@@ -1156,7 +1235,6 @@
             if (ext === 'cff' || ext === 'json') cffOrJson = true;
         });
         
-        // Automated File Checking - Prevent single file selections of companion types
         if (!cffOrJson) {
             if (hasCFG && !hasDAT) { 
                 document.getElementById('fileWarningMessage').textContent = "DAT file is missing! To open this COMTRADE record, please select both the CFG and DAT companion files from your directory together.";
@@ -1682,7 +1760,8 @@
         
         if (cfgData.numD > 0) {
             createDigitalChartRow();
-            createSOERow();
+            createSignalTimingRow();
+            createChronologicalSOERow();
         }
         
         if (!preserveZoom) {
@@ -1810,7 +1889,7 @@
         const ctx = canvas.getContext('2d'); const minX = savedZoom ? savedZoom.min : timeData[0], maxX = savedZoom ? savedZoom.max : timeData[timeData.length - 1]; const gridCol = getGridColor();
         const chart = new Chart(ctx, {
             type: 'line', data: { datasets: [{ data: chartFormattedData, borderColor: defaultColor, borderWidth: 1.5 }] },
-            options: { responsive: true, maintainAspectRatio: false, animation: false, normalized: true, parsing: false, interaction: { mode: 'nearest', axis: 'x', intersect: false }, plugins: { legend: { display: false }, decimation: { enabled: true, algorithm: 'min-max' }, tooltip: { enabled: false }, zoom: { zoom: { wheel: { enabled: false }, drag: { enabled: true, backgroundColor: 'rgba(14,165,233,0.2)', modifierKey: isBoxZoomActive ? null : 'shift' }, mode: 'x', onZoomComplete: ({chart}) => syncAxes(chart) }, pan: { enabled: !isBoxZoomActive, mode: 'x', onPan: ({chart}) => syncAxes(chart) } } }, scales: { x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})` }, grid: { color: gridCol } }, y: { grid: { color: gridCol }, afterFit: (scale) => { scale.width = 75; } } } }, plugins: [cursorRendererPlugin]
+            options: { responsive: true, maintainAspectRatio: false, animation: false, normalized: true, parsing: false, interaction: { mode: 'nearest', axis: 'x', intersect: false }, plugins: { legend: { display: false }, decimation: { enabled: true, algorithm: 'min-max' }, tooltip: { enabled: false }, zoom: { zoom: { wheel: { enabled: false }, drag: { enabled: true, backgroundColor: 'rgba(14,165,233,0.2)', modifierKey: isBoxZoomActive ? null : 'shift' }, mode: 'x', onZoomComplete: ({chart}) => syncAxes(chart) }, pan: { enabled: !isBoxZoomActive, mode: 'x', onPan: ({chart}) => syncAxes(chart) } } }, scales: { x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})`, color: getTextColor() }, grid: { color: gridCol }, ticks: { color: getTextColor() } }, y: { grid: { color: gridCol }, ticks: { color: getTextColor() }, title: { display: false, color: getTextColor() }, afterFit: (scale) => { scale.width = 75; } } } }, plugins: [cursorRendererPlugin]
         });
         colorPicker.addEventListener('input', (e) => { chart.data.datasets[0].borderColor = e.target.value; titleText.style.color = e.target.value; colorMap[mapKey] = e.target.value; chart.update('none'); });
         attachCursorEvents(canvas, chart); charts.push(chart);
@@ -1918,7 +1997,7 @@
         const ctx = canvas.getContext('2d'); const minX = savedZoom ? savedZoom.min : timeData[0], maxX = savedZoom ? savedZoom.max : timeData[timeData.length - 1]; const gridCol = getGridColor();
         const chart = new Chart(ctx, {
             type: 'line', data: { datasets: datasets },
-            options: { responsive: true, maintainAspectRatio: false, animation: false, normalized: true, parsing: false, interaction: { mode: 'nearest', axis: 'x', intersect: false }, plugins: { legend: { display: false }, decimation: { enabled: true, algorithm: 'min-max' }, tooltip: { enabled: false }, zoom: { zoom: { wheel: { enabled: false }, drag: { enabled: true, backgroundColor: 'rgba(14,165,233,0.2)', modifierKey: isBoxZoomActive ? null : 'shift' }, mode: 'x', onZoomComplete: ({chart}) => syncAxes(chart) }, pan: { enabled: !isBoxZoomActive, mode: 'x', onPan: ({chart}) => syncAxes(chart) } } }, scales: { x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})` }, grid: { color: gridCol } }, y: { grid: { color: gridCol }, afterFit: (scale) => { scale.width = 75; } } } }, plugins: [cursorRendererPlugin]
+            options: { responsive: true, maintainAspectRatio: false, animation: false, normalized: true, parsing: false, interaction: { mode: 'nearest', axis: 'x', intersect: false }, plugins: { legend: { display: false }, decimation: { enabled: true, algorithm: 'min-max' }, tooltip: { enabled: false }, zoom: { zoom: { wheel: { enabled: false }, drag: { enabled: true, backgroundColor: 'rgba(14,165,233,0.2)', modifierKey: isBoxZoomActive ? null : 'shift' }, mode: 'x', onZoomComplete: ({chart}) => syncAxes(chart) }, pan: { enabled: !isBoxZoomActive, mode: 'x', onPan: ({chart}) => syncAxes(chart) } } }, scales: { x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})`, color: getTextColor() }, grid: { color: gridCol }, ticks: { color: getTextColor() } }, y: { grid: { color: gridCol }, ticks: { color: getTextColor() }, title: { display: false, color: getTextColor() }, afterFit: (scale) => { scale.width = 75; } } } }, plugins: [cursorRendererPlugin]
         });
         
         const pickers = titleBox.querySelectorAll('.color-picker');
@@ -1949,7 +2028,8 @@
         const actionBox = document.createElement('div'); 
         actionBox.className = 'action-box';
         
-        let currentDigitalFilter = 'ALL'; 
+        let currentDigitalFilter = 'CHANGING'; // Default active mode
+        const btnC = document.createElement('button'); btnC.className = 'icon-btn'; btnC.style.fontWeight = 'bold'; btnC.style.fontFamily = 'monospace'; btnC.textContent = 'Δ'; btnC.title = 'Show State Changing Signals Only';
         const btnA = document.createElement('button'); btnA.className = 'icon-btn'; btnA.style.fontWeight = 'bold'; btnA.style.fontFamily = 'monospace'; btnA.textContent = 'A'; btnA.title = 'Show Active Signals Only (Has 1s)';
         const btnI = document.createElement('button'); btnI.className = 'icon-btn'; btnI.style.fontWeight = 'bold'; btnI.style.fontFamily = 'monospace'; btnI.textContent = 'I'; btnI.title = 'Show Inactive Signals Only (Always 0)';
         
@@ -1957,7 +2037,7 @@
         hideBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><line x1="3" y1="3" x2="21" y2="21"></line></svg>`;
         hideBtn.onclick = () => { toggleVisibility('row-D', 0, false, true); };
         
-        actionBox.appendChild(btnA); actionBox.appendChild(btnI); actionBox.appendChild(hideBtn); 
+        actionBox.appendChild(btnC); actionBox.appendChild(btnA); actionBox.appendChild(btnI); actionBox.appendChild(hideBtn); 
         header.appendChild(actionBox);
         row.appendChild(header);
 
@@ -1994,17 +2074,19 @@
                     } 
                 }, 
                 scales: { 
-                    x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})` }, grid: { color: gridCol } }, 
+                    x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})`, color: getTextColor() }, grid: { color: gridCol }, ticks: { color: getTextColor() } }, 
                     y: { 
                         min: -0.5, 
                         max: 1.5, 
                         grid: { display: true, color: 'rgba(128,128,128,0.1)' }, 
                         ticks: { 
                             stepSize: 2, 
-                            autoSkip: false, 
+                            autoSkip: false,
+							labelOffset: 25, // required for bottom alignment
                             color: getTextColor(),
                             font: { family: 'monospace', size: 11 }
-                        } 
+                        },
+                        title: { display: false, color: getTextColor() }
                     } 
                 } 
             }, 
@@ -2012,6 +2094,7 @@
         });
 
         const updateFilterButtons = () => {
+            btnC.classList.toggle('active-filter', currentDigitalFilter === 'CHANGING');
             btnA.classList.toggle('active-filter', currentDigitalFilter === 'ACTIVE');
             btnI.classList.toggle('active-filter', currentDigitalFilter === 'INACTIVE');
         };
@@ -2019,17 +2102,23 @@
         const renderDigitalChart = () => {
             let visibleChannels = [];
             cfgData.digitals.forEach((dCh, ch) => {
-                let isActive = false; const arr = digitalData[ch]; const len = arr.length;
-                for (let i = 0; i < len; i++) { if (arr[i] === 1) { isActive = true; break; } }
+                const arr = digitalData[ch]; const len = arr.length;
+                let isActive = false;
+                let hasChanges = false;
+                let firstState = arr[0];
+                for (let i = 0; i < len; i++) {
+                    if (arr[i] === 1) isActive = true;
+                    if (arr[i] !== firstState) hasChanges = true;
+                }
+                
                 if (currentDigitalFilter === 'ALL') visibleChannels.push({ch, dCh});
                 else if (currentDigitalFilter === 'ACTIVE' && isActive) visibleChannels.push({ch, dCh});
                 else if (currentDigitalFilter === 'INACTIVE' && !isActive) visibleChannels.push({ch, dCh});
+                else if (currentDigitalFilter === 'CHANGING' && hasChanges) visibleChannels.push({ch, dCh});
             });
             
             const numVis = visibleChannels.length;
             const datasets = [];
-            
-            // Maintain 35px height per digital track
             const rowHeight = 35;
             const totalCanvasHeight = Math.max(150, numVis * rowHeight + 50);
             canvasContainer.style.height = totalCanvasHeight + 'px';
@@ -2060,14 +2149,16 @@
             chart.update('none');
         };
 
+        btnC.onclick = () => { currentDigitalFilter = currentDigitalFilter === 'CHANGING' ? 'ALL' : 'CHANGING'; updateFilterButtons(); renderDigitalChart(); };
         btnA.onclick = () => { currentDigitalFilter = currentDigitalFilter === 'ACTIVE' ? 'ALL' : 'ACTIVE'; updateFilterButtons(); renderDigitalChart(); };
         btnI.onclick = () => { currentDigitalFilter = currentDigitalFilter === 'INACTIVE' ? 'ALL' : 'INACTIVE'; updateFilterButtons(); renderDigitalChart(); };
 
+        updateFilterButtons();
         renderDigitalChart();
         attachCursorEvents(canvas, chart); charts.push(chart);
     }
 
-    function createSOERow() {
+    function createSignalTimingRow() {
         if (!digitalVisible || cfgData.numD === 0) return;
         
         let activeSignals = [];
@@ -2088,7 +2179,6 @@
                 }
             }
             
-            // Only keep if it is an active signal
             if (events.length > 0) {
                 let sigName = dCh.name || `D${ch + 1}`;
                 sigName = sigName.length > 64 ? sigName.slice(-64) : sigName;
@@ -2101,12 +2191,12 @@
 
         const row = document.createElement('div');
         row.className = 'chart-row print-new-page';
-        row.id = 'row-SOE';
+        row.id = 'row-SignalTiming';
         row.style.flexDirection = 'column';
         
         const header = document.createElement('div');
         header.className = 'chart-header';
-        header.innerHTML = `<h3 style="margin:0; color:var(--primary-color);">Sequence of Events (SOE)</h3>`;
+        header.innerHTML = `<h3 style="margin:0; color:var(--primary-color);">Signal Timing</h3>`;
         row.appendChild(header);
 
         const tableWrapper = document.createElement('div');
@@ -2114,42 +2204,230 @@
         tableWrapper.style.width = '100%';
         tableWrapper.style.marginTop = '10px';
 
-        let tableHTML = `<table class="stats-table soe-table">
-            <tr>
-                <th style="text-align: left; position: sticky; left: 0; background: var(--table-th); z-index: 2; padding-left: 10px;">Signal Name</th>`;
+        let tableHTML = `<table class="stats-table soe-table" style="border: none; margin: 0;">
+            <thead>
+                <tr>
+                    <th style="text-align: left; position: sticky; top: 0; z-index: 2; padding-left: 10px;">Signal Name</th>`;
         
         const MAX_COLS = 100;
         const colsToRender = Math.min(maxEvents, MAX_COLS);
 
         for (let i = 0; i < colsToRender; i++) {
-            tableHTML += `<th>Event ${i + 1}</th>`;
+            tableHTML += `<th style="text-align: right; position: sticky; top: 0; z-index: 2;">Event ${i + 1} (ms)</th>`;
         }
         if (maxEvents > MAX_COLS) {
-            tableHTML += `<th>...</th>`;
+            tableHTML += `<th style="text-align: right; position: sticky; top: 0; z-index: 2;">...</th>`;
         }
-        tableHTML += `</tr>`;
+        tableHTML += `</tr>
+            </thead>
+            <tbody>`;
 
-        activeSignals.forEach(sig => {
-            tableHTML += `<tr>
-                <td style="text-align: left; font-family: monospace; position: sticky; left: 0; background: var(--table-td); z-index: 1; padding-left: 10px;">${sig.name}</td>`;
+        activeSignals.forEach((sig, sIdx) => {
+            const isAlt = sIdx % 2 !== 0;
+            const bgCell = isAlt ? 'rgba(128, 128, 128, 0.1)' : 'transparent';
+            
+            tableHTML += `<tr style="background-color: ${bgCell};">
+                <td style="text-align: left; font-family: monospace; padding-left: 10px;">${sig.name}</td>`;
             
             for (let i = 0; i < colsToRender; i++) {
                 if (i < sig.events.length) {
                     const ev = sig.events[i];
-                    const stateStr = ev.state === 1 ? '<span style="color:#ef4444; font-weight:bold;">H</span>' : '<span style="color:#10b981; font-weight:bold;">L</span>';
-                    const timeStr = (ev.t * (timeUnit === 's' ? 1000 : 1)).toFixed(2) + 'ms';
-                    tableHTML += `<td>${timeStr} (${stateStr})</td>`;
+                    const stateStr = ev.state === 1 ? '<span style="color:#ef4444; font-weight:bold;">&uarr;</span>' : '<span style="color:#10b981; font-weight:bold;">&darr;</span>';
+                    const timeStr = (ev.t * (timeUnit === 's' ? 1000 : 1)).toFixed(2);
+                    tableHTML += `<td style="text-align: right;">${timeStr} ${stateStr}</td>`;
                 } else {
                     tableHTML += `<td></td>`;
                 }
             }
             if (maxEvents > MAX_COLS) {
-                tableHTML += `<td>${sig.events.length > MAX_COLS ? (sig.events.length - MAX_COLS) + ' more' : ''}</td>`;
+                tableHTML += `<td style="text-align: right;">${sig.events.length > MAX_COLS ? (sig.events.length - MAX_COLS) + ' more' : ''}</td>`;
             }
             tableHTML += `</tr>`;
         });
-        tableHTML += `</table>`;
+        tableHTML += `</tbody></table>`;
         tableWrapper.innerHTML = tableHTML;
+        row.appendChild(tableWrapper);
+        
+        document.getElementById('workspaceContainer').appendChild(row);
+    }
+
+    function getAbsoluteTimeStr(triggerStr, relTimeMs) {
+        if (!triggerStr || triggerStr === '--') return '--';
+        const parts = triggerStr.trim().split(',');
+        if (parts.length < 2) return '--';
+        const dateP = parts[0].split('/');
+        const timeP = parts[1].split(':');
+        if (timeP.length < 3) return '--';
+        const secP = timeP[2].split('.');
+        
+        const d = parseInt(dateP[0], 10), m = parseInt(dateP[1], 10) - 1, y = parseInt(dateP[2], 10);
+        const h = parseInt(timeP[0], 10), min = parseInt(timeP[1], 10), s = parseInt(secP[0], 10);
+        const us = parseInt((secP[1] || '0').padEnd(6, '0').substring(0, 6), 10);
+        
+        let newTotalUs = us + Math.round(relTimeMs * 1000);
+        let addSec = Math.floor(newTotalUs / 1000000);
+        let remUs = newTotalUs % 1000000;
+        if (remUs < 0) { remUs += 1000000; addSec -= 1; }
+        
+        let finalDate = new Date(Date.UTC(y, m, d, h, min, s + addSec));
+        
+        let outD = String(finalDate.getUTCDate()).padStart(2, '0');
+        let outM = String(finalDate.getUTCMonth() + 1).padStart(2, '0');
+        let outY = finalDate.getUTCFullYear();
+        let outH = String(finalDate.getUTCHours()).padStart(2, '0');
+        let outMin = String(finalDate.getUTCMinutes()).padStart(2, '0');
+        let outS = String(finalDate.getUTCSeconds()).padStart(2, '0');
+        let outUs = String(remUs).padStart(6, '0');
+        
+        return `${outD}/${outM}/${outY} ${outH}:${outMin}:${outS}.${outUs}`;
+    }
+
+    function createChronologicalSOERow() {
+        if (!digitalVisible || cfgData.numD === 0) return;
+        
+        let allEvents = [];
+        
+        cfgData.digitals.forEach((dCh, ch) => {
+            const arr = digitalData[ch];
+            const len = arr.length;
+            let sigName = dCh.name || `D${ch + 1}`;
+            
+            let startIndex = -1;
+            for (let i = 0; i < len; i++) {
+                if (arr[i] === 1) { 
+                    startIndex = i; 
+                    break; 
+                }
+            }
+            
+            if (startIndex !== -1) {
+                let currentState = 1;
+                allEvents.push({ t: timeData[startIndex], state: 1, name: sigName });
+                
+                for (let i = startIndex + 1; i < len; i++) {
+                    if (arr[i] !== currentState) {
+                        currentState = arr[i];
+                        allEvents.push({ t: timeData[i], state: currentState, name: sigName });
+                    }
+                }
+            }
+        });
+
+        if (allEvents.length === 0) return;
+        
+        allEvents.sort((a, b) => a.t - b.t);
+
+        const row = document.createElement('div');
+        row.className = 'chart-row print-new-page';
+        row.id = 'row-Chronological-SOE';
+        row.style.flexDirection = 'column';
+        if (!digitalVisible) row.style.display = 'none';
+        
+        const header = document.createElement('div');
+        header.className = 'chart-header';
+        header.style.display = 'flex';
+        header.style.justifyContent = 'space-between';
+        header.style.alignItems = 'center';
+        header.style.width = '100%';
+        header.style.marginBottom = '5px';
+
+        const titleSpan = document.createElement('h3');
+        titleSpan.style.margin = '0';
+        titleSpan.style.color = 'var(--primary-color)';
+        titleSpan.textContent = 'Sequence of Events';
+        header.appendChild(titleSpan);
+
+        const actionBox = document.createElement('div');
+        actionBox.className = 'action-box';
+
+        let currentSoeFilter = 'ALL';
+        const btnHigh = document.createElement('button'); btnHigh.className = 'icon-btn'; btnHigh.style.fontWeight = 'bold'; btnHigh.style.fontFamily = 'monospace'; btnHigh.innerHTML = '<span style="color:#ef4444; font-size: 1.2em;">&uarr;</span>'; btnHigh.title = 'Show High Events Only';
+        const btnLow = document.createElement('button'); btnLow.className = 'icon-btn'; btnLow.style.fontWeight = 'bold'; btnLow.style.fontFamily = 'monospace'; btnLow.innerHTML = '<span style="color:#10b981; font-size: 1.2em;">&darr;</span>'; btnLow.title = 'Show Low Events Only';
+        const btnExport = document.createElement('button'); btnExport.className = 'icon-btn'; btnExport.title = 'Export to Excel (XLSX)';
+        btnExport.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>`;
+
+        actionBox.appendChild(btnHigh); actionBox.appendChild(btnLow); actionBox.appendChild(btnExport);
+        header.appendChild(actionBox);
+        row.appendChild(header);
+
+        const tableWrapper = document.createElement('div');
+        tableWrapper.style.overflowX = 'auto';
+        tableWrapper.style.width = '100%';
+        tableWrapper.style.marginTop = '10px';
+        tableWrapper.style.border = '1px solid var(--border-color)';
+        tableWrapper.style.borderRadius = '6px';
+
+        const table = document.createElement('table');
+        table.className = 'stats-table chron-table';
+        table.style.width = 'max-content'; table.style.border = 'none'; table.style.margin = '0';
+        
+        table.innerHTML = `
+            <thead>
+                <tr>
+                    <th style="position: sticky; top: 0; z-index: 2;">Event No.</th>
+                    <th style="position: sticky; top: 0; z-index: 2;">Absolute Timestamp</th>
+                    <th style="position: sticky; top: 0; z-index: 2;">Time Rel. to Trigger (ms)</th>
+                    <th style="text-align: left; position: sticky; top: 0; z-index: 2;">Signal Name</th>
+                    <th style="position: sticky; top: 0; z-index: 2;">State</th>
+                </tr>
+            </thead>
+        `;
+        
+        const tbody = document.createElement('tbody');
+        table.appendChild(tbody);
+
+        const renderSOETable = () => {
+            let tbodyHTML = '';
+            let count = 1;
+            allEvents.forEach((ev) => {
+                if (currentSoeFilter === 'HIGH' && ev.state !== 1) return;
+                if (currentSoeFilter === 'LOW' && ev.state !== 0) return;
+
+                const isAlt = (count - 1) % 2 !== 0;
+                const bgCell = isAlt ? 'rgba(128, 128, 128, 0.1)' : 'transparent';
+                const relTimeMs = ev.t * (timeUnit === 's' ? 1000 : 1);
+                const absTimeStr = getAbsoluteTimeStr(cfgData.triggerTimeStr, relTimeMs);
+                const stateStr = ev.state === 1 ? '<span style="color:#ef4444; font-weight:bold;">High</span>' : '<span style="color:#10b981; font-weight:bold;">Low</span>';
+
+                tbodyHTML += `<tr style="background-color: ${bgCell};">
+                    <td>${count++}</td>
+                    <td style="font-family: monospace;">${absTimeStr}</td>
+                    <td style="font-family: monospace;">${relTimeMs.toFixed(3)}</td>
+                    <td style="text-align: left; font-family: monospace;">${ev.name}</td>
+                    <td>${stateStr}</td>
+                </tr>`;
+            });
+            tbody.innerHTML = tbodyHTML;
+        };
+
+        const updateSoeButtons = () => {
+            btnHigh.classList.toggle('active-filter', currentSoeFilter === 'HIGH');
+            btnLow.classList.toggle('active-filter', currentSoeFilter === 'LOW');
+        };
+
+        btnHigh.onclick = () => { currentSoeFilter = currentSoeFilter === 'HIGH' ? 'ALL' : 'HIGH'; updateSoeButtons(); renderSOETable(); };
+        btnLow.onclick = () => { currentSoeFilter = currentSoeFilter === 'LOW' ? 'ALL' : 'LOW'; updateSoeButtons(); renderSOETable(); };
+
+        btnExport.onclick = () => {
+            if (typeof XLSX === 'undefined') { alert('Excel export library is still loading. Please try again in a moment.'); return; }
+            let ws_data = [["Event No.", "Absolute Timestamp", "Time Rel. to Trigger (ms)", "Signal Name", "State"]];
+            let count = 1;
+            allEvents.forEach(ev => {
+                if (currentSoeFilter === 'HIGH' && ev.state !== 1) return;
+                if (currentSoeFilter === 'LOW' && ev.state !== 0) return;
+                const relTimeMs = ev.t * (timeUnit === 's' ? 1000 : 1);
+                const absTimeStr = getAbsoluteTimeStr(cfgData.triggerTimeStr, relTimeMs);
+                const stateStr = ev.state === 1 ? 'High' : 'Low';
+                ws_data.push([count++, absTimeStr, relTimeMs.toFixed(3), ev.name, stateStr]);
+            });
+            const ws = XLSX.utils.aoa_to_sheet(ws_data);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Sequence of Events");
+            XLSX.writeFile(wb, `${filesLoaded.baseName}_SequenceOfEvents.xlsx`);
+        };
+
+        renderSOETable();
+        tableWrapper.appendChild(table);
         row.appendChild(tableWrapper);
         
         document.getElementById('workspaceContainer').appendChild(row);
