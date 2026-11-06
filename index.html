@@ -55,11 +55,7 @@
         }
         select:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* Adaptive width overrides for specific dropdowns */
-        #calcMethodSelect, #afcSourceSelect, #refAngleSelect {
-            max-width: max-content;
-            width: auto;
-        }
+        #calcMethodSelect, #afcSourceSelect, #refAngleSelect { max-width: max-content; width: auto; }
         
         button { font-family: inherit; font-weight: 600; border: none; border-radius: 6px; padding: 6px 12px; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); outline: none; }
         button:hover { transform: translateY(-1px); filter: brightness(1.1); box-shadow: 0 4px 6px rgba(0,0,0,0.15); }
@@ -93,15 +89,43 @@
         body.drag-active { background-color: var(--surface-color); }
         input[type="file"] { display: none; }
         
-        .workspace { padding: 20px; max-width: 1600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; width: 100%; box-sizing: border-box; }
+        .workspace { padding: 15px; max-width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; width: 100%; box-sizing: border-box; }
         .chart-row { background-color: var(--surface-color); border-radius: 8px; padding: 15px; display: flex; gap: 20px; align-items: stretch; border: 1px solid var(--border-color); transition: background-color 0.3s, border-color 0.3s; }
         .canvas-section { flex-grow: 1; min-width: 0; display: flex; flex-direction: column; }
-        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; font-weight: bold; }
+        
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; font-weight: bold; min-height: 32px; height: 32px; box-sizing: border-box; }
+        .action-box { display: flex; gap: 6px; justify-content: flex-end; margin-bottom: 5px; min-height: 32px; height: 32px; box-sizing: border-box; }
+        
         .chart-title-box { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        .action-box { display: flex; gap: 6px; justify-content: flex-end; margin-bottom: 5px; }
         .color-picker { border: none; width: 22px; height: 22px; padding: 0; background: none; cursor: pointer; border-radius: 4px; }
-        .canvas-container { min-height: 220px; flex-grow: 1; width: 100%; position: relative; outline: none; display: flex; }
+        
+        .canvas-container { 
+            flex-grow: 1; 
+            width: 100%; 
+            position: relative; 
+            outline: none; 
+            display: flex; 
+            overflow: hidden; 
+            padding-bottom: 5px; 
+            padding-right: 5px; 
+        }
+
+        .resizer {
+            height: 10px;
+            width: 100%;
+            background-color: transparent;
+            cursor: ns-resize;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 20;
+            transition: background-color 0.2s;
+        }
+        .canvas-container:hover .resizer { background-color: rgba(14, 165, 233, 0.1); }
+        .resizer:hover { background-color: rgba(14, 165, 233, 0.4); }
+        
         .table-section { width: 340px; min-width: 340px; display: flex; flex-direction: column; justify-content: flex-start; gap: 0px; }
+        
         .stats-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 0.85em; background: var(--table-bg); border-radius: 6px; overflow: hidden; margin-bottom: 10px; }
         .stats-table th, .stats-table td { border: 1px solid var(--border-color); padding: 6px 8px; text-align: center; color: var(--text-main); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .stats-table th { background: var(--table-th); font-weight: bold; position: sticky; top: 0; }
@@ -109,6 +133,11 @@
         .stats-table th:nth-child(2), .stats-table td:nth-child(2), .stats-table th:nth-child(3), .stats-table td:nth-child(3) { width: 35%; }
         .val-t1, .val-t2 { font-family: monospace; }
         
+        /* SOE Dynamic Table Width Fixes */
+        .soe-table { width: 100%; table-layout: auto; }
+        .soe-table th:first-child, .soe-table td:first-child { min-width: 20ch; width: max-content; white-space: nowrap; }
+        .soe-table th:not(:first-child), .soe-table td:not(:first-child) { width: 1%; text-align: center; }
+
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; }
         .modal-content { background-color: var(--surface-color); padding: 20px; border-radius: 8px; width: 90%; max-width: 480px; border: 1px solid var(--border-color); max-height: 90vh; overflow-y: auto; }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
@@ -131,6 +160,115 @@
         
         .alert-warning { background-color: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 12px; color: var(--text-main); margin-bottom: 15px; border-radius: 0 4px 4px 0; }
         .alert-warning ul { margin: 5px 0 0 20px; padding: 0; font-size: 0.9em; color: var(--text-muted); }
+
+        /* Print to PDF Override Styles & Professional Cover Page */
+        .print-cover-page { display: none; }
+        
+        @media print {
+            @page { size: landscape; margin: 10mm; }
+            html, body { background-color: #ffffff !important; color: #000000 !important; height: auto !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
+            
+            .action-box { visibility: hidden !important; }
+            .control-panel, .drop-overlay, .modal, .color-picker, .resizer { display: none !important; }
+            
+            /* Enforce Separate Pages */
+            .print-new-page {
+                page-break-before: always !important;
+                break-before: page !important;
+            }
+
+            .print-cover-page { 
+                display: flex !important; 
+                flex-direction: column; 
+                justify-content: center;
+                align-items: center; 
+                width: 100%; 
+                height: 90vh !important; 
+                max-height: 90vh !important;
+                page-break-after: always; 
+                break-after: page; 
+                padding: 10px; 
+                box-sizing: border-box; 
+                background: #fff; 
+                color: #000; 
+                margin: 0;
+            }
+            
+            .print-cover-title { font-size: 2.2em; color: #0f172a; margin-top: 0; margin-bottom: 4px; font-weight: bold; border-bottom: 3px solid #0ea5e9; padding-bottom: 4px; width: 100%; max-width: 900px; text-align: center; }
+            .print-cover-subtitle { font-size: 1.1em; color: #64748b; margin-bottom: 15px; font-weight: normal; }
+            .print-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; max-width: 900px; }
+            .print-info-item { background: #f8fafc; padding: 5px 10px; border-radius: 6px; border: 1px solid #e2e8f0; }
+            .print-info-label { font-size: 0.85em; text-transform: uppercase; color: #475569; font-weight: bold; margin-bottom: 2px; }
+            .print-info-value { font-size: 1.1em; color: #0f172a; font-weight: normal; }
+
+            .main-container { display: block !important; position: static !important; }
+            .workspace { padding: 0 !important; max-width: 100% !important; margin: 0 !important; gap: 15px !important; display: block !important; }
+            
+            .canvas-container { overflow: visible !important; padding-bottom: 25px !important; }
+            
+            .chart-row { 
+				display: flex !important; 
+				flex-direction: row !important;
+				break-inside: avoid !important; 
+				page-break-inside: avoid !important; 
+				margin-bottom: 15px; 
+				border: 1px solid #cbd5e1; 
+				background-color: #fff; 
+			}
+            
+			.canvas-section {
+				width: calc(100% - 350px) !important;
+				flex-grow: 1 !important;
+			}
+			
+			.table-section { 
+				width: 340px !important; 
+				min-width: 340px !important; 
+				display: flex !important;
+				flex-direction: column !important;
+			}
+			
+            #row-D {
+				display: block !important; /* Must be block so the browser can natively slice the canvas across pages */
+				break-inside: auto !important; 
+				page-break-inside: auto !important;
+			}
+			
+			#row-D .chart-header {
+				break-after: avoid !important;
+				page-break-after: avoid !important;
+			}
+			
+			#row-D .canvas-container,
+			#row-D canvas {
+				max-height: none !important;
+				break-before: avoid !important;
+				page-break-before: avoid !important;
+			}
+
+            #row-SOE {
+				display: block !important;
+				break-inside: auto !important; 
+				page-break-inside: auto !important;
+			}
+            
+            .stats-table { background: #fff !important; }
+            .stats-table th, .stats-table td { 
+				position: static !important;
+				border: 1px solid #cbd5e1 !important; 
+				color: #000 !important; 
+			}
+
+			.soe-table {
+				border-collapse: collapse !important;
+				border: 1px solid #cbd5e1 !important;
+			}
+			
+            .group-title-input { color: #000 !important; border: none !important; padding: 0 !important; margin: 0 !important; }
+            canvas { max-width: 100% !important; }
+            .val-t1 { color: #ef4444 !important; }
+            .val-t2 { color: #3b82f6 !important; }
+        }
     </style>
 </head>
 <body>
@@ -139,6 +277,29 @@
     <option value="#ef4444">Red</option> <option value="#eab308">Yellow</option> <option value="#3b82f6">Blue</option>
     <option value="#a855f7">Purple</option> <option value="#06b6d4">Teal</option> <option value="#10b981">Green</option>
 </datalist>
+
+<!-- PRINT COVER PAGE -->
+<div class="print-cover-page">
+    <h1 class="print-cover-title">COMTRADE Analysis Report</h1>
+    <div class="print-cover-subtitle">Generated by Advanced Comtrade Analyzer</div>
+    <div class="print-info-grid">
+        <div class="print-info-item"><div class="print-info-label">Substation / Station Name</div><div class="print-info-value" id="pc-station">--</div></div>
+        <div class="print-info-item"><div class="print-info-label">COMTRADE Version</div><div class="print-info-value" id="pc-version">--</div></div>
+        <div class="print-info-item"><div class="print-info-label">Signal Frequency</div><div class="print-info-value" id="pc-sig-freq">--</div></div>
+        <div class="print-info-item"><div class="print-info-label">Sampling Frequency</div><div class="print-info-value" id="pc-samp-freq">--</div></div>
+        <div class="print-info-item" style="grid-column: span 2;"><div class="print-info-label">Trigger Time</div><div class="print-info-value" id="pc-trig-time">--</div></div>
+        <div class="print-info-item"><div class="print-info-label">Cursor 1 Time (T1)</div><div class="print-info-value" id="pc-cursor1" style="color: #ef4444;">--</div></div>
+        <div class="print-info-item"><div class="print-info-label">Cursor 2 Time (T2)</div><div class="print-info-value" id="pc-cursor2" style="color: #3b82f6;">--</div></div>
+        <div class="print-info-item" style="grid-column: span 2;"><div class="print-info-label">Cursor Time Difference (&Delta;T)</div><div class="print-info-value" id="pc-delta" style="color: #d97706;">--</div></div>
+        <div class="print-info-item"><div class="print-info-label">Record Duration</div><div class="print-info-value" id="pc-duration">--</div></div>
+        <div class="print-info-item"><div class="print-info-label">Scaling Mode</div><div class="print-info-value" id="pc-scale">--</div></div>
+        <div class="print-info-item"><div class="print-info-label">Calculation Methodology</div><div class="print-info-value" id="pc-method">--</div></div>
+        <div class="print-info-item"><div class="print-info-label">AFC Source</div><div class="print-info-value" id="pc-afc">--</div></div>
+        <div class="print-info-item"><div class="print-info-label">RMS Window</div><div class="print-info-value" id="pc-rms">--</div></div>
+        <div class="print-info-item"><div class="print-info-label">FFT Window</div><div class="print-info-value" id="pc-fft">--</div></div>
+        <div class="print-info-item" style="grid-column: span 2;"><div class="print-info-label">Reference Angle</div><div class="print-info-value" id="pc-ref">--</div></div>
+    </div>
+</div>
 
 <div class="control-panel">
     <div class="header-left">
@@ -165,6 +326,8 @@
         <button id="openMathModalBtn" class="btn-math tool-btn" title="Create Math Trace"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="14"></line><line x1="16" y1="10" x2="16" y2="10"></line><line x1="8" y1="10" x2="12" y2="10"></line><line x1="8" y1="14" x2="12" y2="14"></line><line x1="8" y1="18" x2="12" y2="18"></line></svg></button>
         <button id="openSeqModalBtn" class="btn-seq tool-btn" title="Sequence Components"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></button>
         <button id="openVisModalBtn" class="btn-view tool-btn" title="Views & Visibility"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+        <button id="openTriggerModalBtn" class="btn-config tool-btn" title="Adjust Trigger Time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></button>
+        <button id="printBtn" class="btn-default tool-btn" title="Print to PDF" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg></button>
         <button id="openExportModalBtn" class="btn-export tool-btn" title="Export COMTRADE"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></button>
         <button id="saveConfigBtn" class="btn-config tool-btn" title="Save Configuration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button>
         <button id="loadConfigBtn" class="btn-config tool-btn" title="Load Configuration" onclick="document.getElementById('fileInput').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg></button>
@@ -193,6 +356,50 @@
     </div>
     <input type="file" id="fileInput" multiple accept=".cfg,.CFG,.dat,.DAT,.cff,.CFF,.json,.JSON">
     <div class="workspace" id="workspaceContainer"></div>
+</div>
+
+<!-- Modal: Missing Companion File Warning -->
+<div class="modal" id="fileWarningModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 style="margin: 0; color: #ef4444; display:flex; align-items:center; gap:8px;">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                Missing Companion File
+            </h3>
+            <button class="close-btn" onclick="document.getElementById('fileWarningModal').style.display='none'">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p id="fileWarningMessage" style="font-size: 1.05em; line-height: 1.4; margin-bottom: 20px;">
+                To open a COMTRADE record, please select both the CFG and DAT files together from your directory.
+            </p>
+            <div style="display: flex; justify-content: flex-end;">
+                <button class="btn-action" onclick="document.getElementById('fileWarningModal').style.display='none'; document.getElementById('fileInput').click();">Select Files Again</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Adjust Trigger Time -->
+<div class="modal" id="triggerModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 style="margin: 0; color: var(--text-main);">Adjust Trigger Time</h3>
+            <button class="close-btn" onclick="document.getElementById('triggerModal').style.display='none'">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-field">
+                <label>Existing Trigger Time:</label>
+                <input type="text" id="existingTriggerDisplay" readonly disabled style="opacity: 0.8; font-family: monospace;">
+            </div>
+            <div class="modal-field">
+                <label>New Trigger Time (DD/MM/YYYY,HH:mm:ss.ffffff):</label>
+                <input type="text" id="newTriggerInput" placeholder="DD/MM/YYYY,HH:mm:ss.ffffff" style="font-family: monospace;">
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button id="applyTriggerTimeBtn" class="btn-action" style="flex: 1;">Apply New Trigger Time</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal: Custom Group -->
@@ -390,7 +597,6 @@
     let charts = [];
     let channelScales = [];
     
-    // AFC & Sync Globals
     let globalFTrackArr = null;
     let globalThetaRef = null;
     let globalIsCentered = false;
@@ -404,6 +610,120 @@
     
     const defaultColors = ['#a855f7', '#06b6d4', '#ef4444', '#3b82f6', '#f59e0b', '#10b981', '#ec4899', '#eab308'];
     const phaseColors = ['#ef4444', '#eab308', '#3b82f6'];
+
+    function addResizer(container) {
+        const resizer = document.createElement('div');
+        resizer.className = 'resizer';
+        container.appendChild(resizer);
+        let startY, startHeight;
+        resizer.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            startY = e.clientY;
+            startHeight = container.getBoundingClientRect().height;
+            document.body.style.cursor = 'ns-resize';
+            
+            const doDrag = (e) => {
+                const newHeight = Math.max(80, startHeight + e.clientY - startY);
+                container.style.height = newHeight + 'px';
+            };
+            
+            const stopDrag = () => {
+                document.body.style.cursor = '';
+                document.removeEventListener('mousemove', doDrag);
+                document.removeEventListener('mouseup', stopDrag);
+            };
+            
+            document.addEventListener('mousemove', doDrag);
+            document.addEventListener('mouseup', stopDrag);
+        });
+    }
+
+    window.addEventListener('beforeprint', () => {
+        const wasDark = !document.body.classList.contains('light-theme');
+        if (wasDark) {
+            document.body.classList.add('light-theme');
+            document.body.dataset.revertDark = 'true';
+        }
+
+        if (cfgData) {
+            // ... (keep all your existing document.getElementById('pc-...').textContent assignments here) ...
+            document.getElementById('pc-station').textContent = cfgData.stationName || 'Unknown';
+            document.getElementById('pc-version').textContent = cfgData.version || '1991';
+            document.getElementById('pc-sig-freq').textContent = cfgData.nominalFreq + ' Hz';
+            document.getElementById('pc-samp-freq').textContent = cfgData.sampleRate + ' Hz';
+            document.getElementById('pc-trig-time').textContent = cfgData.triggerTimeStr || '--';
+            
+            const scaleMode = document.querySelector('input[name="scalingMode"]:checked').value;
+            document.getElementById('pc-scale').textContent = scaleMode === 'P' ? 'Primary' : 'Secondary';
+            
+            const calcSel = document.getElementById('calcMethodSelect');
+            document.getElementById('pc-method').textContent = calcSel.options[calcSel.selectedIndex].text;
+            
+            const afcSel = document.getElementById('afcSourceSelect');
+            document.getElementById('pc-afc').textContent = afcSel.options[afcSel.selectedIndex].text;
+            
+            const rmsSel = document.getElementById('rmsWindowSelect');
+            document.getElementById('pc-rms').textContent = rmsSel.options[rmsSel.selectedIndex].text;
+            
+            const fftSel = document.getElementById('fftWindowSelect');
+            document.getElementById('pc-fft').textContent = fftSel.options[fftSel.selectedIndex].text;
+            
+            const refSel = document.getElementById('refAngleSelect');
+            document.getElementById('pc-ref').textContent = refSel.options[refSel.selectedIndex].text;
+            
+            if (timeData.length > 0) {
+                const duration = timeData[timeData.length - 1] - timeData[0];
+                document.getElementById('pc-duration').textContent = duration.toFixed(3) + ' ' + timeUnit;
+            } else {
+                document.getElementById('pc-duration').textContent = '--';
+            }
+
+            const t1Str = cursor1 !== null ? cursor1.toFixed(3) + ' ' + timeUnit : '--';
+            const t2Str = cursor2 !== null ? cursor2.toFixed(3) + ' ' + timeUnit : '--';
+            const dTStr = (cursor1 !== null && cursor2 !== null) ? Math.abs(cursor1 - cursor2).toFixed(3) + ' ' + timeUnit : '--';
+            document.getElementById('pc-cursor1').textContent = t1Str;
+            document.getElementById('pc-cursor2').textContent = t2Str;
+            document.getElementById('pc-delta').textContent = dTStr;
+        }
+
+        Chart.defaults.color = '#000000'; // Pure black for print
+        charts.forEach(chart => {
+            if(chart.options.scales.x) {
+                chart.options.scales.x.grid.color = '#cbd5e1';
+                if(chart.options.scales.x.ticks) chart.options.scales.x.ticks.color = '#000000';
+            }
+            if(chart.options.scales.y && chart.options.scales.y.grid.display !== false) {
+                chart.options.scales.y.grid.color = '#cbd5e1';
+                if(chart.options.scales.y.ticks) chart.options.scales.y.ticks.color = '#000000';
+            }
+            chart.resize();
+            chart.update('none');
+        });
+    });
+
+    window.addEventListener('afterprint', () => {
+        if (document.body.dataset.revertDark === 'true') {
+            document.body.classList.remove('light-theme');
+            delete document.body.dataset.revertDark;
+        }
+        const isLight = document.body.classList.contains('light-theme');
+        const txtCol = isLight ? '#1e293b' : '#cbd5e1'; // Restore customized dark text
+        Chart.defaults.color = txtCol;
+        
+        const gridCol = isLight ? '#e2e8f0' : '#334155';
+        charts.forEach(chart => {
+            if(chart.options.scales.x) {
+                chart.options.scales.x.grid.color = gridCol;
+                if(chart.options.scales.x.ticks) chart.options.scales.x.ticks.color = txtCol;
+            }
+            if(chart.options.scales.y && chart.options.scales.y.grid.display !== false) {
+                chart.options.scales.y.grid.color = gridCol;
+                if(chart.options.scales.y.ticks) chart.options.scales.y.ticks.color = txtCol;
+            }
+            chart.resize();
+            chart.update('none');
+        });
+    });
 
     function isNameTaken(proposedName, ignoreGroupIdx = -1) {
         if (!cfgData) return false;
@@ -426,10 +746,15 @@
     }
     
     function getGridColor() { return document.body.classList.contains('light-theme') ? '#e2e8f0' : '#334155'; }
-    function getTextColor() { return document.body.classList.contains('light-theme') ? '#64748b' : '#94a3b8'; }
+    function getTextColor() { return document.body.classList.contains('light-theme') ? '#1e293b' : '#cbd5e1'; }
 
     window.toggleVisibility = function(idPrefix, index, state, isDigital = false) {
-        if (isDigital) { digitalVisible = state; const r = document.getElementById('row-D'); if (r) r.style.display = state ? 'flex' : 'none'; return; }
+        if (isDigital) { 
+            digitalVisible = state; 
+            const rD = document.getElementById('row-D'); if (rD) rD.style.display = state ? 'flex' : 'none'; 
+            const rS = document.getElementById('row-SOE'); if (rS) rS.style.display = state ? 'flex' : 'none'; 
+            return; 
+        }
         const r = document.getElementById(`${idPrefix}${index}`); if (r) r.style.display = state ? 'flex' : 'none';
         if (idPrefix === 'row-G-') customGroups[index].hidden = !state;
         if (idPrefix === 'row-A-') {
@@ -494,6 +819,31 @@
             if (lastActiveCursor === 1) cursor1 = timeData[idx]; else cursor2 = timeData[idx];
             if(!cursorUpdatePending) { cursorUpdatePending = true; requestAnimationFrame(() => { updateCursors(); cursorUpdatePending = false; }); }
         }
+    });
+
+    document.getElementById('openTriggerModalBtn').addEventListener('click', () => {
+        if (!cfgData) { alert("Please load a COMTRADE file first."); return; }
+        document.getElementById('existingTriggerDisplay').value = cfgData.triggerTimeStr || '--';
+        document.getElementById('newTriggerInput').value = cfgData.triggerTimeStr || '';
+        document.getElementById('triggerModal').style.display = 'flex';
+    });
+
+    document.getElementById('applyTriggerTimeBtn').addEventListener('click', () => {
+        const newTimeStr = document.getElementById('newTriggerInput').value.trim();
+        if (!newTimeStr) { alert("Please enter a valid trigger time string."); return; }
+        const oldTrigUs = parseComtradeTime(cfgData.triggerTimeStr);
+        const newTrigUs = parseComtradeTime(newTimeStr);
+        if (isNaN(newTrigUs) || newTrigUs === 0) { alert("Invalid date/time format. Use DD/MM/YYYY,HH:mm:ss.ffffff"); return; }
+        
+        const oldStartUs = parseComtradeTime(cfgData.startTimeStr || cfgData.triggerTimeStr);
+        const shiftUs = newTrigUs - oldTrigUs;
+        const newStartUs = oldStartUs + shiftUs;
+        
+        cfgData.triggerTimeStr = newTimeStr;
+        cfgData.startTimeSec = (newStartUs - newTrigUs) / 1000000;
+        
+        document.getElementById('triggerModal').style.display = 'none';
+        processDataAndRender(true);
     });
 
     function populateAnalogSelects(selectIds) {
@@ -736,7 +1086,7 @@
     document.getElementById('openVisModalBtn').addEventListener('click', () => {
         if (!cfgData) { alert("Please load a COMTRADE file first."); return; }
         const body = document.getElementById('visModalBody'); body.innerHTML = '';
-        if (cfgData.numD > 0) { body.innerHTML += `<h4 style="margin:5px 0;">Digital Events</h4><div class="vis-item"><input type="checkbox" id="visDig" ${digitalVisible ? 'checked' : ''} onchange="toggleVisibility('row-D', 0, this.checked, true);"><label for="visDig">Show All Digital Events</label></div>`; }
+        if (cfgData.numD > 0) { body.innerHTML += `<h4 style="margin:5px 0;">Digital Events</h4><div class="vis-item"><input type="checkbox" id="visDig" ${digitalVisible ? 'checked' : ''} onchange="toggleVisibility('row-D', 0, this.checked, true);"><label for="visDig">Show All Digital Events & SOE</label></div>`; }
         if (customGroups.length > 0) {
             let hasValidGroups = false;
             let groupHtml = `<div class="section-header"><h4 style="margin:0;">Custom Groups</h4><div><button onclick="toggleAllVis('groups', true)" class="btn-action btn-small">All</button><button onclick="toggleAllVis('groups', false)" class="btn-danger btn-small">None</button></div></div>`;
@@ -797,6 +1147,29 @@
     }
 
     function handleFiles(files) {
+        let hasCFG = false, hasDAT = false, cffOrJson = false;
+        
+        Array.from(files).forEach(f => {
+            const ext = f.name.split('.').pop().toLowerCase();
+            if (ext === 'cfg') hasCFG = true;
+            if (ext === 'dat') hasDAT = true;
+            if (ext === 'cff' || ext === 'json') cffOrJson = true;
+        });
+        
+        // Automated File Checking - Prevent single file selections of companion types
+        if (!cffOrJson) {
+            if (hasCFG && !hasDAT) { 
+                document.getElementById('fileWarningMessage').textContent = "DAT file is missing! To open this COMTRADE record, please select both the CFG and DAT companion files from your directory together.";
+                document.getElementById('fileWarningModal').style.display = 'flex';
+                return; 
+            }
+            if (hasDAT && !hasCFG) { 
+                document.getElementById('fileWarningMessage').textContent = "CFG file is missing! To open this COMTRADE record, please select both the CFG and DAT companion files from your directory together.";
+                document.getElementById('fileWarningModal').style.display = 'flex';
+                return; 
+            }
+        }
+
         Array.from(files).forEach(file => {
             const ext = file.name.split('.').pop().toLowerCase();
             if (ext === 'json') { loadConfig(file); return; }
@@ -827,8 +1200,10 @@
     }
 
     function parseComtradeTime(timeStr) {
+        if(!timeStr) return 0;
         const parts = timeStr.trim().split(','); if (parts.length < 2) return 0;
-        const dateP = parts[0].split('/'); const timeP = parts[1].split(':'); const secP = timeP[2].split('.');
+        const dateP = parts[0].split('/'); const timeP = parts[1].split(':'); if (!dateP || !timeP || timeP.length < 3) return 0;
+        const secP = timeP[2].split('.');
         const d = parseInt(dateP[0], 10), m = parseInt(dateP[1], 10) - 1, y = parseInt(dateP[2], 10);
         const h = parseInt(timeP[0], 10), min = parseInt(timeP[1], 10), s = parseInt(secP[0], 10);
         const us = parseInt((secP[1] || '0').padEnd(6, '0').substring(0, 6), 10);
@@ -857,9 +1232,13 @@
 
     function parseFiles() {
         const cfgLines = filesLoaded.cfg.split('\n').map(l => l.trim().replace(/\r/g, ''));
-        const firstLineParts = cfgLines[0].split(','); const is1991 = firstLineParts.length < 3 || (firstLineParts[2].trim() !== '1999' && firstLineParts[2].trim() !== '2013');
+        const firstLineParts = cfgLines[0].split(','); 
+        const is1991 = firstLineParts.length < 3 || (firstLineParts[2].trim() !== '1999' && firstLineParts[2].trim() !== '2013');
+        const stationName = firstLineParts[0] ? firstLineParts[0].trim() : 'Unknown';
+        const version = (firstLineParts.length >= 3) ? firstLineParts[2].trim() : '1991';
+
         const counts = cfgLines[1].split(','); const numA = parseInt(counts[1].replace(/[^\d]/g, '')); const numD = parseInt(counts[2].replace(/[^\d]/g, ''));
-        cfgData = { analogs: [], originalAnalogs: [], digitals: [], numA: numA, originalNumA: numA, numD: numD, sampleRate: 1000, nominalFreq: 50, startTimeSec: 0, isBinary: false, is1991: is1991 };
+        cfgData = { stationName: stationName, version: version, analogs: [], originalAnalogs: [], digitals: [], numA: numA, originalNumA: numA, numD: numD, sampleRate: 1000, nominalFreq: 50, startTimeSec: 0, isBinary: false, is1991: is1991, triggerTimeStr: '--', startTimeStr: '--' };
         cfgData.isBinary = cfgLines.some(l => l.trim().toUpperCase() === 'BINARY');
 
         for (let i = 2; i < 2 + numA; i++) {
@@ -878,6 +1257,8 @@
         if (nrates > 0) cfgData.sampleRate = parseFloat(cfgLines[rateIndex + 1].split(',')[0]);
         const startLineIdx = rateIndex + 1 + (nrates === 0 ? 0 : nrates);
         const startTimeUs = parseComtradeTime(cfgLines[startLineIdx]); const triggerTimeUs = parseComtradeTime(cfgLines[startLineIdx + 1]);
+        cfgData.startTimeStr = cfgLines[startLineIdx] ? cfgLines[startLineIdx].trim() : '--';
+        cfgData.triggerTimeStr = cfgLines[startLineIdx + 1] ? cfgLines[startLineIdx + 1].trim() : '--';
         cfgData.startTimeSec = (startTimeUs - triggerTimeUs) / 1000000; 
 
         virtualSignals = []; colorMap = {}; globalIsComplexMap = {}; autoDetectGroups(); processDataAndRender(false);
@@ -892,7 +1273,7 @@
         let zc = [];
         let maxVal = 0;
         for(let i=0; i<len; i++) if(Math.abs(arr[i])>maxVal) maxVal = Math.abs(arr[i]);
-        let threshold = maxVal * 0.02; // 2% hysteresis
+        let threshold = maxVal * 0.02;
         let isPos = arr[0] > 0;
         
         for(let i=1; i<len; i++) {
@@ -1041,7 +1422,6 @@
         globalIsCentered = document.getElementById('calcMethodSelect').value === 'centered';
         const fftCycles = parseInt(document.getElementById('fftWindowSelect').value) || 1;
         
-        // --- Process AFC (Adaptive Frequency Control) Trace ---
         let afcSourceIdx = parseInt(document.getElementById('afcSourceSelect').value);
         if (afcSourceIdx >= 0 && afcSourceIdx < cfgData.originalNumA && signalData[afcSourceIdx]) {
             globalFTrackArr = generateFrequencyTrack(afcSourceIdx);
@@ -1124,7 +1504,7 @@
 
                     if (!isC) {
                         const sigVa = signalData[vA_idx], sigVb = signalData[vB_idx], sigVc = signalData[vC_idx];
-                        const sigIa = signalData[iA_idx], sigIb = signalData[iB_idx], sigIc = signalData[iC_idx];
+                        const sigIa = signalData[iA_idx], sigIb = signalData[iC_idx], sigIc = signalData[iC_idx];
                         const scaleTotal = toPrimaryV * toPrimaryI;
                         for (let i = 0; i < len; i++) {
                             const P_inst = (sigVa[i]*sigIa[i] + sigVb[i]*sigIb[i] + sigVc[i]*sigIc[i]) * scaleTotal;
@@ -1299,7 +1679,11 @@
             if (!allDeleted) createGroupedChartRow(g, idx); 
         });
         cfgData.analogs.forEach((ch, idx) => { if (!ch.deleted && !groupedChannels.has(idx)) { const cleanName = ch.name.replace(/\(\s*\)/g, '').replace(/CH\d+/i, '').trim(); createChartRow(ch, idx, cleanName); } });
-        if (cfgData.numD > 0) createDigitalChartRow();
+        
+        if (cfgData.numD > 0) {
+            createDigitalChartRow();
+            createSOERow();
+        }
         
         if (!preserveZoom) {
             let t0Idx = timeData.findIndex(t => t >= 0);
@@ -1379,9 +1763,10 @@
         titleBox.appendChild(colorPicker); titleBox.appendChild(titleText); header.appendChild(titleBox);
         
         const canvasContainer = document.createElement('div'); canvasContainer.className = 'canvas-container';
-        if (channel.isComplex) { canvasContainer.style.minHeight = '120px'; canvasContainer.style.height = '120px'; }
+        canvasContainer.style.height = '120px';
         const canvas = document.createElement('canvas'); canvas.style.flexGrow = '1';
         canvasContainer.appendChild(canvas); canvasSec.appendChild(header); canvasSec.appendChild(canvasContainer);
+        addResizer(canvasContainer);
         
         const tableSec = document.createElement('div'); tableSec.className = 'table-section';
         const actionBox = document.createElement('div'); actionBox.className = 'action-box';
@@ -1465,9 +1850,10 @@
         header.appendChild(titleBox);
         const canvasContainer = document.createElement('div'); canvasContainer.className = 'canvas-container';
         const isGrpComplex = group.indices.some(cIdx => cfgData.analogs[cIdx] && cfgData.analogs[cIdx].isComplex);
-        if (isGrpComplex) { canvasContainer.style.minHeight = '120px'; canvasContainer.style.height = '120px'; }
+        canvasContainer.style.height = isGrpComplex ? '120px' : '220px';
         const canvas = document.createElement('canvas'); canvas.style.flexGrow = '1';
         canvasContainer.appendChild(canvas); canvasSec.appendChild(header); canvasSec.appendChild(canvasContainer);
+        addResizer(canvasContainer);
         
         const tableSec = document.createElement('div'); tableSec.className = 'table-section';
         const actionBox = document.createElement('div'); actionBox.className = 'action-box';
@@ -1541,35 +1927,88 @@
     }
 
     function createDigitalChartRow() {
-        const row = document.createElement('div'); row.className = 'chart-row'; row.id = 'row-D';
+        const row = document.createElement('div'); 
+        row.className = 'chart-row print-new-page'; 
+        row.id = 'row-D';
+        row.style.flexDirection = 'column';
         if (!digitalVisible) row.style.display = 'none';
         
-        const canvasSec = document.createElement('div'); canvasSec.className = 'canvas-section'; canvasSec.style.width = '100%'; canvasSec.style.flexGrow = '1';
-        const header = document.createElement('div'); header.className = 'chart-header'; 
-        const titleSpan = document.createElement('span'); titleSpan.style.color = 'var(--primary-color)'; titleSpan.textContent = 'Digital Events';
+        const header = document.createElement('div'); 
+        header.className = 'chart-header'; 
+        header.style.display = 'flex';
+        header.style.justifyContent = 'space-between';
+        header.style.width = '100%';
+        header.style.marginBottom = '10px';
         
-        const actionBox = document.createElement('div'); actionBox.className = 'action-box';
+        const titleSpan = document.createElement('h3'); 
+        titleSpan.style.margin = '0';
+        titleSpan.style.color = 'var(--primary-color)'; 
+        titleSpan.textContent = 'Digital Event Chart';
+        header.appendChild(titleSpan);
+        
+        const actionBox = document.createElement('div'); 
+        actionBox.className = 'action-box';
         
         let currentDigitalFilter = 'ALL'; 
         const btnA = document.createElement('button'); btnA.className = 'icon-btn'; btnA.style.fontWeight = 'bold'; btnA.style.fontFamily = 'monospace'; btnA.textContent = 'A'; btnA.title = 'Show Active Signals Only (Has 1s)';
         const btnI = document.createElement('button'); btnI.className = 'icon-btn'; btnI.style.fontWeight = 'bold'; btnI.style.fontFamily = 'monospace'; btnI.textContent = 'I'; btnI.title = 'Show Inactive Signals Only (Always 0)';
         
-        const hideBtn = document.createElement('button'); hideBtn.className = 'icon-btn'; hideBtn.title = 'Hide Digital Events';
+        const hideBtn = document.createElement('button'); hideBtn.className = 'icon-btn'; hideBtn.title = 'Hide Digital Events & SOE';
         hideBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><line x1="3" y1="3" x2="21" y2="21"></line></svg>`;
         hideBtn.onclick = () => { toggleVisibility('row-D', 0, false, true); };
         
         actionBox.appendChild(btnA); actionBox.appendChild(btnI); actionBox.appendChild(hideBtn); 
-        header.appendChild(titleSpan); header.appendChild(actionBox);
-        
-        const canvasContainer = document.createElement('div'); canvasContainer.className = 'canvas-container'; 
-        const canvas = document.createElement('canvas'); canvas.style.flexGrow = '1';
-        canvasContainer.appendChild(canvas); canvasSec.appendChild(header); canvasSec.appendChild(canvasContainer); row.appendChild(canvasSec); document.getElementById('workspaceContainer').appendChild(row);
+        header.appendChild(actionBox);
+        row.appendChild(header);
 
-        const ctx = canvas.getContext('2d'); const minX = savedZoom ? savedZoom.min : timeData[0], maxX = savedZoom ? savedZoom.max : timeData[timeData.length - 1]; const gridCol = getGridColor();
+        const canvasContainer = document.createElement('div'); 
+        canvasContainer.className = 'canvas-container'; 
+        canvasContainer.style.width = '100%';
+        const canvas = document.createElement('canvas'); canvas.style.flexGrow = '1';
+        canvasContainer.appendChild(canvas); 
+        row.appendChild(canvasContainer);
+        
+        document.getElementById('workspaceContainer').appendChild(row);
+
+        const ctx = canvas.getContext('2d'); 
+        const minX = savedZoom ? savedZoom.min : timeData[0], maxX = savedZoom ? savedZoom.max : timeData[timeData.length - 1]; 
+        const gridCol = getGridColor();
         
         const chart = new Chart(ctx, {
             type: 'line', data: { datasets: [] },
-            options: { responsive: true, maintainAspectRatio: false, animation: false, normalized: true, parsing: false, interaction: { mode: 'nearest', axis: 'x', intersect: false }, plugins: { legend: { display: false }, decimation: { enabled: true, algorithm: 'min-max' }, tooltip: { enabled: false }, zoom: { zoom: { wheel: { enabled: false }, drag: { enabled: true, backgroundColor: 'rgba(14,165,233,0.2)', modifierKey: isBoxZoomActive ? null : 'shift' }, mode: 'x', onZoomComplete: ({chart}) => syncAxes(chart) }, pan: { enabled: !isBoxZoomActive, mode: 'x', onPan: ({chart}) => syncAxes(chart) } } }, scales: { x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})` }, grid: { color: gridCol } }, y: { min: -0.5, max: 1.5, grid: { display: false }, afterFit: (scale) => { scale.width = 75; }, ticks: { stepSize: 2, autoSkip: false, color: getTextColor() } } } }, plugins: [cursorRendererPlugin]
+            options: { 
+                layout: { padding: { top: 15, bottom: 15, left: 10, right: 15 } }, 
+                responsive: true, 
+                maintainAspectRatio: false, 
+                animation: false, 
+                normalized: true, 
+                parsing: false, 
+                interaction: { mode: 'nearest', axis: 'x', intersect: false }, 
+                plugins: { 
+                    legend: { display: false }, 
+                    decimation: { enabled: true, algorithm: 'min-max' }, 
+                    tooltip: { enabled: false }, 
+                    zoom: { 
+                        zoom: { wheel: { enabled: false }, drag: { enabled: true, backgroundColor: 'rgba(14,165,233,0.2)', modifierKey: isBoxZoomActive ? null : 'shift' }, mode: 'x', onZoomComplete: ({chart}) => syncAxes(chart) }, 
+                        pan: { enabled: !isBoxZoomActive, mode: 'x', onPan: ({chart}) => syncAxes(chart) } 
+                    } 
+                }, 
+                scales: { 
+                    x: { type: 'linear', min: minX, max: maxX, title: { display: true, text: `Time (${timeUnit})` }, grid: { color: gridCol } }, 
+                    y: { 
+                        min: -0.5, 
+                        max: 1.5, 
+                        grid: { display: true, color: 'rgba(128,128,128,0.1)' }, 
+                        ticks: { 
+                            stepSize: 2, 
+                            autoSkip: false, 
+                            color: getTextColor(),
+                            font: { family: 'monospace', size: 11 }
+                        } 
+                    } 
+                } 
+            }, 
+            plugins: [cursorRendererPlugin]
         });
 
         const updateFilterButtons = () => {
@@ -1589,10 +2028,20 @@
             
             const numVis = visibleChannels.length;
             const datasets = [];
+            
+            // Maintain 35px height per digital track
+            const rowHeight = 35;
+            const totalCanvasHeight = Math.max(150, numVis * rowHeight + 50);
+            canvasContainer.style.height = totalCanvasHeight + 'px';
+
             visibleChannels.forEach((item, idx) => {
-                const col = defaultColors[item.ch % defaultColors.length]; const cData = new Array(timeData.length); const yOffset = (numVis - 1 - idx) * 2;
+                const col = defaultColors[item.ch % defaultColors.length]; 
+                const cData = new Array(timeData.length); const yOffset = (numVis - 1 - idx) * 2;
                 const dArr = digitalData[item.ch];
-                for(let i=0; i<timeData.length; i++) cData[i] = { x: timeData[i], y: dArr[i] + yOffset };
+                
+                for (let i = 0; i < timeData.length; i++) {
+                    cData[i] = { x: timeData[i], y: dArr[i] + yOffset };
+                }
                 datasets.push({ label: item.dCh.name, data: cData, borderColor: col, borderWidth: 1.5, stepped: true });
             });
             
@@ -1600,9 +2049,14 @@
             chart.options.scales.y.max = numVis > 0 ? (numVis - 1) * 2 + 1.5 : 1.5;
             chart.options.scales.y.ticks.callback = function(value) { 
                 const reversedIdx = numVis - 1 - Math.floor(value / 2); 
-                return (reversedIdx >= 0 && reversedIdx < numVis) ? visibleChannels[reversedIdx].dCh.name : ''; 
+                if (reversedIdx >= 0 && reversedIdx < numVis) {
+                    let name = visibleChannels[reversedIdx].dCh.name || `D${visibleChannels[reversedIdx].ch + 1}`;
+                    return name.length > 64 ? name.slice(-64) : name;
+                }
+                return ''; 
             };
-            canvasContainer.style.minHeight = Math.max(100, numVis * 35) + 'px';
+            
+            chart.resize();
             chart.update('none');
         };
 
@@ -1611,6 +2065,94 @@
 
         renderDigitalChart();
         attachCursorEvents(canvas, chart); charts.push(chart);
+    }
+
+    function createSOERow() {
+        if (!digitalVisible || cfgData.numD === 0) return;
+        
+        let activeSignals = [];
+        let maxEvents = 0;
+        
+        cfgData.digitals.forEach((dCh, ch) => {
+            const arr = digitalData[ch];
+            const len = arr.length;
+            let events = [];
+            
+            let currentState = arr[0];
+            if (currentState === 1) events.push({ t: timeData[0], state: 1 });
+            
+            for (let i = 1; i < len; i++) {
+                if (arr[i] !== currentState) {
+                    currentState = arr[i];
+                    events.push({ t: timeData[i], state: currentState });
+                }
+            }
+            
+            // Only keep if it is an active signal
+            if (events.length > 0) {
+                let sigName = dCh.name || `D${ch + 1}`;
+                sigName = sigName.length > 64 ? sigName.slice(-64) : sigName;
+                activeSignals.push({ name: sigName, events: events, ch: ch });
+                if (events.length > maxEvents) maxEvents = events.length;
+            }
+        });
+
+        if (activeSignals.length === 0) return; 
+
+        const row = document.createElement('div');
+        row.className = 'chart-row print-new-page';
+        row.id = 'row-SOE';
+        row.style.flexDirection = 'column';
+        
+        const header = document.createElement('div');
+        header.className = 'chart-header';
+        header.innerHTML = `<h3 style="margin:0; color:var(--primary-color);">Sequence of Events (SOE)</h3>`;
+        row.appendChild(header);
+
+        const tableWrapper = document.createElement('div');
+        tableWrapper.style.overflowX = 'auto';
+        tableWrapper.style.width = '100%';
+        tableWrapper.style.marginTop = '10px';
+
+        let tableHTML = `<table class="stats-table soe-table">
+            <tr>
+                <th style="text-align: left; position: sticky; left: 0; background: var(--table-th); z-index: 2; padding-left: 10px;">Signal Name</th>`;
+        
+        const MAX_COLS = 100;
+        const colsToRender = Math.min(maxEvents, MAX_COLS);
+
+        for (let i = 0; i < colsToRender; i++) {
+            tableHTML += `<th>Event ${i + 1}</th>`;
+        }
+        if (maxEvents > MAX_COLS) {
+            tableHTML += `<th>...</th>`;
+        }
+        tableHTML += `</tr>`;
+
+        activeSignals.forEach(sig => {
+            tableHTML += `<tr>
+                <td style="text-align: left; font-family: monospace; position: sticky; left: 0; background: var(--table-td); z-index: 1; padding-left: 10px;">${sig.name}</td>`;
+            
+            for (let i = 0; i < colsToRender; i++) {
+                if (i < sig.events.length) {
+                    const ev = sig.events[i];
+                    const stateStr = ev.state === 1 ? '<span style="color:#ef4444; font-weight:bold;">H</span>' : '<span style="color:#10b981; font-weight:bold;">L</span>';
+                    const timeStr = (ev.t * (timeUnit === 's' ? 1000 : 1)).toFixed(2) + 'ms';
+                    tableHTML += `<td>${timeStr} (${stateStr})</td>`;
+                } else {
+                    tableHTML += `<td></td>`;
+                }
+            }
+            if (maxEvents > MAX_COLS) {
+                tableHTML += `<td>${sig.events.length > MAX_COLS ? (sig.events.length - MAX_COLS) + ' more' : ''}</td>`;
+            }
+            tableHTML += `</tr>`;
+        });
+        tableHTML += `</table>`;
+        tableWrapper.innerHTML = tableHTML;
+        row.appendChild(tableWrapper);
+        
+        document.getElementById('workspaceContainer').appendChild(row);
     }
 
     function getIndexForTime(t) {
